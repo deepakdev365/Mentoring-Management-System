@@ -1,21 +1,19 @@
 package com.example.mapping.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.example.mapping.model.Student;
 
 public interface StudentService {
+
     Student saveStudent(Student student);
+
+    Student updateStudent(String registrationNumber, Student student);
 
     List<Student> getAllStudents();
 
-    Optional<Student> getStudentById(Long id);
+    Student getStudentById(String registrationNumber);
 
-    Student updateStudent(Student student);
+    void deleteStudent(String registrationNumber);
 
-    void deleteStudent(Long id);
-
-    Optional<Student> getStudentByEmail(String email);
-
+    Student getStudentByEmail(String email);
 }

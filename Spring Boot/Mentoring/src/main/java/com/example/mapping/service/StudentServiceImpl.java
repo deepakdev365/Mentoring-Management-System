@@ -1,47 +1,66 @@
 package com.example.mapping.service;
 
+
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.mapping.model.Student;
 import com.example.mapping.repository.StudentRepository;
+import com.example.mapping.service.StudentService;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-	 @Autowired
-	    private StudentRepository studentRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
-	    @Override
-	    public Student saveStudent(Student student) {
-	        return studentRepository.save(student);
-	    }
+    @Override
+    public Student saveStudent(Student student) {
+        if (studentRepository.existsByEmail(student.getEmail())) {
+            throw new RuntimeException("Student with this email already exists!");
+        }
+        return studentRepository.save(student);
+    }
 
-	    @Override
-	    public List<Student> getAllStudents() {
-	        return studentRepository.findAll();
-	    }
+    @Override
+    public Student updateStudent(String registrationNumber, Student student) {
+        Optional<Student> existing = studentRepository.findById(registrationNumber);
+        if (existing.isPresent()) {
+            Student old = existing.get();
+            old.setFullName(student.getFullName());
+            old.setEmail(student.getEmail());
+            old.setDepartment(student.getDepartment());
+            old.setSemester(student.getSemester());
+            old.setPermanentAddress(student.getPermanentAddress());
+            old.setPhoneNumber(student.getPhoneNumber());
+            old.setMentor(student.getMentor());
+            old.setUserId(student.getUserId());
+            old.setPassword(student.getPassword());
+            return studentRepository.save(old);
+        } else {
+            throw new RuntimeException("Student not found with ID: " + registrationNumber);
+        }
+    }
 
-	    @Override
-	    public Optional<Student> getStudentById(Long id) {
-	        return studentRepository.findById(id);
-	    }
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
 
-	    @Override
-	    public Student updateStudent(Student student) {
-	        return studentRepository.save(student);
-	    }
+    @Override
+    public Student getStudentById(String registrationNumber) {
+        return studentRepository.findById(registrationNumber)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + registrationNumber));
+    }
 
-	    @Override
-	    public void deleteStudent(Long id) {
-	        studentRepository.deleteById(id);
-	    }
+    @Override
+    public void deleteStudent(String registrationNumber) {
+        studentRepository.deleteById(registrationNumber);
+    }
 
-	    @Override
-	    public Optional<Student> getStudentByEmail(String email) {
-	        return studentRepository.findByEmail(email);
-	    }
-
+    @Override
+    public Student getStudentByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
 }
