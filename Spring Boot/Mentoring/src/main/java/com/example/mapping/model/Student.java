@@ -1,8 +1,6 @@
 package com.example.mapping.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
@@ -10,83 +8,470 @@ public class Student {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-    private String name;
+	//personal details
+	private String fullName;
+    private String fatherGuardianName;
     private String email;
-    private String password;
+    private String dob;
+    private String gender;
+    private String nationality;
+    private String religion;
+    private String emergencyContact;
+    private String phoneNumber;
+
+    //adsress
+    private String localAddress;
+    private String permanentAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+
+    //campus details
+    private String admissionNumber;
+    private String applicationNumber;
+    private String feeCategory;
+    private String dateOfAdmission;
+    private String userId;
+    private String program;    
+    private String branch;     
+    private String semester;
     private String rollNo;
-    private String className;
-    private Double cgpa;
-    private Integer attendance;
-	public Long getId() {
-		return id;
+    private String eligibilityNumber;
+    private String prnNo;
+    private String batch; 
+    private String department;
+    private String password;
+    private String mentor; 
+    
+
+    
+    private String registrationNumber;
+
+
+
+	public String getFullName() {
+		return fullName;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getName() {
-		return name;
+
+
+
+	public String getFatherGuardianName() {
+		return fatherGuardianName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+
+
+	public void setFatherGuardianName(String fatherGuardianName) {
+		this.fatherGuardianName = fatherGuardianName;
 	}
+
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+
+
+
+	public String getDob() {
+		return dob;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
+
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+
+	public String getNationality() {
+		return nationality;
+	}
+
+
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+
+
+	public String getReligion() {
+		return religion;
+	}
+
+
+
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
+
+
+
+	public String getEmergencyContact() {
+		return emergencyContact;
+	}
+
+
+
+	public void setEmergencyContact(String emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	public String getLocalAddress() {
+		return localAddress;
+	}
+
+
+
+	public void setLocalAddress(String localAddress) {
+		this.localAddress = localAddress;
+	}
+
+
+
+	public String getPermanentAddress() {
+		return permanentAddress;
+	}
+
+
+
+	public void setPermanentAddress(String permanentAddress) {
+		this.permanentAddress = permanentAddress;
+	}
+
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
+	public String getState() {
+		return state;
+	}
+
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+
+
+	public String getAdmissionNumber() {
+		return admissionNumber;
+	}
+
+
+
+	public void setAdmissionNumber(String admissionNumber) {
+		this.admissionNumber = admissionNumber;
+	}
+
+
+
+	public String getApplicationNumber() {
+		return applicationNumber;
+	}
+
+
+
+	public void setApplicationNumber(String applicationNumber) {
+		this.applicationNumber = applicationNumber;
+	}
+
+
+
+	public String getFeeCategory() {
+		return feeCategory;
+	}
+
+
+
+	public void setFeeCategory(String feeCategory) {
+		this.feeCategory = feeCategory;
+	}
+
+
+
+	public String getDateOfAdmission() {
+		return dateOfAdmission;
+	}
+
+
+
+	public void setDateOfAdmission(String dateOfAdmission) {
+		this.dateOfAdmission = dateOfAdmission;
+	}
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+	public String getProgram() {
+		return program;
+	}
+
+
+
+	public void setProgram(String program) {
+		this.program = program;
+	}
+
+
+
+	public String getBranch() {
+		return branch;
+	}
+
+
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+
+
+	public String getSemester() {
+		return semester;
+	}
+
+
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+
+
 	public String getRollNo() {
 		return rollNo;
 	}
+
+
+
 	public void setRollNo(String rollNo) {
 		this.rollNo = rollNo;
 	}
-	public String getClassName() {
-		return className;
+
+
+
+	public String getEligibilityNumber() {
+		return eligibilityNumber;
 	}
-	public void setClassName(String className) {
-		this.className = className;
+
+
+
+	public void setEligibilityNumber(String eligibilityNumber) {
+		this.eligibilityNumber = eligibilityNumber;
 	}
-	public Double getCgpa() {
-		return cgpa;
+
+
+
+	public String getPrnNo() {
+		return prnNo;
 	}
-	public void setCgpa(Double cgpa) {
-		this.cgpa = cgpa;
+
+
+
+	public void setPrnNo(String prnNo) {
+		this.prnNo = prnNo;
 	}
-	public Integer getAttendance() {
-		return attendance;
+
+
+
+	public String getBatch() {
+		return batch;
 	}
-	public void setAttendance(Integer attendance) {
-		this.attendance = attendance;
+
+
+
+	public void setBatch(String batch) {
+		this.batch = batch;
 	}
-	public Student(Long id, String name, String email, String password, String rollNo, String className, Double cgpa,
-			Integer attendance) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
+
+
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
 		this.password = password;
-		this.rollNo = rollNo;
-		this.className = className;
-		this.cgpa = cgpa;
-		this.attendance = attendance;
 	}
+
+
+
+	public String getMentor() {
+		return mentor;
+	}
+
+
+
+	public void setMentor(String mentor) {
+		this.mentor = mentor;
+	}
+
+
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+
+
+	public Student(String fullName, String fatherGuardianName, String email, String dob, String gender,
+			String nationality, String religion, String emergencyContact, String phoneNumber, String localAddress,
+			String permanentAddress, String city, String state, String zipCode, String admissionNumber,
+			String applicationNumber, String feeCategory, String dateOfAdmission, String userId, String program,
+			String branch, String semester, String rollNo, String eligibilityNumber, String prnNo, String batch,
+			String department, String password, String mentor, String registrationNumber) {
+		super();
+		this.fullName = fullName;
+		this.fatherGuardianName = fatherGuardianName;
+		this.email = email;
+		this.dob = dob;
+		this.gender = gender;
+		this.nationality = nationality;
+		this.religion = religion;
+		this.emergencyContact = emergencyContact;
+		this.phoneNumber = phoneNumber;
+		this.localAddress = localAddress;
+		this.permanentAddress = permanentAddress;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.admissionNumber = admissionNumber;
+		this.applicationNumber = applicationNumber;
+		this.feeCategory = feeCategory;
+		this.dateOfAdmission = dateOfAdmission;
+		this.userId = userId;
+		this.program = program;
+		this.branch = branch;
+		this.semester = semester;
+		this.rollNo = rollNo;
+		this.eligibilityNumber = eligibilityNumber;
+		this.prnNo = prnNo;
+		this.batch = batch;
+		this.department = department;
+		this.password = password;
+		this.mentor = mentor;
+		this.registrationNumber = registrationNumber;
+	}
+
+
+
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+
+
 	@Override
 	public String toString() {
-		return "Sudent [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", rollNo="
-				+ rollNo + ", className=" + className + ", cgpa=" + cgpa + ", attendance=" + attendance + "]";
+		return "Student [fullName=" + fullName + ", fatherGuardianName=" + fatherGuardianName + ", email=" + email
+				+ ", dob=" + dob + ", gender=" + gender + ", nationality=" + nationality + ", religion=" + religion
+				+ ", emergencyContact=" + emergencyContact + ", phoneNumber=" + phoneNumber + ", localAddress="
+				+ localAddress + ", permanentAddress=" + permanentAddress + ", city=" + city + ", state=" + state
+				+ ", zipCode=" + zipCode + ", admissionNumber=" + admissionNumber + ", applicationNumber="
+				+ applicationNumber + ", feeCategory=" + feeCategory + ", dateOfAdmission=" + dateOfAdmission
+				+ ", userId=" + userId + ", program=" + program + ", branch=" + branch + ", semester=" + semester
+				+ ", rollNo=" + rollNo + ", eligibilityNumber=" + eligibilityNumber + ", prnNo=" + prnNo + ", batch="
+				+ batch + ", department=" + department + ", password=" + password + ", mentor=" + mentor
+				+ ", registrationNumber=" + registrationNumber + "]";
 	}
 
+
+	
+    
 }
