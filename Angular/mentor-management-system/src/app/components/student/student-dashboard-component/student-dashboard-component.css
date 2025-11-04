@@ -1,0 +1,47 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.actions {
+  text-align: center;
+}
+
+.btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #125ea6;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 30px;
+}

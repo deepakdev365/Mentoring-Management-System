@@ -1,0 +1,26 @@
+<div class="view-mentees-container">
+  <h2>My Mentees</h2>
+
+  <div *ngIf="message" class="info">{{ message }}</div>
+
+  <table *ngIf="students.length > 0" class="mentees-table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Semester</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students">
+        <td>{{ s.fullName }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.department }}</td>
+        <td>{{ s.semester }}</td>
+        <td>{{ s.phoneNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

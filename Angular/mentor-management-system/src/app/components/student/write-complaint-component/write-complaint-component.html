@@ -1,0 +1,9 @@
+<div class="complaint-container">
+  <h2>Submit Complaint</h2>
+
+  <textarea [(ngModel)]="complaintText" placeholder="Write your complaint here..."></textarea>
+
+  <button (click)="submitComplaint()">Submit</button>
+
+  <p class="message">{{ message }}</p>
+</div>

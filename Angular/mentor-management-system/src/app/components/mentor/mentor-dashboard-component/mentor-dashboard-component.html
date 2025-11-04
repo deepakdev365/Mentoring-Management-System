@@ -1,0 +1,43 @@
+<div class="mentor-dashboard-container">
+  <h2>Mentor Dashboard</h2>
+
+  <div *ngIf="mentor">
+    <h3>Welcome, {{ mentor.fullName }}</h3>
+    <p>Email: {{ mentor.email }}</p>
+    <p>Department: {{ mentor.department }}</p>
+  </div>
+
+  <div class="section">
+    <h3>Assigned Mentees</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Branch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mentee of mentees">
+          <td>{{ mentee.fullName }}</td>
+          <td>{{ mentee.email }}</td>
+          <td>{{ mentee.phoneNumber }}</td>
+          <td>{{ mentee.branch }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Complaints from Mentees</h3>
+    <div *ngIf="complaints.length === 0">No complaints found.</div>
+    <div *ngFor="let complaint of complaints" class="complaint-card">
+      <p><strong>{{ complaint.title }}</strong></p>
+      <p>{{ complaint.description }}</p>
+      <p><em>From: {{ complaint.student }}</em></p>
+    </div>
+  </div>
+
+  <p class="message">{{ message }}</p>
+</div>

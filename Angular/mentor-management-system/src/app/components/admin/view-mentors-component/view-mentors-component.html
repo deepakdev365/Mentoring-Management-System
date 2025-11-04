@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-3">All Mentors</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mentor of mentors">
+        <td>{{ mentor.mentorId}}</td>
+        <td>{{ mentor.fullName }}</td>
+        <td>{{ mentor.email }}</td>
+        <td>{{ mentor.phoneNumber }}</td>
+        <td>{{ mentor.department }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

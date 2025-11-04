@@ -1,0 +1,32 @@
+<div class="add-mentor-container">
+  <h2>Add Mentor</h2>
+
+  <form (ngSubmit)="addMentor()" #mentorForm="ngForm">
+    <input type="text" [(ngModel)]="mentorModel.fullName" name="fullName" placeholder="Full Name" />
+    
+    <input type="email" [(ngModel)]="mentorModel.email" name="email" placeholder="Email *" required />
+    
+    <input type="text" [(ngModel)]="mentorModel.phoneNumber" name="phoneNumber" placeholder="Phone Number *" required />
+    
+    <input type="text" [(ngModel)]="mentorModel.department" name="department" placeholder="Department" />
+    
+    <input type="text" [(ngModel)]="mentorModel.designation" name="designation" placeholder="Designation" />
+    
+    <select [(ngModel)]="mentorModel.gender" name="gender">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    
+    <input type="password" [(ngModel)]="mentorModel.password" name="password" placeholder="Password" />
+
+    <button type="submit" [disabled]="loading || !mentorForm.form.valid">
+      <span *ngIf="loading">Adding...</span>
+      <span *ngIf="!loading">Add Mentor</span>
+    </button>
+  </form>
+
+  <p class="required-note">* Required fields</p>
+  <p class="message" [class.error]="message.includes('error')">{{ message }}</p>
+</div>

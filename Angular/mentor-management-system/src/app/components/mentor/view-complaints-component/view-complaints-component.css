@@ -1,0 +1,30 @@
+.view-complaint-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.info {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.complaint-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 5px solid #1976d2;
+}
+
+.complaint-card h3 {
+  margin-top: 0;
+  color: #1976d2;
+}

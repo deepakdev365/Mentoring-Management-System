@@ -1,0 +1,15 @@
+<div class="mentor-container" *ngIf="mentor; else noMentor">
+  <h2>Your Mentor Details</h2>
+
+  <div class="card">
+    <p><strong>Name:</strong> {{ mentor.fullName }}</p>
+    <p><strong>Email:</strong> {{ mentor.email }}</p>
+    <p><strong>Department:</strong> {{ mentor.department }}</p>
+    <p><strong>Designation:</strong> {{ mentor.designation }}</p>
+    <p><strong>Phone:</strong> {{ mentor.phoneNumber }}</p>
+  </div>
+</div>
+
+<ng-template #noMentor>
+  <p class="message">{{ message }}</p>
+</ng-template>

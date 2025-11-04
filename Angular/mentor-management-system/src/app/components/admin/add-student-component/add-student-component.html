@@ -1,0 +1,17 @@
+<div class="add-student-container">
+  <h2>Add Student</h2>
+
+  <form (ngSubmit)="addStudent()">
+    <input type="text" [(ngModel)]="studentModel.fullName" name="fullName" placeholder="Full Name" required />
+    <input type="email" [(ngModel)]="studentModel.email" name="email" placeholder="Email" required />
+    <input type="text" [(ngModel)]="studentModel.phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
+    <input type="text" [(ngModel)]="studentModel.branch" name="branch" placeholder="Branch" />
+    <input type="text" [(ngModel)]="studentModel.semester" name="semester" placeholder="Semester" />
+    <input type="text" [(ngModel)]="studentModel.batch" name="batch" placeholder="Batch" />
+    <input type="password" [(ngModel)]="studentModel.password" name="password" placeholder="Password" required />
+
+    <button type="submit">Add Student</button>
+  </form>
+
+  <p class="message">{{ message }}</p>
+</div>

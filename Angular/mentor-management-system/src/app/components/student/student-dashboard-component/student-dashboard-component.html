@@ -1,0 +1,26 @@
+<div class="dashboard-container" *ngIf="studentModel; else errorBlock">
+  <h2>Welcome, {{ studentModel.fullName }} 👋</h2> <!-- ✅ Remove ? -->
+
+  <div class="card">
+    <h3>Your Details</h3>
+    <p><strong>Email:</strong> {{ studentModel.email }}</p> <!-- ✅ Remove ? -->
+    <p><strong>Department:</strong> {{ studentModel.department }}</p> <!-- ✅ Remove ? -->
+    <p><strong>Semester:</strong> {{ studentModel.semester }}</p> <!-- ✅ Remove ? -->
+    <p><strong>Phone:</strong> {{ studentModel.phoneNumber }}</p> <!-- ✅ Remove ? -->
+  </div>
+
+  <div class="card" *ngIf="studentModel.mentor"> <!-- ✅ Remove ? -->
+    <h3>Your Mentor</h3>
+    <p><strong>Name:</strong> {{ studentModel.mentor.fullName }}</p> <!-- ✅ Remove ? -->
+    <p><strong>Email:</strong> {{ studentModel.mentor.email }}</p> <!-- ✅ Remove ? -->
+    <p><strong>Department:</strong> {{ studentModel.mentor.department }}</p> <!-- ✅ Remove ? -->
+  </div>
+
+  <div class="actions">
+    <button routerLink="/write/complaint" class="btn">Write Complaint</button>
+  </div>
+</div>
+
+<ng-template #errorBlock>
+  <p class="error">{{ message }}</p>
+</ng-template>

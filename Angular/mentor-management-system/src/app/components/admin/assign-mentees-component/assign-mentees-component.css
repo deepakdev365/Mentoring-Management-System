@@ -1,0 +1,36 @@
+.assign-mentees-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.assign-mentees-container h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.assign-mentees-container button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.assign-mentees-container button:hover {
+  background-color: #125ea2;
+}
+
+.assign-mentees-container .message {
+  margin-top: 20px;
+  font-weight: 500;
+  color: green;
+}

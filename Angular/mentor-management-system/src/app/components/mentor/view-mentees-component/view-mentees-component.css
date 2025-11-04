@@ -1,0 +1,40 @@
+.view-mentees-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.info {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+.mentees-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mentees-table th, .mentees-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.mentees-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+.mentees-table tr:hover {
+  background-color: #f1f1f1;
+}

@@ -1,0 +1,12 @@
+<div class="view-complaint-container">
+  <h2>Complaints from Mentees</h2>
+
+  <div *ngIf="message" class="info">{{ message }}</div>
+
+  <div *ngFor="let complaint of complaints" class="complaint-card">
+    <h3>{{ complaint.title }}</h3>
+    <p>{{ complaint.description }}</p>
+    <p><strong>From:</strong> {{ complaint.student }}</p>
+    <p><strong>Date:</strong> {{ complaint.dateCreated | date:'medium' }}</p>
+  </div>
+</div>

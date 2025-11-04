@@ -1,0 +1,11 @@
+<div class="assign-mentees-container">
+  <h2>Assign Mentees to Mentors</h2>
+
+  <p>Click the button below to automatically distribute all students among mentors.</p>
+
+  <button (click)="assignMentees()" [disabled]="loading">
+    {{ loading ? 'Assigning...' : 'Assign Mentees' }}
+  </button>
+
+  <p class="message">{{ message }}</p>
+</div>
