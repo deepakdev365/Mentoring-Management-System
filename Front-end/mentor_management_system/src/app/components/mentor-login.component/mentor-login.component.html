@@ -1,0 +1,20 @@
+<h2>Mentor Login</h2>
+
+<input
+  type="email"
+  placeholder="Email"
+  [(ngModel)]="mentor.email"
+/>
+<br><br>
+
+<input
+  type="password"
+  placeholder="Password"
+  [(ngModel)]="mentor.password"
+/>
+<br><br>
+
+<button (click)="login()">Login</button>
+
+<p style="color: green">{{ successMsg }}</p>
+<p style="color: red">{{ errorMsg }}</p>
