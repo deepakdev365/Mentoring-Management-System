@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+import com.example.demo.model.Student;
 
-    Student findByEmailAndPassword(String email, String password);
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Long> {
+
+	
+	
+	
 }
