@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "student")
 public class Student {
 
-	 @Id
+	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long registrationNumber;   // Auto-generated registration number
 
