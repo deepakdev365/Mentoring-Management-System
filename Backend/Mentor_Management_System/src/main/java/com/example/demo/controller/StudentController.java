@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -24,95 +25,213 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    private static final String[] EXPECTED_HEADERS = {
+
+            "fullname",
+            "fatherGuardianName",
+            "email",
+            "dob",
+            "gender",
+            "nationality",
+            "religion",
+            "emergencyContact",
+            "phoneNumber",
+            "localAddress",
+            "permanentAddress",
+            "state",
+            "city",
+            "zipcode",
+            "admissionNumber",
+            "applicationNumber",
+            "feeCategory",
+            "dateOfAdmission",
+            "program",
+            "branch",
+            "semester",
+            "rollno",
+            "eligibilityNumber",
+            "prnno",
+            "batch",
+            "department",
+            "password"
+    };
+
     @PostMapping("/upload")
     public String uploadStudents(@RequestParam("file") MultipartFile file) {
 
-        try {
-            Workbook workbook = new XSSFWorkbook(file.getInputStream());
-            int numberOfSheets = workbook.getNumberOfSheets();
-            
-            List<Student> students = new ArrayList<>();
-            for(int j = 0; j < numberOfSheets; j++) {
-            	Sheet sheet = workbook.getSheetAt(j);
+        List<String> errors = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
 
-               
+        try {
+
+            if (file == null || file.isEmpty()) {
+                return "Please upload a file.";
+            }
+
+            if (!file.getOriginalFilename().endsWith(".xlsx")) {
+                return "Invalid file format. Please upload only .xlsx formatted Excel file.";
+            }
+
+            Workbook workbook = new XSSFWorkbook(file.getInputStream());
+
+            for (int j = 0; j < workbook.getNumberOfSheets(); j++) {
+
+                Sheet sheet = workbook.getSheetAt(j);
+
+                Row headerRow = sheet.getRow(0);
+                if (headerRow == null) {
+                    errors.add("Sheet " + sheet.getSheetName() + " has no header row.");
+                    continue;
+                }
+
+                List<String> actualHeaders = new ArrayList<>();
+
+                for (int i = 0; i < headerRow.getLastCellNum(); i++) {
+
+                    String headerValue = getCellValue(headerRow, i);
+
+                    if (headerValue != null) {
+                        actualHeaders.add(headerValue.trim().toLowerCase());
+                    }
+                }
+
+                for (String expected : EXPECTED_HEADERS) {
+
+                    if (!actualHeaders.contains(expected.trim().toLowerCase())) {
+
+                        errors.add("Missing required column: " + expected);
+                    }
+                }
+
+                if (!errors.isEmpty()) {
+                    workbook.close();
+                    return "Errors found:\n" + String.join("\n", errors);
+                }
 
                 for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 
                     Row row = sheet.getRow(i);
                     if (row == null) continue;
 
-                    Student student = new Student();
-                    student.setFullName(getCellValue(row, 0));
-                    
-                    student.setFatherGuardianName(getCellValue(row, 1));
-                    
-                    student.setEmail(getCellValue(row, 2));
-                    student.setDob(getCellValue(row, 3));
-                    
-                    student.setGender(getCellValue(row, 4));
-                    student.setNationality(getCellValue(row, 5));
-                    
-                    student.setReligion(getCellValue(row, 6));
-                    student.setEmergencyContact(getCellValue(row, 7));
-                    student.setPhoneNumber(getCellValue(row, 8));
+                    String email = getCellValue(row, 2);
+                    String phone = getCellValue(row, 8);
 
-                    student.setLocalAddress(getCellValue(row, 9));
-                    student.setPermanentAddress(getCellValue(row, 10));
-                    
-                    student.setCity(getCellValue(row, 11));
-                    student.setState(getCellValue(row, 12));
-                    student.setZipCode(getCellValue(row, 13));
-
-                    
-                    student.setAdmissionNumber(getCellValue(row, 14));
-                    student.setApplicationNumber(getCellValue(row, 15));
-                    student.setFeeCategory(getCellValue(row, 16));
-                    
-                    student.setDateOfAdmission(getCellValue(row, 17));
-                    student.setProgram(getCellValue(row, 18));
-                    student.setBranch(getCellValue(row, 19));
-                    student.setSemester(getCellValue(row, 20));
-                    student.setRollNo(getCellValue(row, 21));
-                    
-                    student.setEligibilityNumber(getCellValue(row, 22));
-                    student.setPrnNo(getCellValue(row, 23));
-                    student.setBatch(getCellValue(row, 24));
-                    
-                    student.setDepartment(getCellValue(row, 25));
-                    
-                    student.setPassword(getCellValue(row, 26));
-
-                    
-                   
-                    if (student.getEmail() == null || student.getPhoneNumber() == null) {
-                        continue; 
-                    
+                    if (email == null || email.isEmpty()) {
+                        errors.add("Row " + (i + 1) + " - Email is missing.");
                     }
 
-                    students.add(student);
+                    if (phone == null || phone.isEmpty()) {
+                        errors.add("Row " + (i + 1) + " - Phone Number is missing.");
+                    }
+                    
+                    
+                    
+                    
+                    
+//for email id verification
+                    if (email == null || email.isEmpty()) {
+
+                        errors.add("Row " + (i + 1) + " - Email is missing.");
+
+                    } else {
+
+                        if (!email.contains("@")) {
+
+                            errors.add("Row " + (i + 1) + 
+                                    " - Email is invalid: missing '@' symbol -> " + email);
+
+                        } else if (email.indexOf("@") != email.lastIndexOf("@")) {
+
+                            errors.add("Row " + (i + 1) + 
+                                    " - Email is invalid: multiple '@' symbols -> " + email);
+
+                        } else if (!email.substring(email.indexOf("@")).contains(".")) {
+
+                            errors.add("Row " + (i + 1) + 
+                                    " - Email is invalid: missing domain extension (like .com) -> " + email);
+
+                        } else if (email.startsWith("@") || email.endsWith("@")) {
+
+                            errors.add("Row " + (i + 1) + 
+                                    " - Email is invalid: '@' cannot be at start or end -> " + email);
+
+                        }
+                    }
+                    
+                    
+                    
+                    
+                   
+                    
+                    
+                    //for phone number verification
+
+                    if (phone != null && !phone.isEmpty() &&
+                            !phone.matches("\\d{10}")) {
+                        errors.add("Row " + (i + 1) + " - Invalid Phone Number: " + phone);
+                    }
+
+                    if (email != null && !email.isEmpty() && phone != null && !phone.isEmpty() && email.matches("^[A-Za-z0-9+_.-]+@(.+)$") && phone.matches("\\d{10}")) {
+
+                        Student student = new Student();
+
+                        student.setFullName(getCellValue(row, 0));
+                        student.setFatherGuardianName(getCellValue(row, 1));
+                        student.setEmail(email);
+                        student.setDob(getCellValue(row, 3));
+                        student.setGender(getCellValue(row, 4));
+                        student.setNationality(getCellValue(row, 5));
+                        student.setReligion(getCellValue(row, 6));
+                        student.setEmergencyContact(getCellValue(row, 7));
+                        student.setPhoneNumber(phone);
+                        student.setLocalAddress(getCellValue(row, 9));
+                        student.setPermanentAddress(getCellValue(row, 10));
+                        student.setCity(getCellValue(row, 11));
+                        student.setState(getCellValue(row, 12));
+                        student.setZipCode(getCellValue(row, 13));
+                        student.setAdmissionNumber(getCellValue(row, 14));
+                        student.setApplicationNumber(getCellValue(row, 15));
+                        student.setFeeCategory(getCellValue(row, 16));
+                        student.setDateOfAdmission(getCellValue(row, 17));
+                        student.setProgram(getCellValue(row, 18));
+                        student.setBranch(getCellValue(row, 19));
+                        student.setSemester(getCellValue(row, 20));
+                        student.setRollNo(getCellValue(row, 21));
+                        student.setEligibilityNumber(getCellValue(row, 22));
+                        student.setPrnNo(getCellValue(row, 23));
+                        student.setBatch(getCellValue(row, 24));
+                        student.setDepartment(getCellValue(row, 25));
+                        student.setPassword(getCellValue(row, 26));
+
+                        students.add(student);
+                    }
                 }
-
-                studentService.saveAllStudent(students);
-                workbook.close();
-
-               
-
             }
-            return "Students uploaded successfully : " + students.size();
-            
-            	
+
+            workbook.close();
+
+            if (!errors.isEmpty()) {
+                return "Errors found:\n" + String.join("\n", errors);
             }
-             catch (Exception e) {
+
+            studentService.saveAllStudent(students);
+
+            return "Students uploaded successfully: " + students.size();
+
+        } catch (Exception e) {
             e.printStackTrace();
-            return "Error while uploading students";
+            return "Error while uploading students.";
         }
     }
 
     private String getCellValue(Row row, int index) {
+
+        DataFormatter formatter = new DataFormatter();
+
         if (row.getCell(index) == null) {
             return null;
         }
-        return row.getCell(index).toString().trim();
+
+        return formatter.formatCellValue(row.getCell(index)).trim();
     }
 }
