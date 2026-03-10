@@ -77,15 +77,19 @@ public class StudentController {
             for (int j = 0; j < workbook.getNumberOfSheets(); j++) {
 
                 Sheet sheet = workbook.getSheetAt(j);
+                
 
+                //Checking if the header row exist or not in the excel sheet.
                 Row headerRow = sheet.getRow(0);
                 if (headerRow == null) {
                     errors.add("Sheet " + sheet.getSheetName() + " has no header row.");
                     continue;
                 }
 
+                //Array list to store the headers of the excel sheet uploaded in lower case.
                 List<String> actualHeaders = new ArrayList<>();
 
+                //It is scanning the whole row and converting it each headers to lowercase and adding it into the actualHeaders arraylist using "actualHeaders.add(headerValue.trim().toLowerCase());".
                 for (int i = 0; i < headerRow.getLastCellNum(); i++) {
 
                     String headerValue = getCellValue(headerRow, i);
