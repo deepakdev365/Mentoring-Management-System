@@ -1,20 +1,49 @@
-<div class="login-container">
-  <h2>Student Login</h2>
+<div class="container mt-5" style="max-width:400px;">
 
-  <input
-    type="email"
-    placeholder="Email"
-    [(ngModel)]="loginData.email"
-  />
+<h3 class="text-center mb-4">Student Login</h3>
 
-  <input
-    type="password"
-    placeholder="Password"
-    [(ngModel)]="loginData.password"
-  />
+<div class="mb-3">
 
-  <button (click)="login()">Login</button>
+<label>Email</label>
 
-  <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
-  <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+<input
+type="text"
+class="form-control"
+placeholder="Enter Email"
+[(ngModel)]="loginData.email"
+/>
+
+</div>
+
+
+<div class="mb-3">
+
+<label>Password</label>
+
+<input
+type="password"
+class="form-control"
+placeholder="Enter Password"
+[(ngModel)]="loginData.password"
+/>
+
+</div>
+
+
+<button
+class="btn btn-primary w-100"
+(click)="login()"
+>
+Login
+</button>
+
+
+<p style="color:green; margin-top:15px;" *ngIf="successMsg">
+{{successMsg}}
+</p>
+
+<p style="color:red; margin-top:15px;" *ngIf="errorMsg">
+{{errorMsg}}
+</p>
+
 </div>

@@ -1,0 +1,54 @@
+<nav class="navbar navbar-dark bg-dark px-3 justify-content-between">
+  <span class="navbar-brand">Mentoring Management System</span>
+  <button class="btn btn-danger" (click)="logout()">Logout</button>
+</nav>
+
+<div class="container mt-4">
+
+<h2>Students List</h2>
+
+<!-- Upload Excel -->
+
+<input type="file"
+       class="form-control mb-3"
+       (change)="onFileSelected($event)">
+
+<button class="btn btn-primary mb-4"
+        (click)="uploadFile()">
+Upload Student Excel
+</button>
+<p style="white-space: pre-line; color:red;" *ngIf="uploadMessage">
+  {{uploadMessage}}
+</p>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Registration</th>
+<th>Semester</th>
+<th>Branch</th>
+<th>Department</th>
+<th>Phone</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let student of students">
+
+<td>{{student.fullName}}</td>
+<td>{{student.registrationNumber}}</td>
+<td>{{student.semester}}</td>
+<td>{{student.branch}}</td>
+<td>{{student.department}}</td>
+<td>{{student.phoneNumber}}</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>

@@ -7,15 +7,38 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  private baseUrl = 'http://localhost:8080/student';
+  private baseUrl = 'http://localhost:8081/api/students';
 
   constructor(private http: HttpClient) {}
 
-  loginStudent(data: any): Observable<string> {
-    return this.http.post(
-      `${this.baseUrl}/login`,
-      data,
-      { responseType: 'text' }
-    );
+loginStudent(email: string, password: string){
+
+  const formData = new FormData();
+
+  formData.append("email", email);
+  formData.append("password", password);
+
+  return this.http.post(
+    "http://localhost:8081/api/students/login",
+    formData
+  );
+
+}
+
+  getStudents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/all`);
   }
+
+
+
+ uploadExcel(data: FormData){
+  return this.http.post(
+    'http://localhost:8081/api/students/upload',
+    data,
+    { responseType: 'text' }
+  );
+}
+
+
+
 }

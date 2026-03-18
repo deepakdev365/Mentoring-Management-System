@@ -34,4 +34,10 @@ public class MentorServiceImpl implements MentorService {
                 .findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
     }
+
+	@Override
+	public List<Mentor> getAllMentors() {
+		// TODO Auto-generated method stub
+		return mentorRepository.findAll();
+	}
 }

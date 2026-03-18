@@ -41,16 +41,16 @@ public class SubjectRegistrationServiceImpl implements SubjectRegistrationServic
 
             int rowNum = row.getRowNum() + 1;
 
-            String rollNo = row.getCell(0).getStringCellValue();
+            String registrationNumber = row.getCell(0).getStringCellValue();
             String subjectCode = row.getCell(1).getStringCellValue();
             String subjectName = row.getCell(2).getStringCellValue();
             int credits = (int) row.getCell(3).getNumericCellValue();
             String semester = row.getCell(4).getStringCellValue();
 
-            Optional<Student> studentOpt = studentRepository.findByRollNo(rollNo);
+            Optional<Student> studentOpt = studentRepository.findByRegistrationNumber(registrationNumber);
 
             if (studentOpt.isEmpty()) {
-                errors.add("Row " + rowNum + " - Student not found for RollNo: " + rollNo);
+                errors.add("Row " + rowNum + " - Student not found for RollNo: " + registrationNumber);
                 continue;
             }
 
@@ -62,14 +62,14 @@ public class SubjectRegistrationServiceImpl implements SubjectRegistrationServic
 
             if (alreadyRegistered) {
                 errors.add("Row " + rowNum + " - Duplicate subject '" + subjectCode +
-                        "' for RollNo: " + rollNo);
+                        "' for RollNo: " + registrationNumber);
                 continue;
             }
 
             // CHECK 2 → Semester mismatch
             if (!student.getSemester().equals(semester)) {
                 errors.add("Row " + rowNum +
-                        " - Semester mismatch for RollNo: " + rollNo +
+                        " - Semester mismatch for RollNo: " + registrationNumber +
                         " (Student semester: " + student.getSemester() +
                         ", Excel semester: " + semester + ")");
                 continue;

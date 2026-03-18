@@ -9,4 +9,10 @@ public interface StudentService {
 	
 	void saveAllStudent(List<Student> students);
 
+	List<Student> getAllStudents();
+	
+    Student login(String email, String password);
+
+    
+    void assignMentor(Long mentorId, List<Long> studentIds);
 }

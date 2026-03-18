@@ -9,6 +9,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,7 @@ import com.example.demo.service.StudentService;
 
 @RestController
 @RequestMapping("/api/students")
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
     @Autowired
@@ -48,7 +52,7 @@ public class StudentController {
             "program",
             "branch",
             "semester",
-            "rollno",
+            "registrationNumber",
             "eligibilityNumber",
             "prnno",
             "batch",
@@ -200,7 +204,7 @@ public class StudentController {
                         student.setProgram(getCellValue(row, 18));
                         student.setBranch(getCellValue(row, 19));
                         student.setSemester(getCellValue(row, 20));
-                        student.setRollNo(getCellValue(row, 21));
+                        student.setRegistrationNumber(getCellValue(row, 21));     
                         student.setEligibilityNumber(getCellValue(row, 22));
                         student.setPrnNo(getCellValue(row, 23));
                         student.setBatch(getCellValue(row, 24));
@@ -238,4 +242,42 @@ public class StudentController {
 
         return formatter.formatCellValue(row.getCell(index)).trim();
     }
+    
+    
+    @GetMapping("/all")
+    public List<Student> getAllStudents(){
+    	return studentService.getAllStudents();
+    }
+    
+    
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestParam String email,
+            @RequestParam String password) {
+
+        try {
+
+            Student student = studentService.login(email, password);
+
+            if(student == null){
+                return ResponseEntity
+                        .badRequest()
+                        .body("Invalid Email or Password");
+            }
+
+            return ResponseEntity.ok(student);
+
+        } catch (Exception e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Invalid Email or Password");
+
+        }
+
+    }
+    
+    
+    
 }

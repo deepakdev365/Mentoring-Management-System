@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +10,7 @@ public class Student {
 
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long registrationNumber;   // Auto-generated registration number
+	    private Long sl_No;   // Auto-generated registration number
 
 	    // Personal details
 	    private String fullName;
@@ -25,6 +27,11 @@ public class Student {
 
 	    @Column(nullable = false)
 	    private String phoneNumber;
+	    
+	    @ManyToOne
+	    @JoinColumn(name = "mentor_id")
+	    @JsonBackReference
+	    private Mentor mentor;
 
 	    // Address details
 	    private String localAddress;
@@ -41,17 +48,17 @@ public class Student {
 	    private String program;
 	    private String branch;
 	    private String semester;
-	    private String rollNo;
+	    private String registrationNumber;
 	    private String eligibilityNumber;
 	    private String prnNo;
 	    private String batch;
 	    private String department;
 	    private String password;
-		public Long getRegistrationNumber() {
-			return registrationNumber;
+		public Long getSl_No() {
+			return sl_No;
 		}
-		public void setRegistrationNumber(Long registrationNumber) {
-			this.registrationNumber = registrationNumber;
+		public void setSl_No(Long sl_No) {
+			this.sl_No = sl_No;
 		}
 		public String getFullName() {
 			return fullName;
@@ -106,6 +113,12 @@ public class Student {
 		}
 		public void setPhoneNumber(String phoneNumber) {
 			this.phoneNumber = phoneNumber;
+		}
+		public Mentor getMentor() {
+			return mentor;
+		}
+		public void setMentor(Mentor mentor) {
+			this.mentor = mentor;
 		}
 		public String getLocalAddress() {
 			return localAddress;
@@ -179,11 +192,11 @@ public class Student {
 		public void setSemester(String semester) {
 			this.semester = semester;
 		}
-		public String getRollNo() {
-			return rollNo;
+		public String getRegistrationNumber() {
+			return registrationNumber;
 		}
-		public void setRollNo(String rollNo) {
-			this.rollNo = rollNo;
+		public void setRegistrationNumber(String registrationNumber) {
+			this.registrationNumber = registrationNumber;
 		}
 		public String getEligibilityNumber() {
 			return eligibilityNumber;
@@ -215,14 +228,14 @@ public class Student {
 		public void setPassword(String password) {
 			this.password = password;
 		}
-		public Student(Long registrationNumber, String fullName, String fatherGuardianName, String email, String dob,
-				String gender, String nationality, String religion, String emergencyContact, String phoneNumber,
+		public Student(Long sl_No, String fullName, String fatherGuardianName, String email, String dob, String gender,
+				String nationality, String religion, String emergencyContact, String phoneNumber, Mentor mentor,
 				String localAddress, String permanentAddress, String city, String state, String zipCode,
 				String admissionNumber, String applicationNumber, String feeCategory, String dateOfAdmission,
-				String program, String branch, String semester, String rollNo, String eligibilityNumber, String prnNo,
-				String batch, String department, String password) {
+				String program, String branch, String semester, String registrationNumber, String eligibilityNumber,
+				String prnNo, String batch, String department, String password) {
 			super();
-			this.registrationNumber = registrationNumber;
+			this.sl_No = sl_No;
 			this.fullName = fullName;
 			this.fatherGuardianName = fatherGuardianName;
 			this.email = email;
@@ -232,6 +245,7 @@ public class Student {
 			this.religion = religion;
 			this.emergencyContact = emergencyContact;
 			this.phoneNumber = phoneNumber;
+			this.mentor = mentor;
 			this.localAddress = localAddress;
 			this.permanentAddress = permanentAddress;
 			this.city = city;
@@ -244,7 +258,7 @@ public class Student {
 			this.program = program;
 			this.branch = branch;
 			this.semester = semester;
-			this.rollNo = rollNo;
+			this.registrationNumber = registrationNumber;
 			this.eligibilityNumber = eligibilityNumber;
 			this.prnNo = prnNo;
 			this.batch = batch;
@@ -257,18 +271,23 @@ public class Student {
 		}
 		@Override
 		public String toString() {
-			return "Student [registrationNumber=" + registrationNumber + ", fullName=" + fullName
-					+ ", fatherGuardianName=" + fatherGuardianName + ", email=" + email + ", dob=" + dob + ", gender="
-					+ gender + ", nationality=" + nationality + ", religion=" + religion + ", emergencyContact="
-					+ emergencyContact + ", phoneNumber=" + phoneNumber + ", localAddress=" + localAddress
-					+ ", permanentAddress=" + permanentAddress + ", city=" + city + ", state=" + state + ", zipCode="
-					+ zipCode + ", admissionNumber=" + admissionNumber + ", applicationNumber=" + applicationNumber
+			return "Student [sl_No=" + sl_No + ", fullName=" + fullName + ", fatherGuardianName=" + fatherGuardianName
+					+ ", email=" + email + ", dob=" + dob + ", gender=" + gender + ", nationality=" + nationality
+					+ ", religion=" + religion + ", emergencyContact=" + emergencyContact + ", phoneNumber="
+					+ phoneNumber + ", mentor=" + mentor + ", localAddress=" + localAddress + ", permanentAddress="
+					+ permanentAddress + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode
+					+ ", admissionNumber=" + admissionNumber + ", applicationNumber=" + applicationNumber
 					+ ", feeCategory=" + feeCategory + ", dateOfAdmission=" + dateOfAdmission + ", program=" + program
-					+ ", branch=" + branch + ", semester=" + semester + ", rollNo=" + rollNo + ", eligibilityNumber="
-					+ eligibilityNumber + ", prnNo=" + prnNo + ", batch=" + batch + ", department=" + department
-					+ ", password=" + password + "]";
+					+ ", branch=" + branch + ", semester=" + semester + ", registrationNumber=" + registrationNumber
+					+ ", eligibilityNumber=" + eligibilityNumber + ", prnNo=" + prnNo + ", batch=" + batch
+					+ ", department=" + department + ", password=" + password + "]";
 		}
-
+		
+	    
+	    
+	    
+	    
+	    
 	    
 	    
 	    

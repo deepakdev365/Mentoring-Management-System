@@ -46,16 +46,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             int rowNum = row.getRowNum() + 1;
 
-            String rollNo = row.getCell(0).getStringCellValue();
+            String registrationNumber = row.getCell(0).getStringCellValue();
             String subjectCode = row.getCell(1).getStringCellValue();
             int totalClasses = (int) row.getCell(2).getNumericCellValue();
             int presentClasses = (int) row.getCell(3).getNumericCellValue();
 
             // Find student
-            Optional<Student> studentOpt = studentRepository.findByRollNo(rollNo);
+            Optional<Student> studentOpt = studentRepository.findByRegistrationNumber(registrationNumber);
 
             if (studentOpt.isEmpty()) {
-                errors.add("Row " + rowNum + " - Student not found: " + rollNo);
+                errors.add("Row " + rowNum + " - Student not found: " + registrationNumber);
                 continue;
             }
 
@@ -67,7 +67,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             if (srOpt.isEmpty()) {
                 errors.add("Row " + rowNum + " - Subject not registered for student: "
-                        + rollNo + " Subject: " + subjectCode);
+                        + registrationNumber + " Subject: " + subjectCode);
                 continue;
             }
 
@@ -76,7 +76,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             // Check duplicate attendance
             if (attendanceRepository.existsBySubjectRegistration(sr)) {
                 errors.add("Row " + rowNum + " - Attendance already uploaded for "
-                        + rollNo + " Subject: " + subjectCode);
+                        + registrationNumber + " Subject: " + subjectCode);
                 continue;
             }
 

@@ -1,0 +1,38 @@
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark px-3">
+
+  <span class="navbar-brand">Student Portal</span>
+
+  <span class="text-white">
+    Welcome {{student.fullName}}
+  </span>
+
+  <button class="btn btn-danger" (click)="logout()">Logout</button>
+
+</nav>
+
+<div class="d-flex">
+
+  <!-- Sidebar -->
+  <div class="bg-light p-3" style="width:220px; min-height:100vh">
+
+    <h5>Menu</h5>
+
+    <ul class="nav flex-column">
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/student/dashboard">
+          Dashboard
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="p-4 flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

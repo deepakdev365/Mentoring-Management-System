@@ -1,0 +1,63 @@
+<nav class="navbar navbar-dark bg-dark px-3 justify-content-between">
+
+  <span class="navbar-brand">Mentoring Management System</span>
+
+  <button class="btn btn-danger" (click)="logout()">
+    Logout
+  </button>
+
+</nav>
+
+
+<div class="container mt-4">
+
+<h2>Mentors List</h2>
+<!-- Upload Excel Section -->
+
+<div class="mb-3">
+
+<input type="file"
+       (change)="onFileSelected($event)"
+       class="form-control">
+
+</div>
+
+<button class="btn btn-primary mb-4"
+        (click)="uploadFile()">
+Upload Excel
+</button>
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Department</th>
+<th>Designation</th>
+<th>Phone</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr *ngFor="let mentor of mentors">
+
+<td>{{mentor.id}}</td>
+<td>{{mentor.fullName}}</td>
+<td>{{mentor.email}}</td>
+<td>{{mentor.department}}</td>
+<td>{{mentor.designation}}</td>
+<td>{{mentor.phoneNo}}</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>

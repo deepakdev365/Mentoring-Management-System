@@ -11,6 +11,8 @@ import com.example.demo.model.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
 	
-	 Optional<Student> findByRollNo(String rollNo);
+	 Optional<Student> findByRegistrationNumber(String registrationNumber);
+	 
+	 Optional<Student> findByEmailAndPassword(String email, String password);
 	
 }

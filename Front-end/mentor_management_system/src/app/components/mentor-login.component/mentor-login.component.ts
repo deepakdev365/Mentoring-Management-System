@@ -21,7 +21,10 @@ export class MentorLoginComponent {
   ) {}
 
   login() {
-  this.mentorService.login(this.email, this.password).subscribe({
+  this.mentorService.login({
+  email: this.email,
+  password: this.password
+}).subscribe({
     next: () => {
       this.router.navigate(['/mentor-dashboard']);
     },

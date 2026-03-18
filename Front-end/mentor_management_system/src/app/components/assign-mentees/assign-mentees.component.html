@@ -1,0 +1,45 @@
+<div class="container mt-4">
+
+  <h3>Assign Mentees</h3>
+
+  <div class="row mt-4">
+
+    <!-- Mentor Section -->
+    <div class="col-md-5">
+      <h5>Select Mentor</h5>
+
+      <div *ngFor="let mentor of mentors">
+        <input
+          type="radio"
+          name="mentor"
+          [value]="mentor.id"
+          (change)="selectMentor(mentor.id)"
+        />
+        {{mentor.fullName}}
+      </div>
+    </div>
+
+    <!-- Student Section -->
+    <div class="col-md-5">
+      <h5>Select Students</h5>
+
+      <div *ngFor="let student of students">
+        <input
+          type="checkbox"
+          [value]="student.sl_No"
+          (change)="toggleStudent(student.sl_No)"
+        />
+        {{student.fullName}} - {{student.registrationNumber}}
+      </div>
+    </div>
+
+  </div>
+
+  <button class="btn btn-primary mt-3" (click)="assign()">
+    Assign
+  </button>
+
+  <p class="text-success mt-2" *ngIf="successMsg">{{successMsg}}</p>
+  <p class="text-danger mt-2" *ngIf="errorMsg">{{errorMsg}}</p>
+
+</div>
