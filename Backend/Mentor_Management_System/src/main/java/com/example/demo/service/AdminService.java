@@ -8,5 +8,5 @@ public interface AdminService {
 
     Admin login(String email, String password);
     
-    void assignMentor(Long mentorId, List<Long> studentIds);
+    
 }

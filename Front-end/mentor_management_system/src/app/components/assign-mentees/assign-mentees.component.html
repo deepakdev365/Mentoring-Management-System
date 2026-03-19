@@ -24,11 +24,8 @@
       <h5>Select Students</h5>
 
       <div *ngFor="let student of students">
-        <input
-          type="checkbox"
-          [value]="student.sl_No"
-          (change)="toggleStudent(student.sl_No)"
-        />
+        <input type="checkbox"
+       (change)="onStudentSelect(student.registrationNumber, $event)"/>
         {{student.fullName}} - {{student.registrationNumber}}
       </div>
     </div>

@@ -12,7 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",
+allowedHeaders = "*")
 @RestController
 @RequestMapping("/admin")
 
@@ -47,13 +48,10 @@ public class AdminController {
 
         Long mentorId = Long.valueOf(data.get("mentorId").toString());
 
-        List<Integer> studentIdsRaw = (List<Integer>) data.get("studentIds");
+        List<String> registrationNumbers =
+                (List<String>) data.get("registrationNumbers");
 
-        List<Long> studentIds = studentIdsRaw.stream()
-                .map(Long::valueOf)
-                .toList();
-
-        studentService.assignMentor(mentorId, studentIds);
+        studentService.assignMentor(mentorId, registrationNumbers);
 
         return "Mentor assigned successfully";
     }

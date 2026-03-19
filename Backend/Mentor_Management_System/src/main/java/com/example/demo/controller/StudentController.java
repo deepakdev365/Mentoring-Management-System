@@ -23,7 +23,8 @@ import com.example.demo.service.StudentService;
 
 @RestController
 @RequestMapping("/api/students")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",
+allowedHeaders = "*")
 public class StudentController {
 
     @Autowired

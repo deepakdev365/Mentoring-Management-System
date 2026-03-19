@@ -16,7 +16,7 @@ export class AssignMenteesComponent implements OnInit {
   students:any[] = [];
 
   selectedMentorId:any = null;
-  selectedStudents:number[] = [];
+  selectedStudents:string[] = [];
 
   successMsg = '';
   errorMsg = '';
@@ -42,29 +42,43 @@ export class AssignMenteesComponent implements OnInit {
   selectMentor(id:number){
     this.selectedMentorId = id;
   }
+onStudentSelect(regNo: string, event: any) {
 
-  toggleStudent(id:number){
-
-    if(this.selectedStudents.includes(id)){
-      this.selectedStudents =
-        this.selectedStudents.filter(s => s !== id);
-    } else {
-      this.selectedStudents.push(id);
-    }
-
+  if (event.target.checked) {
+    this.selectedStudents.push(regNo);
+  } else {
+    this.selectedStudents =
+      this.selectedStudents.filter(s => s !== regNo);
   }
+   console.log(this.selectedStudents); 
+}
+  
 
  assign() {
 
+  if (!this.selectedMentorId) {
+    alert("Select a mentor");
+    return;
+  }
+
+  if (this.selectedStudents.length === 0) {
+    alert("Select students");
+    return;
+  }
+
   this.adminService.assignMentees(
     this.selectedMentorId,
-    this.selectedStudents
+    this.selectedStudents   
   ).subscribe({
-    next: () => alert("Assigned successfully"),
+    next: (res) => {
+      console.log(res);
+      alert("Assigned successfully");
+    },
     error: (err) => {
       console.log(err);
       alert("Assignment failed");
     }
   });
+
 }
 }

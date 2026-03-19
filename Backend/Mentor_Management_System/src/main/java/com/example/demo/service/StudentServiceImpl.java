@@ -44,19 +44,26 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
     }
 
-    @Override
-    public void assignMentor(Long mentorId, List<Long> studentIds) {
+	@Override
+	public void assignMentor(Long mentorId, List<String> registrationNumbers) {
+		// TODO Auto-generated method stub
+		Mentor mentor = mentorRepository.findById(mentorId.intValue())
+	            .orElseThrow(() -> new RuntimeException("Mentor not found"));
 
-       
-        Mentor mentor = mentorRepository.findById(mentorId.intValue())
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+	    List<Student> students =
+	            studentRepository.findByRegistrationNumberIn(registrationNumbers);
 
-        List<Student> students = studentRepository.findAllById(studentIds);
+	    if (students.isEmpty()) {
+	        throw new RuntimeException("No students found");
+	    }
 
-        for (Student student : students) {
-            student.setMentor(mentor);
-        }
+	    for (Student student : students) {
+	        student.setMentor(mentor);
+	    }
 
-        studentRepository.saveAll(students);
-    }
+	    studentRepository.saveAll(students);
+
+	}
+
+  
 }

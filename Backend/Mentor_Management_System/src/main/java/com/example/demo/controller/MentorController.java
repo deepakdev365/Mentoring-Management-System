@@ -12,7 +12,8 @@ import com.example.demo.service.MentorService;
 
 @RestController
 @RequestMapping("/mentor")
-@CrossOrigin(origins =  "http://localhost:4200")
+@CrossOrigin(origins =  "http://localhost:4200",
+allowedHeaders = "*")
 public class MentorController {
 
     @Autowired

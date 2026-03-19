@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	 Optional<Student> findByRegistrationNumber(String registrationNumber);
 	 
 	 Optional<Student> findByEmailAndPassword(String email, String password);
-	
+	 List<Student> findByRegistrationNumberIn(List<String> registrationNumbers);
 }

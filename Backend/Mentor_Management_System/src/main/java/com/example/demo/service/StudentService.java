@@ -13,6 +13,5 @@ public interface StudentService {
 	
     Student login(String email, String password);
 
-    
-    void assignMentor(Long mentorId, List<Long> studentIds);
+    void assignMentor(Long mentorId, List<String> registrationNumbers);
 }

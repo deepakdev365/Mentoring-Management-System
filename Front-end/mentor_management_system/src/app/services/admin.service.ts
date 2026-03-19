@@ -18,17 +18,17 @@ export class AdminService {
 
 
 
-assignMentees(mentorId: number, studentIds: number[]) {
+assignMentees(mentorId: number, registrationNumbers: string[]) {
 
-  let params = `mentorId=${mentorId}`;
-
-  studentIds.forEach(id => {
-    params += `&studentIds=${id}`;
-  });
+  const body = {
+    mentorId: mentorId,
+    registrationNumbers: registrationNumbers
+  };
 
   return this.http.post(
-    `http://localhost:8081/mentor/assign?${params}`,
-    {}
+    'http://localhost:8081/admin/assign-mentor',
+    body,
+    { responseType: 'text' } 
   );
 }
 
