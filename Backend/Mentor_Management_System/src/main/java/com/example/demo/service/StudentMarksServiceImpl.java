@@ -1,91 +1,64 @@
 package com.example.demo.service;
 
-import java.io.InputStream;
-import java.util.Iterator;
-
-import org.apache.poi.ss.usermodel.*;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.demo.model.StudentMarks;
 import com.example.demo.repository.StudentMarksRepository;
-import com.example.demo.service.StudentMarksService;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class StudentMarksServiceImpl implements StudentMarksService {
 
-    private final StudentMarksRepository repository;
-
-    public StudentMarksServiceImpl(StudentMarksRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private StudentMarksRepository repository;
 
     @Override
     public void uploadExcel(MultipartFile file) throws Exception {
 
-        InputStream is = file.getInputStream();
-        Workbook workbook = WorkbookFactory.create(is);
+        Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
 
-        Iterator<Row> rows = sheet.iterator();
-        rows.next(); // skip header
+        for (Row row : sheet) {
 
-        while (rows.hasNext()) {
-            Row row = rows.next();
+            // Skip header row
+            if (row.getRowNum() == 0) continue;
 
             StudentMarks marks = new StudentMarks();
 
-            String rollNo = getCellValue(row.getCell(0));
-            String subjectCode = getCellValue(row.getCell(4));
+            // Excel mapping
+            marks.setRollNo(row.getCell(0).getStringCellValue());
+            marks.setSubjectCode(row.getCell(1).getStringCellValue());
 
-            int internalMarks = parseInt(row.getCell(5));
-            int externalMarks = parseInt(row.getCell(6));
+            int internal = (int) row.getCell(2).getNumericCellValue();
+            int external = (int) row.getCell(3).getNumericCellValue();
 
-            int total = internalMarks + externalMarks;
-            double percentage = total; // assuming total is out of 100
+            int total = internal + external;
 
-            String grade = calculateGrade(percentage);
-            String result = percentage >= 40 ? "PASS" : "FAIL";
-
-            marks.setRollNo(rollNo);
-            marks.setSubjectCode(subjectCode);
-            marks.setInternalMarks(internalMarks);
-            marks.setExternalMarks(externalMarks);
+            // Set values
+            marks.setInternalMarks(internal);
+            marks.setExternalMarks(external);
             marks.setTotalMarks(total);
+
+            // Percentage
+            double percentage = (total / 100.0) * 100;
             marks.setPercentage(percentage);
-            marks.setGrade(grade);
-            marks.setResult(result);
+
+            // Grade Logic
+            if (percentage >= 90) marks.setGrade("A+");
+            else if (percentage >= 75) marks.setGrade("A");
+            else if (percentage >= 60) marks.setGrade("B");
+            else if (percentage >= 50) marks.setGrade("C");
+            else marks.setGrade("F");
+
+            // Result Logic
+            if (percentage >= 40) marks.setResult("PASS");
+            else marks.setResult("FAIL");
 
             repository.save(marks);
         }
 
         workbook.close();
-    }
-
-    // ================= Helper Methods =================
-
-    private String getCellValue(Cell cell) {
-        if (cell == null) return "";
-        if (cell.getCellType() == CellType.STRING)
-            return cell.getStringCellValue().trim();
-        if (cell.getCellType() == CellType.NUMERIC)
-            return String.valueOf((int) cell.getNumericCellValue());
-        return "";
-    }
-
-    private int parseInt(Cell cell) {
-        try {
-            return Integer.parseInt(getCellValue(cell));
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    private String calculateGrade(double percentage) {
-        if (percentage >= 90) return "A+";
-        if (percentage >= 75) return "A";
-        if (percentage >= 60) return "B";
-        if (percentage >= 40) return "C";
-        return "F";
     }
 }

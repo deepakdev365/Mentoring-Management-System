@@ -1,7 +1,10 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.model.StudentMarks;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface StudentMarksRepository extends JpaRepository<StudentMarks, Long> {
+    List<StudentMarks> findByRollNo(String rollNo);
 }
