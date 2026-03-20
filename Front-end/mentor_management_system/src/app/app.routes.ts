@@ -6,18 +6,18 @@ import { adminAuthGuard } from './guards/admin-auth-guard';
 import { StudentsComponent } from './components/students/students.component';
 import { MentorComponent } from './components/mentor/mentor.component';
 import { StudentLoginComponent } from './components/student-login.component/student-login.component';
-import { MentorLoginComponent } from './mentor-login.component/mentor-login.component';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 import { studentAuthGuard } from './guards/student-auth-guard';
 import { StudentLayoutComponent } from './layouts/student-layout/student-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AssignMenteesComponent } from './components/assign-mentees/assign-mentees.component';
-import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
+import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
+
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'admin-login', component: AdminLoginComponent },
-  {path:'mentor-dashboard',component:MentorDashboard},
+
   { path: 'mentor-login', component: MentorLoginComponent },
   
    {path: 'admin',
