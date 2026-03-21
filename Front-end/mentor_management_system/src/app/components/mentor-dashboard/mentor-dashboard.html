@@ -1,0 +1,20 @@
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Mentor Panel</h2>
+
+  <ul>
+    
+<li (click)="goToProfile()">Profile</li>
+    <li (click)="logout()">Logout</li>
+  </ul>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h3>Welcome, {{ mentorName }}</h3>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <router-outlet></router-outlet>
+</div>

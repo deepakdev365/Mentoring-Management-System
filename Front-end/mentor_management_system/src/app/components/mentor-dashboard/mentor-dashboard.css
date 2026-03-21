@@ -1,0 +1,23 @@
+.sidebar {
+  width: 200px;
+  position: fixed;
+  height: 100vh;
+  background: #0f172a;
+  color: white;
+  padding: 20px;
+}
+
+.navbar {
+  margin-left: 200px;
+  height: 60px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.main {
+  margin-left: 200px;
+  margin-top: 60px;
+  padding: 20px;
+}
