@@ -12,6 +12,8 @@ import { StudentLayoutComponent } from './layouts/student-layout/student-layout.
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AssignMenteesComponent } from './components/assign-mentees/assign-mentees.component';
 import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
+import { StudentProfileComponent } from './components/student-profile/student-profile.component';
+
 
 
 export const routes: Routes = [
@@ -40,6 +42,14 @@ export const routes: Routes = [
   ]
 },
 
-{ path:'admin/assign-mentees', component: AssignMenteesComponent }
+{ path:'admin/assign-mentees', component: AssignMenteesComponent },
 
+// {path:'admin/student/regNo', component:StudentProfileComponent},
+{
+  path: 'admin',
+  children: [
+    { path: 'students', component: StudentsComponent },
+    { path: 'student/:regNo', component: StudentProfileComponent }
+  ]
+}
 ];

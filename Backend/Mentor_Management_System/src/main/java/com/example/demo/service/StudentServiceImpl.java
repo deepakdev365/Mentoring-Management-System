@@ -65,5 +65,11 @@ public class StudentServiceImpl implements StudentService {
 
 	}
 
+	@Override
+	public Student getStudentByRegNo(String regNo) {
+		// TODO Auto-generated method stub
+		return studentRepository.findByRegistrationNumber(regNo).orElseThrow(() -> new RuntimeException("Student not found"));
+	}
+
   
 }

@@ -39,6 +39,8 @@ loginStudent(email: string, password: string){
   );
 }
 
-
+getStudentByRegNo(regNo: any){
+  return this.http.get(`http://localhost:8081/api/students/${regNo}`);
+}
 
 }

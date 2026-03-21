@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -30,7 +31,7 @@ public class Student {
 	    
 	    @ManyToOne
 	    @JoinColumn(name = "mentor_id")
-	    @JsonBackReference
+	    @JsonIgnoreProperties({"students"})
 	    private Mentor mentor;
 
 	    // Address details

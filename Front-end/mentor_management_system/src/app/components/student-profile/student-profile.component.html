@@ -1,0 +1,17 @@
+<div class="card p-4 text-center" *ngIf="student">
+
+  <img src="profile.png"
+       class="rounded-circle mx-auto"
+       width="120" height="120">
+
+  <h4 class="mt-3">{{student.fullName}}</h4>
+
+  <hr>
+
+  <p><b>Reg No:</b> {{student.registrationNumber}}</p>
+  <p><b>Email:</b> {{student.email}}</p>
+  <p><b>Branch:</b> {{student.branch}}</p>
+  <p><b>Semester:</b> {{student.semester}}</p>
+  <p><b>Mentor:</b> {{student.mentor?.fullName || 'Not Assigned'}}</p>
+
+</div>

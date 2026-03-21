@@ -98,4 +98,8 @@ uploadFile(){
   });
 
 }
+
+viewStudent(regNo: string){
+  this.router.navigate(['/admin/student',regNo])
+}
 }
