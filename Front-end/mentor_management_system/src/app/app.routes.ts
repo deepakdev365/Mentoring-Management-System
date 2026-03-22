@@ -6,7 +6,6 @@ import { adminAuthGuard } from './guards/admin-auth-guard';
 import { StudentsComponent } from './components/students/students.component';
 import { MentorComponent } from './components/mentor/mentor.component';
 import { StudentLoginComponent } from './components/student-login.component/student-login.component';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 import { studentAuthGuard } from './guards/student-auth-guard';
 import { StudentLayoutComponent } from './layouts/student-layout/student-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -16,6 +15,7 @@ import { MentorLoginComponent } from './components/mentor-login.component/mentor
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 
 
 

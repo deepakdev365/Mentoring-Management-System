@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StudentService } from '../../services/student.service';
+
 
 @Component({
   selector: 'app-student-profile',
@@ -15,7 +16,8 @@ export class StudentProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -28,4 +30,35 @@ export class StudentProfileComponent implements OnInit {
       });
 
   }
+  unassign(){
+
+  if(!confirm("Are you sure to unassign this student?")) return;
+
+  this.studentService.unassignMentor(this.student.registrationNumber)
+    .subscribe({
+
+      next: (res) => {
+        alert(res);
+
+        // 🔥 update UI instantly
+        this.student.mentor = null;
+      },
+
+      error: (err) => {
+        console.log(err);
+        alert("Unassign failed");
+      }
+
+    });
+
+}
+goToAssign(){
+
+  this.router.navigate(['/admin/assign-mentees'], {
+    queryParams: {
+      regNo: this.student.registrationNumber
+    }
+  });
+
+}
 }

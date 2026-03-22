@@ -1,1 +1,25 @@
-<p>student-dashboard works!</p>
+<div class="card p-4" *ngIf="student">
+
+  <h4>Assigned Mentor</h4>
+
+  <div *ngIf="student.mentor; else noMentor">
+
+    <h5>{{student.mentor.fullName}}</h5>
+
+    <button class="btn btn-primary me-2"
+            (click)="viewMentor()">
+      View Mentor
+    </button>
+
+    <button class="btn btn-warning"
+            (click)="goToComplaint()">
+      Message / Complaint
+    </button>
+
+  </div>
+
+  <ng-template #noMentor>
+    <p>No mentor assigned yet</p>
+  </ng-template>
+
+</div>

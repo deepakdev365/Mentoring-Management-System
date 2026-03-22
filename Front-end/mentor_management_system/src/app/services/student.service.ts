@@ -43,4 +43,12 @@ getStudentByRegNo(regNo: any){
   return this.http.get(`http://localhost:8081/api/students/${regNo}`);
 }
 
+unassignMentor(regNo: string){
+  return this.http.put(
+    `http://localhost:8081/api/students/unassign/${regNo}`,
+    {},
+    { responseType: 'text' }
+  );
+}
+
 }

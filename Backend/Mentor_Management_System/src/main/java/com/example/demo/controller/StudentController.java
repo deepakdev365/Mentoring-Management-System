@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -286,5 +287,13 @@ public Student getStudent(@PathVariable String regNo) {
 	return studentService.getStudentByRegNo(regNo);
 }
     
+
+@PutMapping("/unassign/{regNo}")
+public String unassign(@PathVariable String regNo){
+
+    studentService.unassignMentor(regNo);
+
+    return "Mentor unassigned successfully";
+}
     
 }

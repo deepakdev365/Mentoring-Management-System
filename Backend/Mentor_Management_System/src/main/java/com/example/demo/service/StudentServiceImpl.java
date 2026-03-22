@@ -71,5 +71,16 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.findByRegistrationNumber(regNo).orElseThrow(() -> new RuntimeException("Student not found"));
 	}
 
+	
+	@Override
+	public void unassignMentor(String regNo){
+
+	    Student student = studentRepository.findByRegistrationNumber(regNo)
+	            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+	    student.setMentor(null);
+
+	    studentRepository.save(student);
+	}
   
 }

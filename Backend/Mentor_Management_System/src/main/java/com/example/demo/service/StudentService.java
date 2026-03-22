@@ -17,5 +17,6 @@ public interface StudentService {
     
     
     
-    Student getStudentByRegNo(String regNO);
+    Student getStudentByRegNo(String regNo);
+    void unassignMentor(String regNo);
 }
