@@ -28,20 +28,21 @@ login() {
   }
 
   this.mentorService.login(
-  this.email.trim(),
-  this.password.trim()
-).subscribe({
-  next: (res: any) => {
-    console.log(res);
+    this.email.trim(),
+    this.password.trim()
+  ).subscribe({
+    next: (res: any) => {
+      console.log(res);
 
-    // ✅ store name for navbar
-    localStorage.setItem('mentorName', res.name);
+      // ✅ STORE EMAIL (IMPORTANT)
+      localStorage.setItem('mentorEmail', this.email.trim());
+      localStorage.setItem('mentorName', this.email.trim());
 
-    this.router.navigate(['/mentor-dashboard']); // ✅ better than window.location
-  },
-  error: (err: any) => {
-    this.errorMessage = "Invalid email or password";
-  }
-});
+      this.router.navigate(['/mentor-dashboard']);
+    },
+    error: (err: any) => {
+      this.errorMessage = "Invalid email or password";
+    }
+  });
 }
 }
