@@ -12,20 +12,16 @@ import { StudentLayoutComponent } from './layouts/student-layout/student-layout.
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AssignMenteesComponent } from './components/assign-mentees/assign-mentees.component';
 import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
-
-import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
 import { ProfileComponent } from './components/profile/profile.component';
-
-
-
-
+import { AssignStudentComponent } from './components/assign-student/assign-student.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'admin-login', component: AdminLoginComponent },
-    {path:'mentor-dashboard',component:MentorDashboard},
- 
+  {path:'mentor-dashboard',component:MentorDashboard},
+  { path: '', component: LandingComponent },
+
   { path: 'mentor-login', component: MentorLoginComponent },
   
    {path: 'admin',
@@ -37,7 +33,7 @@ export const routes: Routes = [
 },
 { path: 'students', component: StudentsComponent },
 { path: 'mentor', component: MentorComponent },
-  { path: 'student-login', component: StudentLoginComponent },
+{ path: 'student-login', component: StudentLoginComponent },
   
 {
   path: 'student',
@@ -50,27 +46,18 @@ export const routes: Routes = [
 
 { path:'admin/assign-mentees', component: AssignMenteesComponent },
 
-
-// {path:'admin/student/regNo', component:StudentProfileComponent},
-{
-  path: 'admin',
-  children: [
-    { path: 'students', component: StudentsComponent },
-    { path: 'student/:regNo', component: StudentProfileComponent }
-  ]
-},
-
  {
     path: 'mentor',
     component: MentorDashboard,
     children: [
       { path: 'dashboard', component: MentorDashboard }, // OR separate dashboard component
       { path: 'students', component: StudentsComponent },
-      { path: 'profile', component: ProfileComponent},
+      { path: 'profile', component: ProfileComponent },
+      { path: 'assign-student', component: AssignStudentComponent },
+
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 
   { path: '', redirectTo: 'mentor', pathMatch: 'full' }
-
 ];
