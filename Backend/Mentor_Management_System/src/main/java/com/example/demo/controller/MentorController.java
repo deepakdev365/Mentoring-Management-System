@@ -28,14 +28,11 @@ public class MentorController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
-            @RequestParam String email,
-            @RequestParam String password) {
+    public Mentor login(@RequestParam String email,
+                        @RequestParam String password) {
 
-        mentorService.login(email, password);
-        return ResponseEntity.ok("Login successful");
+        return mentorService.login(email, password); 
     }
-    
     @GetMapping("/all")
     public List<Mentor> getAllMentors(){
     	return mentorService.getAllMentors();

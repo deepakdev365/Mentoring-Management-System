@@ -1,20 +1,33 @@
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <h2>Mentor Panel</h2>
+<div class="container mt-4">
 
-  <ul>
-    
-<li (click)="goToProfile()">Profile</li>
-    <li (click)="logout()">Logout</li>
-  </ul>
-</div>
+  <h2 class="mb-4">Mentor Dashboard</h2>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <h3>Welcome, {{ mentorName }}</h3>
-</div>
+  <div class="row">
 
-<!-- MAIN CONTENT -->
-<div class="main">
-  <router-outlet></router-outlet>
+    <!-- Total Students -->
+    <div class="col-md-4">
+      <div class="card text-center p-3 shadow">
+        <h5>Total Students</h5>
+        <h2>{{totalStudents}}</h2>
+      </div>
+    </div>
+
+    <!-- Total Complaints -->
+    <div class="col-md-4">
+      <div class="card text-center p-3 shadow">
+        <h5>Total Complaints</h5>
+        <h2>{{totalComplaints}}</h2>
+      </div>
+    </div>
+
+    <!-- Pending Complaints -->
+    <div class="col-md-4">
+      <div class="card text-center p-3 shadow">
+        <h5>Pending Complaints</h5>
+        <h2 class="text-danger">{{pendingComplaints}}</h2>
+      </div>
+    </div>
+
+  </div>
+
 </div>

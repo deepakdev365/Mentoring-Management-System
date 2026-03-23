@@ -1,0 +1,16 @@
+/* fixed circular container */
+.mentor-img-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 3px solid #0d6efd;
+}
+
+/* image fits inside container */
+.mentor-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

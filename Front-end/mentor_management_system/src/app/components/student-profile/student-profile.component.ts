@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StudentService } from '../../services/student.service';
-
 
 @Component({
   selector: 'app-student-profile',
@@ -12,7 +11,8 @@ import { StudentService } from '../../services/student.service';
 })
 export class StudentProfileComponent implements OnInit {
 
-  student:any;
+  student: any;
+  regNo: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -22,43 +22,66 @@ export class StudentProfileComponent implements OnInit {
 
   ngOnInit(){
 
-    const regNo = this.route.snapshot.paramMap.get('regNo');
+    this.regNo = this.route.snapshot.paramMap.get('regNo') || '';
 
-    this.studentService.getStudentByRegNo(regNo)
-      .subscribe(res=>{
-        this.student = res;
+    console.log("RegNo:", this.regNo);
+
+    if(this.regNo){
+      this.loadStudent();
+    }
+
+  }
+
+  loadStudent(){
+
+    this.studentService.getStudentByRegNo(this.regNo)
+      .subscribe({
+        next: (res) => {
+          this.student = res;
+        },
+        error: (err) => {
+          console.log(err);
+        }
       });
 
   }
+
   unassign(){
 
-  if(!confirm("Are you sure to unassign this student?")) return;
+    if(!this.student?.mentor){
+      alert("No mentor assigned");
+      return;
+    }
 
-  this.studentService.unassignMentor(this.student.registrationNumber)
-    .subscribe({
+    if(!confirm("Are you sure to unassign this student?")) return;
 
-      next: (res) => {
-        alert(res);
+    this.studentService.unassignMentor(this.student.registrationNumber)
+      .subscribe({
 
-        // 🔥 update UI instantly
-        this.student.mentor = null;
-      },
+        next: (res) => {
+          alert(res);
 
-      error: (err) => {
-        console.log(err);
-        alert("Unassign failed");
+          // update UI instantly
+          this.student.mentor = null;
+        },
+
+        error: (err) => {
+          console.log(err);
+          alert("Unassign failed");
+        }
+
+      });
+
+  }
+
+  goToAssign(){
+
+    this.router.navigate(['/admin/assign-mentees'], {
+      queryParams: {
+        regNo: this.student.registrationNumber
       }
-
     });
 
-}
-goToAssign(){
+  }
 
-  this.router.navigate(['/admin/assign-mentees'], {
-    queryParams: {
-      regNo: this.student.registrationNumber
-    }
-  });
-
-}
 }

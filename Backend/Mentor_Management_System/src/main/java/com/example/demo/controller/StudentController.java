@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.Mentor;
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
+import com.example.demo.repository.*;
 
 @RestController
 @RequestMapping("/api/students")
@@ -31,6 +33,8 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private MentorRepository mentorRepository;
 
     private static final String[] EXPECTED_HEADERS = {
 
@@ -280,7 +284,16 @@ public class StudentController {
         }
 
     }
+    @GetMapping("/mentor/{id}")
+    public List<Student> getStudentsByMentor(@PathVariable int id) {
+
+        List<Student> students = studentService.getStudentsByMentorId(id);
+
+       
+        return students; }
     
+    
+
     
 @GetMapping("/{regNo}")
 public Student getStudent(@PathVariable String regNo) {
@@ -295,5 +308,5 @@ public String unassign(@PathVariable String regNo){
 
     return "Mentor unassigned successfully";
 }
-    
+
 }

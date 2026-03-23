@@ -64,23 +64,33 @@ public class StudentServiceImpl implements StudentService {
 	    studentRepository.saveAll(students);
 
 	}
-
+	
 	@Override
-	public Student getStudentByRegNo(String regNo) {
-		// TODO Auto-generated method stub
-		return studentRepository.findByRegistrationNumber(regNo).orElseThrow(() -> new RuntimeException("Student not found"));
+	
+	public List<Student> getStudentsByMentorId(Integer mentorId) {
+	    return studentRepository.findByMentor_Id(mentorId);
 	}
 
 	
 	@Override
 	public void unassignMentor(String regNo){
 
-	    Student student = studentRepository.findByRegistrationNumber(regNo)
-	            .orElseThrow(() -> new RuntimeException("Student not found"));
+	    Student student = studentRepository.findByRegistrationNumber(regNo);
 
 	    student.setMentor(null);
 
-	    studentRepository.save(student);
+	    studentRepository.save(student);}
+	@Override
+	public List<Student> getStudentsByMentorEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+
+	}
+
+	@Override
+	public Student getStudentByRegNo(String regNo) {
+		// TODO Auto-generated method stub
+		return studentRepository.findByRegistrationNumber(regNo);
 	}
   
 }

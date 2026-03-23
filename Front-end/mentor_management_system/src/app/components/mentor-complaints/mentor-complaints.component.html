@@ -1,0 +1,28 @@
+<div class="container mt-4">
+
+  <h3>Student Complaints</h3>
+
+  <div *ngFor="let c of complaints" class="card p-3 mb-3">
+
+    <p><b>Student:</b> {{c.registrationNumber}}</p>
+    <p><b>Message:</b> {{c.message}}</p>
+
+    <p>
+      <b>Status:</b>
+      <span [ngClass]="{
+        'text-warning': c.status === 'Pending',
+        'text-success': c.status === 'Resolved'
+      }">
+        {{c.status}}
+      </span>
+    </p>
+
+    <button *ngIf="c.status === 'Pending'"
+            class="btn btn-success"
+            (click)="resolve(c.id)">
+      Mark as Resolved
+    </button>
+
+  </div>
+
+</div>

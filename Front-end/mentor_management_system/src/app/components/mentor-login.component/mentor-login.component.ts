@@ -22,6 +22,8 @@ export class MentorLoginComponent {
 
 login() {
 
+  console.log("INPUT:", this.email, this.password); // 🔥 DEBUG
+
   if (!this.email || !this.password) {
     this.errorMessage = "Please enter email and password";
     return;
@@ -32,15 +34,16 @@ login() {
     this.password.trim()
   ).subscribe({
     next: (res: any) => {
-      console.log(res);
+      console.log("Login Response:", res);
 
-      // ✅ STORE EMAIL (IMPORTANT)
-      localStorage.setItem('mentorEmail', this.email.trim());
-      localStorage.setItem('mentorName', this.email.trim());
+      localStorage.setItem('mentorId', String(res.id));
+      localStorage.setItem('mentorEmail', res.email);
+      localStorage.setItem('mentorName', res.fullName);
 
-      this.router.navigate(['/mentor-dashboard']);
+      this.router.navigate(['/mentor/dashboard']);
     },
     error: (err: any) => {
+      console.log("ERROR:", err); // 🔥 VERY IMPORTANT
       this.errorMessage = "Invalid email or password";
     }
   });

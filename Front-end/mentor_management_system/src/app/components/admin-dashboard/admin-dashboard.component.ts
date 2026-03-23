@@ -13,7 +13,7 @@ export class AdminDashboardComponent {
 
 
 goStudents(){
-  this.router.navigate(['/students']);
+  this.router.navigate(['/admin/students']);
 }
 
 goMentor(){

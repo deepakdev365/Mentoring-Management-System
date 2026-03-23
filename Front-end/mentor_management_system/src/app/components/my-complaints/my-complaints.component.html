@@ -1,0 +1,35 @@
+<div class="container mt-4">
+
+  <h3 class="mb-4">My Complaints</h3>
+
+  <div *ngIf="complaints.length > 0; else noData">
+
+    <div class="card p-3 mb-3 shadow"
+         *ngFor="let c of complaints">
+
+      <p><b>Message:</b> {{c.message}}</p>
+
+      <p>
+        <b>Date:</b>
+        {{c.createdAt | date:'medium'}}
+      </p>
+
+      <p>
+        <b>Status:</b>
+        <span [ngClass]="{
+          'text-warning': c.status === 'Pending',
+          'text-success': c.status === 'Resolved'
+        }">
+          {{c.status}}
+        </span>
+      </p>
+
+    </div>
+
+  </div>
+
+  <ng-template #noData>
+    <p>No complaints found</p>
+  </ng-template>
+
+</div>

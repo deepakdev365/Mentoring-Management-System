@@ -12,8 +12,10 @@ import com.example.demo.model.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
 	
-	 Optional<Student> findByRegistrationNumber(String registrationNumber);
+	 Student findByRegistrationNumber(String registrationNumber);
 	 
 	 Optional<Student> findByEmailAndPassword(String email, String password);
 	 List<Student> findByRegistrationNumberIn(List<String> registrationNumbers);
+	 
+	 List<Student> findByMentor_Id(Integer mentorId);	 
 }

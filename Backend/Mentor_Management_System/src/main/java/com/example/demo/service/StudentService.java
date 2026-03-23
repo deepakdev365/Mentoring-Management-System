@@ -14,9 +14,17 @@ public interface StudentService {
     Student login(String email, String password);
 
     void assignMentor(Long mentorId, List<String> registrationNumbers);
+
     
     
     
     Student getStudentByRegNo(String regNo);
     void unassignMentor(String regNo);
+
+
+
+	List<Student> getStudentsByMentorId(Integer id);
+
+	List<Student> getStudentsByMentorEmail(String email);
+
 }

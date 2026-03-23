@@ -11,11 +11,12 @@ export class MentorService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
+login(email: string, password: string){
+  console.log("SERVICE CALL:", email, password); // 🔥 DEBUG
+
   return this.http.post(
-    `${this.baseUrl}/login?email=${email}&password=${password}`,
-    null,
-    { responseType: 'text' }
+    `http://localhost:8081/mentor/login?email=${email}&password=${password}`,
+    {}
   );
 }
 
@@ -30,4 +31,9 @@ export class MentorService {
     return this.http.post(`${this.baseUrl}/upload`, data, {responseType:'text'});
 
   }
+
+
+getStudentsByMentorId(id: number) {
+  return this.http.get<any[]>(`http://localhost:8081/api/students/mentor/${id}`);
+}
 }

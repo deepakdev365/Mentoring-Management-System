@@ -39,7 +39,7 @@ loginStudent(email: string, password: string){
   );
 }
 
-getStudentByRegNo(regNo: any){
+getStudentByRegNo(regNo: string){
   return this.http.get(`http://localhost:8081/api/students/${regNo}`);
 }
 
@@ -50,5 +50,8 @@ unassignMentor(regNo: string){
     { responseType: 'text' }
   );
 }
+
+
+
 
 }

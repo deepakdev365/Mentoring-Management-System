@@ -1,44 +1,71 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-mentor-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule],
   templateUrl: './mentor-dashboard.html',
   styleUrls: ['./mentor-dashboard.css']
 })
 export class MentorDashboard implements OnInit {
 
-  mentorName: string = '';
+  totalStudents = 0;
+  totalComplaints = 0;
+  pendingComplaints = 0;
 
-  constructor(private router: Router) {}
+  mentorId: number = 0;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.mentorName = localStorage.getItem('mentorName') || 'Mentor';
 
-    const email = localStorage.getItem('mentorEmail');
+    this.mentorId = Number(localStorage.getItem("mentorId"));
 
-  if (!email) {
-    this.router.navigate(['/login']); // 🔥 block access
-    return;
+    console.log("Mentor ID:", this.mentorId);
+
+    this.loadStudents();
+    this.loadComplaints();
   }
 
-  this.mentorName = localStorage.getItem('mentorName') || 'Mentor';
+  loadStudents() {
+
+    this.http.get<any[]>(
+      `http://localhost:8081/api/students/mentor/${this.mentorId}`
+    ).subscribe({
+      next: (res) => {
+        console.log("Students:", res);
+        this.totalStudents = res.length;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
   }
 
-  logout() {
-  console.log("Logout clicked"); // 🔥 test
+  loadComplaints() {
 
-  localStorage.clear(); // ✅ clear everything
+    this.http.get<any[]>(
+      `http://localhost:8081/complaint/mentor/${this.mentorId}`
+    ).subscribe({
+      next: (res) => {
 
-  this.router.navigate(['/login']); // ✅ go to login
-}
+        console.log("Complaints:", res);
 
-goToProfile() {
-  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/mentor/profile']);
-  });
-}
+        this.totalComplaints = res.length;
+
+        this.pendingComplaints = res.filter(
+          c => c.status === 'Pending'
+        ).length;
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+  }
+
 }

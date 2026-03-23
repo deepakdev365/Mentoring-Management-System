@@ -1,25 +1,51 @@
-<div class="card p-4" *ngIf="student">
+<div class="container mt-4">
 
-  <h4>Assigned Mentor</h4>
+  <h2 class="mb-4">Student Dashboard</h2>
 
-  <div *ngIf="student.mentor; else noMentor">
+  <div class="card p-4 shadow text-center">
 
-    <h5>{{student.mentor.fullName}}</h5>
+    <h4>Assigned Mentor</h4>
 
-    <button class="btn btn-primary me-2"
-            (click)="viewMentor()">
-      View Mentor
-    </button>
+    <div *ngIf="student?.mentor; else noMentor">
 
-    <button class="btn btn-warning"
-            (click)="goToComplaint()">
-      Message / Complaint
-    </button>
+      <!-- Mentor Image -->
+      <div class="mentor-img-container mt-3">
+        <img src="mentor.png"
+             alt="Mentor Image"
+             class="mentor-img">
+      </div>
+
+      <!-- Mentor Name -->
+      <h5 class="mt-3">{{student.mentor.fullName}}</h5>
+
+      <!-- Buttons -->
+      <div class="mt-3">
+
+        <button class="btn btn-primary me-2"
+                (click)="viewMentor()">
+          View Mentor
+        </button>
+
+        <button class="btn btn-warning me-2"
+                (click)="goToComplaint()">
+          Message / Complaint
+        </button>
+
+        <button class="btn btn-secondary"
+                (click)="viewMyComplaints()">
+          My Complaints
+        </button>
+
+      </div>
+
+    </div>
+
+    <ng-template #noMentor>
+      <p class="text-danger mt-2">
+        No mentor assigned yet
+      </p>
+    </ng-template>
 
   </div>
-
-  <ng-template #noMentor>
-    <p>No mentor assigned yet</p>
-  </ng-template>
 
 </div>
