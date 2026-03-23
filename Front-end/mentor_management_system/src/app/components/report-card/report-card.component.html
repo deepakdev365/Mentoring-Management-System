@@ -1,0 +1,36 @@
+<h2>Student Report Card</h2>
+
+<input [(ngModel)]="rollNo" placeholder="Enter Roll No">
+
+<button (click)="search()">Search</button>
+
+<br><br>
+
+<div *ngIf="marks.length > 0">
+
+  <h3>Roll No: {{rollNo}}</h3>
+
+  <table border="1">
+    <tr>
+      <th>Subject</th>
+      <th>Internal</th>
+      <th>External</th>
+      <th>Total</th>
+      <th>Grade</th>
+      <th>Result</th>
+    </tr>
+
+    <tr *ngFor="let m of marks">
+      <td>{{m.subjectCode}}</td>
+      <td>{{m.internalMarks}}</td>
+      <td>{{m.externalMarks}}</td>
+      <td>{{m.totalMarks}}</td>
+      <td>{{m.grade}}</td>
+      <td>{{m.result}}</td>
+    </tr>
+  </table>
+
+  <h3>Total: {{getTotal()}}</h3>
+  <h3>Average: {{getAverage()}}</h3>
+
+</div>
