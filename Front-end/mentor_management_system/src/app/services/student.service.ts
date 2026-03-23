@@ -50,6 +50,24 @@ unassignMentor(regNo: string){
     { responseType: 'text' }
   );
 }
+uploadMarksExcel(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return this.http.post(
+    'http://localhost:8081/api/marks/upload',
+    formData,
+    { responseType: 'text' }
+  );
+}
+
+// ✅ Get Report by Roll No
+getReportByRollNo(rollNo: string) {
+  return this.http.get<any[]>(
+    `http://localhost:8081/api/marks/${rollNo}`
+  );
+}
+
 
 
 

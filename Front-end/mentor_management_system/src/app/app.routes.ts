@@ -29,6 +29,7 @@ import { mentorAuthGuard } from './guards/mentor-auth-guard';
 import { MentorProfileComponent } from './mentor-profile/mentor-profile.component';
 import { MentorStudentsComponent } from './mentor-students/mentor-students.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
+import { ReportCardComponent } from './components/report-card/report-card.component';
 
 
 export const routes: Routes = [
@@ -59,7 +60,8 @@ export const routes: Routes = [
   component: StudentLayoutComponent,
   canActivate: [studentAuthGuard],
   children: [
-    { path: 'dashboard', component: StudentDashboardComponent }
+    { path: 'dashboard', component: StudentDashboardComponent },
+    { path: 'report-card', component: ReportCardComponent }
   ]
 },
 
