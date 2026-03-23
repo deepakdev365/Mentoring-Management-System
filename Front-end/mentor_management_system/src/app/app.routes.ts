@@ -12,7 +12,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AssignMenteesComponent } from './components/assign-mentees/assign-mentees.component';
 import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
 import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
-import { ProfileComponent } from './components/profile/profile.component';
+
 
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 
