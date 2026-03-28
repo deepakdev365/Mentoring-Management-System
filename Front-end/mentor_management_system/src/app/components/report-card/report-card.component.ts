@@ -1,42 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { StudentService } from '../../services/student.service';
+import { MarksService } from '../../services/marks.service';
+import { StudentMark } from '../../models/student-mark';
 
 @Component({
   selector: 'app-report-card',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './report-card.component.html'
+  templateUrl: './report-card.component.html',
+  styleUrl: './report-card.component.css'
 })
-export class ReportCardComponent {
+export class ReportCardComponent implements OnInit {
+  rollNo = '';
+  marksList: StudentMark[] = [];
+  errorMessage = '';
+  loading = false;
 
-  rollNo: string = '';
-  marks: any[] = [];
+  constructor(private marksService: MarksService) {}
 
-  constructor(private service: StudentService) {}
+  ngOnInit(): void {
+    this.loadAllMarks();
+  }
 
-  search() {
-    if (!this.rollNo) {
-      alert("Enter Roll No");
+  loadAllMarks(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.marksService.getAllMarks().subscribe({
+      next: (data) => {
+        this.marksList = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Unable to fetch marks.';
+        this.loading = false;
+      }
+    });
+  }
+
+  searchByRollNo(): void {
+    this.errorMessage = '';
+
+    if (!this.rollNo.trim()) {
+      this.loadAllMarks();
       return;
     }
 
-    this.service.getReportByRollNo(this.rollNo)
-      .subscribe(data => {
-        this.marks = data;
-      });
+    this.loading = true;
+
+    this.marksService.getMarksByRollNo(this.rollNo.trim()).subscribe({
+      next: (data) => {
+        this.marksList = data;
+        this.loading = false;
+        if (data.length === 0) {
+          this.errorMessage = 'No marks found for this roll number.';
+        }
+      },
+      error: () => {
+        this.errorMessage = 'Search failed.';
+        this.loading = false;
+      }
+    });
   }
 
-  // ✅ ADD THIS
-  getTotal(): number {
-    return this.marks.reduce((sum, m) => sum + m.totalMarks, 0);
-  }
-
-  // ✅ ADD THIS
-  getAverage(): number {
-    return this.marks.length
-      ? this.getTotal() / this.marks.length
-      : 0;
+  resetData(): void {
+    this.rollNo = '';
+    this.loadAllMarks();
   }
 }

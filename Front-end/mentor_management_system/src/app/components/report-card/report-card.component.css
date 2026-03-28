@@ -1,0 +1,53 @@
+.report-container {
+  width: 95%;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+input {
+  min-width: 240px;
+  padding: 8px 10px;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1976d2;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background-color: #616161;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #cccccc;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.error {
+  color: #c62828;
+}

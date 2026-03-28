@@ -13,40 +13,125 @@ public class StudentMarks {
     @Column(name = "roll_no")
     private String rollNo;
 
+    @Column(name = "student_name")
+    private String studentName;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "subject_code")
     private String subjectCode;
 
-    private int internalMarks;
-    private int externalMarks;
-    private int totalMarks;
-    private double percentage;
+    @Column(name = "sem_mark")
+    private Double semMark;
+
+    @Column(name = "total_marks")
+    private Double totalMarks;
+
+    @Column(name = "percentage")
+    private Double percentage;
+
+    @Column(name = "grade")
     private String grade;
+
+    @Column(name = "result")
     private String result;
 
-    // getters & setters
-    public Long getId() { return id; }
+    @Column(name = "semester")
+    private String semester;
 
-    public String getRollNo() { return rollNo; }
-    public void setRollNo(String rollNo) { this.rollNo = rollNo; }
+    @Column(name = "branch")
+    private String branch;
 
-    public String getSubjectCode() { return subjectCode; }
-    public void setSubjectCode(String subjectCode) { this.subjectCode = subjectCode; }
+    public Long getId() {
+        return id;
+    }
 
-    public int getInternalMarks() { return internalMarks; }
-    public void setInternalMarks(int internalMarks) { this.internalMarks = internalMarks; }
+    public String getRollNo() {
+        return rollNo;
+    }
 
-    public int getExternalMarks() { return externalMarks; }
-    public void setExternalMarks(int externalMarks) { this.externalMarks = externalMarks; }
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
 
-    public int getTotalMarks() { return totalMarks; }
-    public void setTotalMarks(int totalMarks) { this.totalMarks = totalMarks; }
+    public String getStudentName() {
+        return studentName;
+    }
 
-    public double getPercentage() { return percentage; }
-    public void setPercentage(double percentage) { this.percentage = percentage; }
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
 
-    public String getGrade() { return grade; }
-    public void setGrade(String grade) { this.grade = grade; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getResult() { return result; }
-    public void setResult(String result) { this.result = result; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+    }
+
+    public Double getSemMark() {
+        return semMark;
+    }
+
+    public void setSemMark(Double semMark) {
+        this.semMark = semMark;
+    }
+
+    public Double getTotalMarks() {
+        return totalMarks;
+    }
+
+    public void setTotalMarks(Double totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
+    public Double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
 }
