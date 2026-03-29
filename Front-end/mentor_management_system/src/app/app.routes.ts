@@ -12,13 +12,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AssignMenteesComponent } from './components/assign-mentees/assign-mentees.component';
 import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
 import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
-import { ProfileComponent } from './components/profile/profile.component';
-
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 
-
-
-
+import { AssignStudentComponent } from './components/assigned-student/assign-student.component';
 
 import { MakeComplaintComponent } from './components/make-complaint/make-complaint.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
@@ -29,18 +25,20 @@ import { MentorProfileComponent } from './mentor-profile/mentor-profile.componen
 import { MentorStudentsComponent } from './mentor-students/mentor-students.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { ReportCardComponent } from './components/report-card/report-card.component';
+
 import { MakeAnnouncementComponent } from './components/make-announcement/make-announcement.component';
 import { StudentNotificationsComponent } from './components/student-notifications/student-notifications.component';
 
 
+import { MarksUploadComponent } from './components/marks-upload/marks-upload.component';
+
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'admin-login', component: AdminLoginComponent },
-  {path:'mentor-dashboard',component:MentorDashboard},
+  { path: 'mentor-dashboard', component: MentorDashboard },
   { path: '', component: LandingComponent },
-
   { path: 'mentor-login', component: MentorLoginComponent },
-  
+
    {path: 'admin',
   component: AdminLayoutComponent,
   canActivate: [adminAuthGuard],
@@ -87,27 +85,52 @@ export const routes: Routes = [
 //     ]
 //   },
 
+
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [adminAuthGuard],
+    children: [
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'students', component: StudentsComponent },
+      { path: 'student/:regNo', component: StudentProfileComponent },
+      { path: 'assign-mentees', component: AssignMenteesComponent },
+      { path: 'upload-marks', component: MarksUploadComponent },
+      { path: 'mentor', component: MentorComponent },
+      
+      
+     { path:'make-announcement', component: MakeAnnouncementComponent },
+      
+    
+    
+    ]
+  },
+  { path: 'mentor', component: MentorComponent },
+  { path: 'student-login', component: StudentLoginComponent },
+  {
+    path: 'student',
+    component: StudentLayoutComponent,
+    canActivate: [studentAuthGuard],
+    children: [
+      { path: 'dashboard', component: StudentDashboardComponent },
+      { path: 'report-card', component: ReportCardComponent }
+    ]
+  },
+
   { path: '', redirectTo: 'mentor', pathMatch: 'full' },
-
-{ path: 'make-complaint', component: MakeComplaintComponent },
-{ path: 'my-complaints', component: MyComplaintsComponent },
-{ path: 'mentor-complaints', component: MentorComplaintsComponent },
-{
-  path: 'mentor',
-  component: MentorLayoutComponent,
-  canActivate: [mentorAuthGuard],
-  children: [
-
-    { path: 'dashboard', component: MentorDashboard },
-    { path: 'profile', component: MentorProfileComponent },
-    { path: 'students', component: MentorStudentsComponent },
-    { path: 'complaints', component: MentorComplaintsComponent },
-
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-
-  ]
-}
-
-
-
+  { path: 'make-complaint', component: MakeComplaintComponent },
+  { path: 'my-complaints', component: MyComplaintsComponent },
+  { path: 'mentor-complaints', component: MentorComplaintsComponent },
+  {
+    path: 'mentor',
+    component: MentorLayoutComponent,
+    canActivate: [mentorAuthGuard],
+    children: [
+      { path: 'dashboard', component: MentorDashboard },
+      { path: 'profile', component: MentorProfileComponent },
+      { path: 'students', component: MentorStudentsComponent },
+      { path: 'complaints', component: MentorComplaintsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  }
 ];

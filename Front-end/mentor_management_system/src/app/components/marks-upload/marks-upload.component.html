@@ -1,7 +1,55 @@
-<h2>Upload Student Marks</h2>
+<div class="container mt-4">
+  <h2>Upload Student Marks</h2>
 
-<input type="file" (change)="onFileChange($event)">
+  <input type="file"
+         class="form-control mb-3"
+         accept=".xls,.xlsx"
+         (change)="onFileSelected($event)">
 
-<br><br>
+  <button class="btn btn-primary mb-4" (click)="uploadFile()">
+    Upload Student Marks Excel
+  </button>
 
-<button (click)="upload()">Upload Marks Excel</button>
+  <p class="upload-success" *ngIf="uploadMessage && uploadSuccess">
+    {{ uploadMessage }}
+  </p>
+
+  <p class="upload-error" *ngIf="uploadMessage && !uploadSuccess">
+    {{ uploadMessage }}
+  </p>
+
+  <table class="table table-bordered" *ngIf="marksList.length > 0">
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Subject Code</th>
+        <th>Sem Mark</th>
+        <th>Total</th>
+        <th>Percentage</th>
+        <th>Grade</th>
+        <th>Result</th>
+        <th>Semester</th>
+        <th>Branch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mark of marksList">
+        <td>{{ mark.rollNo }}</td>
+        <td>{{ mark.studentName }}</td>
+        <td>{{ mark.email }}</td>
+        <td>{{ mark.subjectCode }}</td>
+        <td>{{ mark.semMark }}</td>
+        <td>{{ mark.totalMarks }}</td>
+        <td>{{ mark.percentage }}</td>
+        <td>{{ mark.grade }}</td>
+        <td>{{ mark.result }}</td>
+        <td>{{ mark.semester }}</td>
+        <td>{{ mark.branch }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="marksList.length === 0">No marks data available.</p>
+</div>

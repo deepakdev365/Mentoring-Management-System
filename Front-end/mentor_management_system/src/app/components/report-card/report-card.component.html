@@ -1,36 +1,47 @@
-<h2>Student Report Card</h2>
+<div class="report-container">
+  <h2>Student Marks Report</h2>
 
-<input [(ngModel)]="rollNo" placeholder="Enter Roll No">
+  <div class="search-box">
+    <input type="text" [(ngModel)]="rollNo" placeholder="Enter roll number" />
+    <button type="button" (click)="searchByRollNo()">Search</button>
+    <button type="button" class="secondary" (click)="resetData()">Show All</button>
+  </div>
 
-<button (click)="search()">Search</button>
+  <p *ngIf="loading">Loading...</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-<br><br>
-
-<div *ngIf="marks.length > 0">
-
-  <h3>Roll No: {{rollNo}}</h3>
-
-  <table border="1">
-    <tr>
-      <th>Subject</th>
-      <th>Internal</th>
-      <th>External</th>
-      <th>Total</th>
-      <th>Grade</th>
-      <th>Result</th>
-    </tr>
-
-    <tr *ngFor="let m of marks">
-      <td>{{m.subjectCode}}</td>
-      <td>{{m.internalMarks}}</td>
-      <td>{{m.externalMarks}}</td>
-      <td>{{m.totalMarks}}</td>
-      <td>{{m.grade}}</td>
-      <td>{{m.result}}</td>
-    </tr>
+  <table *ngIf="marksList.length > 0">
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Sem Mark</th>
+        <th>Total</th>
+        <th>Percentage</th>
+        <th>Grade</th>
+        <th>Result</th>
+        <th>Semester</th>
+        <th>Branch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mark of marksList">
+        <td>{{ mark.rollNo }}</td>
+        <td>{{ mark.studentName }}</td>
+        <td>{{ mark.email }}</td>
+        <td>{{ mark.subjectCode }}</td>
+        <td>{{ mark.semMark }}</td>
+        <td>{{ mark.totalMarks }}</td>
+        <td>{{ mark.percentage }}%</td>
+        <td>{{ mark.grade }}</td>
+        <td>{{ mark.result }}</td>
+        <td>{{ mark.semester }}</td>
+        <td>{{ mark.branch }}</td>
+      </tr>
+    </tbody>
   </table>
 
-  <h3>Total: {{getTotal()}}</h3>
-  <h3>Average: {{getAverage()}}</h3>
-
+  <p *ngIf="!loading && !errorMessage && marksList.length === 0">No marks available.</p>
 </div>
