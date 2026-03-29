@@ -52,7 +52,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             int presentClasses = (int) row.getCell(3).getNumericCellValue();
 
             // Find student
-            Optional<Student> studentOpt = studentRepository.findByRegistrationNumber(registrationNumber);
+            Student studentOpt = studentRepository.findByRegistrationNumber(registrationNumber);
 
             if (studentOpt.isEmpty()) {
                 errors.add("Row " + rowNum + " - Student not found: " + registrationNumber);

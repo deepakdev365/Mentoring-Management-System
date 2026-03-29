@@ -36,4 +36,26 @@ login(email: string, password: string){
 getStudentsByMentorId(id: number) {
   return this.http.get<any[]>(`http://localhost:8081/api/students/mentor/${id}`);
 }
+
+
+uploadBacklogExcel(data: FormData) {
+  return this.http.post(
+    'http://localhost:8081/api/backlogs/upload',
+    data,
+    { responseType: 'text' }
+  );
+}
+getStudentBacklogsByEmail(email: string) {
+  return this.http.get<any>(
+    `http://localhost:8081/api/backlogs/student/${encodeURIComponent(email)}`
+  );
+}
+
+deleteBacklogById(id: number) {
+  return this.http.delete(
+    `http://localhost:8081/api/backlogs/${id}`,
+    { responseType: 'text' }
+  );
+}
+
 }

@@ -20,7 +20,6 @@ import { StudentDashboardComponent } from './components/student-dashboard/studen
 
 
 
-import { AssignStudentComponent } from './components/assign-student/assign-student.component';
 import { MakeComplaintComponent } from './components/make-complaint/make-complaint.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
 import { MentorComplaintsComponent } from './components/mentor-complaints/mentor-complaints.component';
@@ -30,6 +29,8 @@ import { MentorProfileComponent } from './mentor-profile/mentor-profile.componen
 import { MentorStudentsComponent } from './mentor-students/mentor-students.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { ReportCardComponent } from './components/report-card/report-card.component';
+import { MakeAnnouncementComponent } from './components/make-announcement/make-announcement.component';
+import { StudentNotificationsComponent } from './components/student-notifications/student-notifications.component';
 
 
 export const routes: Routes = [
@@ -46,10 +47,13 @@ export const routes: Routes = [
   children: [
     { path: 'dashboard', component: AdminDashboardComponent },
     { path: 'students', component: StudentsComponent },
+    { path: 'mentor', component: MentorComponent },
     
     { path: 'student/:regNo', component: StudentProfileComponent },
 
     { path:'assign-mentees', component: AssignMenteesComponent },
+    { path:'make-announcement', component: MakeAnnouncementComponent },
+    
   ]
 },
 { path: 'mentor', component: MentorComponent },
@@ -61,7 +65,10 @@ export const routes: Routes = [
   canActivate: [studentAuthGuard],
   children: [
     { path: 'dashboard', component: StudentDashboardComponent },
-    { path: 'report-card', component: ReportCardComponent }
+    { path: 'report-card', component: ReportCardComponent },
+    { path: 'my-complaints', component: MyComplaintsComponent },
+    { path: 'make-complaint', component: MakeComplaintComponent },
+    { path: 'notifications', component: StudentNotificationsComponent }
   ]
 },
 

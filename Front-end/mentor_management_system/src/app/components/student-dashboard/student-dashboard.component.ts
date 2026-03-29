@@ -39,12 +39,15 @@ export class StudentDashboardComponent implements OnInit {
 
   // navigate to complaint page
   goToComplaint(){
-    this.router.navigate(['/make-complaint']);
+    this.router.navigate(['/student/make-complaint']);
   }
 
   // navigate to complaints list
   viewMyComplaints(){
-    this.router.navigate(['/my-complaints']);
+    this.router.navigate(['/student/my-complaints']);
   }
+  goToNotifications(){
+  this.router.navigate(['/student/notifications']);
+}
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-mentor-complaints',
@@ -13,7 +14,10 @@ export class MentorComplaintsComponent implements OnInit {
   complaints:any[] = [];
   mentorId:any;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient,
+    
+private cdr: ChangeDetectorRef
+  ){}
 
   ngOnInit(){
 

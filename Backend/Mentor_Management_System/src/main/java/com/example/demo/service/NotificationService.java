@@ -6,7 +6,7 @@ import com.example.demo.model.Notification;
 
 public interface NotificationService {
 
-    Notification sendNotification(Notification notification);
+    Notification createNotification(String message);
 
-    List<Notification> getNotifications(Long receiverId, String receiverRole);
+    List<Notification> getAllNotifications();
 }

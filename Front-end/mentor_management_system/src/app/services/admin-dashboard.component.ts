@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MentorService } from '../../services/mentor.service';
 import { PaymentService } from '../../services/payment.service';
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })
-
 export class AdminDashboardComponent {
-   showUpload = false;
+
+  showUpload = false;
   showPaymentUpload = false;
 
   selectedBacklogFile!: File;
@@ -23,32 +25,25 @@ export class AdminDashboardComponent {
   isUploading = false;
   isPaymentUploading = false;
 
-
-  constructor(private router: Router,
-    private mentorService : MentorService,
-    private paymentService : PaymentService
+  constructor(
+    private router: Router,
+    private mentorService: MentorService,
+    private paymentService: PaymentService
   ) {}
 
+  goStudents() {
+    this.router.navigate(['/admin/students']);
+  }
 
-goStudents(){
-  this.router.navigate(['/admin/students']);
-}
+  goMentor() {
+    this.router.navigate(['/mentor']);
+  }
 
-goMentor(){
-  this.router.navigate(['/admin/mentor']);
+  goAssign() {
+    this.router.navigate(['/admin/assign-mentees']);
+  }
 
-}
-
-
-goAssign(){
-  this.router.navigate(['/admin/assign-mentees']);
-}
-
-goToAnnouncement(){
-  this.router.navigate(['/admin/make-announcement']);
-}
-
- toggleUpload() {
+  toggleUpload() {
     this.showUpload = !this.showUpload;
     if (this.showUpload) {
       this.showPaymentUpload = false;
@@ -119,5 +114,4 @@ goToAnnouncement(){
     }
   });
 }
-
 }

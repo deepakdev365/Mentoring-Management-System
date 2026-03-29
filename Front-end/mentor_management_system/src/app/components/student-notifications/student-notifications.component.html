@@ -1,0 +1,15 @@
+<div class="container mt-4">
+
+  <h3>Notifications</h3>
+
+  <div *ngFor="let n of notifications" class="card p-3 mb-3">
+
+    <p>{{n.message}}</p>
+
+    <small class="text-muted">
+      {{n.createdAt | date:'medium'}}
+    </small>
+
+  </div>
+
+</div>

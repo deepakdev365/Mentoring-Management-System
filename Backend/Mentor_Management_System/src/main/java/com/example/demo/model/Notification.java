@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 public class Notification {
 
@@ -10,38 +9,38 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long senderId;
-    private String senderRole;      // MENTOR or STUDENT
-
-    private Long receiverId;
-    private String receiverRole;    // MENTOR or STUDENT
-
     private String message;
 
-    private LocalDateTime timestamp;
+    private LocalDateTime createdAt;
 
     public Notification() {
-        this.timestamp = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() { return id; }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getSenderId() { return senderId; }
-    public void setSenderId(Long senderId) { this.senderId = senderId; }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getSenderRole() { return senderRole; }
-    public void setSenderRole(String senderRole) { this.senderRole = senderRole; }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public Long getReceiverId() { return receiverId; }
-    public void setReceiverId(Long receiverId) { this.receiverId = receiverId; }
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
-    public String getReceiverRole() { return receiverRole; }
-    public void setReceiverRole(String receiverRole) { this.receiverRole = receiverRole; }
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
+    // getters and setters
 
-    public LocalDateTime getTimestamp() { return timestamp; }
 }
