@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="Screenshot (13)" src="https://github.com/user-attachments/assets/fe5a80fb-66df-4ba7-85d3-502066c4c9be" />📘 Mentoring Management System
+📘 Mentoring Management System
 📌 Description
 The Mentoring Management System is a web-based application designed to manage and streamline communication between mentors and students. It helps in assigning mentors, tracking student progress, and sending notifications efficiently.
 
