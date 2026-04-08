@@ -1,45 +1,93 @@
-<nav class="navbar navbar-dark bg-dark px-3">
+<!-- Portal Header -->
+<nav class="header px-4">
+    <div class="header-left">
+        <span class="badge me-2 text-dark" style="background: white;">ME</span>
+        <span class="brand fw-bold">Faculty Portal</span>
+    </div>
 
-  <span class="navbar-brand">Mentor Portal</span>
-
-  <span class="text-white">
-    Welcome {{mentor.fullName}}
-  </span>
-
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
-
+    <div class="header-right">
+        <div class="user-meta d-none d-md-block text-end">
+            <span class="text-small opacity-75 d-block">Faculty Mentor,</span>
+            <span class="user-name fw-bold">{{mentor.fullName}}</span>
+        </div>
+        <div class="avatar flex-center shadow-sm">
+            {{mentor.initials || 'ME'}}
+        </div>
+        <button class="btn-logout ms-2" (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
 </nav>
 
-<div class="d-flex">
+<div class="layout">
 
-  <div class="bg-light p-3" style="width:220px; min-height:100vh">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar fade-in">
+        <div class="menu">
+            <div class="label px-4 py-2">
+                <i class="fa-solid fa-bars sidebar-fa-icon" alt="Nav"></i>
+                <span class="label-text">Navigation</span>
+            </div>
 
-    <h5>Menu</h5>
+            <!-- Compact Profile Info -->
+            <div class="profile-preview px-4 py-4" *ngIf="mentor">
 
-    <ul class="nav flex-column">
+                <i class="fa-solid fa-user sidebar-fa-icon" alt="user"></i>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar flex-center bg-light text-primary border shadow-sm">
+                        {{mentor.initials}}
+                    </div>
+                    <div class="user-details overflow-hidden">
+                        <div class="user-name fw-bold text-dark text-truncate small">{{mentor.fullName}}</div>
+                        <div class="text-muted text-small x-small">Faculty Access</div>
+                    </div>
+                </div>
+            </div>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/mentor/dashboard">Dashboard</a>
-      </li>
+            <ul class="nav-list mt-2">
+                <li class="nav-wrapper">
+                    <a class="nav-item" routerLink="/mentor/dashboard" routerLinkActive="active">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
 
-      <li class="nav-item">
-        <a class="nav-link" (click)="goToProfile()">Profile</a>
-      </li>
+                <li class="nav-wrapper">
+                    <a class="nav-item" routerLink="/mentor/students" routerLinkActive="active">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <span class="nav-label">My Mentees</span>
+                    </a>
+                </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/mentor/students">My Students</a>
-      </li>
+                <li class="nav-wrapper">
+                    <a class="nav-item" routerLink="/mentor/complaints" routerLinkActive="active">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <span class="nav-label">Complaints</span>
+                    </a>
+                </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/mentor/complaints">Complaints</a>
-      </li>
+                <li class="nav-wrapper">
+                    <a class="nav-item" routerLink="/mentor/leave-permissions" routerLinkActive="active">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span class="nav-label">Leave Approvals</span>
+                    </a>
+                </li>
 
-    </ul>
+                <li class="nav-wrapper">
+                    <a class="nav-item" routerLink="/mentor/profile" routerLinkActive="active">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span class="nav-label">My Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
-  </div>
-
-  <div class="p-4 flex-grow-1">
-    <router-outlet></router-outlet>
-  </div>
+    <!-- Main Content Area -->
+    <main class="content p-4">
+        <div class="viewport fade-in">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
 
 </div>

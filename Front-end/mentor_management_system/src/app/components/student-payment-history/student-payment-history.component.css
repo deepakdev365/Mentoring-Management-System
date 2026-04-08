@@ -1,0 +1,22 @@
+.bg-success-soft { background-color: #dcfce7; }
+.bg-warning-soft { background-color: #fef9c3; }
+.bg-danger-soft { background-color: #fee2e2; }
+.bg-indigo-soft { background-color: #e0e7ff; }
+
+.text-x-small { font-size: 0.7rem; }
+.border-indigo-soft { border: 1px solid #c7d2fe !important; }
+
+.table thead th {
+    border-top: none;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.table tbody td {
+    padding: 1.25rem 0.75rem;
+}
+
+.badge {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+}

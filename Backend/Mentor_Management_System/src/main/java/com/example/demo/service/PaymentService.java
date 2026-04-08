@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Payment;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PaymentService {
@@ -14,4 +15,10 @@ public interface PaymentService {
     List<Payment> getPaymentsByMentor(Long mentorId);
 
     List<Payment> getAllPayments();
+    
+    Payment getPaymentByEmail(String email);
+    
+    List<Payment> getPaymentsByRollNo(String rollNo);
+
+    List<String> uploadPayments(MultipartFile file) throws Exception;
 }

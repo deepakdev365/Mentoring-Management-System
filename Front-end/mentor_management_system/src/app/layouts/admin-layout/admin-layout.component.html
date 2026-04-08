@@ -1,55 +1,112 @@
-<!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark px-3">
+<!-- Header Layout -->
+<nav class="header px-4">
+  <div class="header-left">
+    <span class="badge me-2">AD</span>
+    <span class="brand fw-bold">Mentoring System Admin</span>
+  </div>
 
-  <span class="navbar-brand">Admin Portal</span>
-
-  <span class="text-white">
-    Welcome {{admin.fullName}}
-  </span>
-
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
-
+  <div class="header-right">
+    <div class="user-meta d-none d-md-block text-end">
+      <span class="text-small opacity-75 d-block">System Administrator,</span>
+      <span class="user-name fw-bold">{{admin.fullName}}</span>
+    </div>
+    <div class="avatar flex-center">
+      {{admin.initials || 'AD'}}
+    </div>
+    <button class="btn-logout ms-2" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+  </div>
 </nav>
 
-<div class="d-flex">
+<div class="layout">
 
-  <!-- Sidebar -->
-  <div class="bg-light p-3" style="width:220px; min-height:100vh">
+  <!-- Sidebar (Expand on Hover) -->
+  <aside class="sidebar fade-in">
+    <div class="menu">
+      <div class="label px-4 py-3">
+        <i class="fa-solid fa-bars sidebar-fa-icon" alt="Nav"></i>
+        <span class="label-text">Administration</span>
+      </div>
 
-    <h5>Menu</h5>
+      <ul class="nav-list mt-2">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/dashboard" routerLinkActive="active">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Overview</span>
+          </a>
+        </li>
 
-    <ul class="nav flex-column">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/students" routerLinkActive="active">
+            <i class="fa-solid fa-users"></i>
+            <span class="nav-label">Students</span>
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/dashboard">
-          Dashboard
-        </a>
-      </li>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/mentor" routerLinkActive="active">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span class="nav-label">Faculty</span>
+          </a>
+        </li>
 
-      <li class="nav-item">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/assign-mentees" routerLinkActive="active">
+            <i class="fa-solid fa-user-plus"></i>
+            <span class="nav-label">Mentees Allocation</span>
+          </a>
+        </li>
 
-        <a class="nav-link" routerLink="/admin/students">
-          Students
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/mentor">
-          Mentors
-        </a>
-      </li>
-<li class="nav-item">
-        <a class="nav-link" routerLink="/admin/upload-marks">
-          Marks Upload
-        </a>
-      </li>
+        <!-- <li class="menu-separator"></li>
+        <li class="label px-4 py-2">
+          <span class="label-text text-uppercase x-small opacity-50">Data Import</span>
+        </li> -->
 
-    </ul>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/upload-marks" routerLinkActive="active">
+            <i class="fa-solid fa-file-excel"></i>
+            <span class="nav-label">Academic Data</span>
+          </a>
+        </li>
 
-  </div>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/upload-payments" routerLinkActive="active">
+            <i class="fa-solid fa-credit-card"></i>
+            <span class="nav-label">Financials</span>
+          </a>
+        </li>
 
-  <!-- Main Content -->
-  <div class="p-4 flex-grow-1">
-    <router-outlet></router-outlet>
-  </div>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/upload-attendance" routerLinkActive="active">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span class="nav-label">Attendance</span>
+          </a>
+        </li>
+
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/upload-subject-registration" routerLinkActive="active">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span class="nav-label">Registration</span>
+          </a>
+        </li>
+
+        <li class="menu-separator"></li>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/admin/make-announcement" routerLinkActive="active">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span class="nav-label">Broadcasts</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <main class="content">
+    <div class="viewport fade-in">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 
 </div>

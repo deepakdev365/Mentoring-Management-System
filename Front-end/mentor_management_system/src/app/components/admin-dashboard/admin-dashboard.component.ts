@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MentorService } from '../../services/mentor.service';
 import { PaymentService } from '../../services/payment.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })
@@ -18,7 +19,10 @@ export class AdminDashboardComponent {
   selectedPaymentFile!: File;
 
   message = '';
+  isError = false;
+
   paymentMessage = '';
+  isPaymentError = false;
 
   isUploading = false;
   isPaymentUploading = false;
@@ -44,80 +48,24 @@ goAssign(){
   this.router.navigate(['/admin/assign-mentees']);
 }
 
-goToAnnouncement(){
-  this.router.navigate(['/admin/make-announcement']);
-}
-
- toggleUpload() {
-    this.showUpload = !this.showUpload;
-    if (this.showUpload) {
-      this.showPaymentUpload = false;
-    }
-    console.log('showUpload =', this.showUpload);
+  goToAnnouncement(){
+    this.router.navigate(['/admin/make-announcement']);
   }
 
-  togglePaymentUpload() {
-    this.showPaymentUpload = !this.showPaymentUpload;
-    if (this.showPaymentUpload) {
-      this.showUpload = false;
-    }
-    console.log('showPaymentUpload =', this.showPaymentUpload);
+  goUploadMarks() {
+    this.router.navigate(['/admin/upload-marks']);
   }
 
-  onBacklogFileSelected(event: any) {
-    this.selectedBacklogFile = event.target.files[0];
+  goUploadPayments() {
+    this.router.navigate(['/admin/upload-payments']);
   }
 
-  onPaymentFileSelected(event: any) {
-    this.selectedPaymentFile = event.target.files[0];
+  goUploadAttendance() {
+    this.router.navigate(['/admin/upload-attendance']);
   }
 
-  uploadBacklogs() {
-    if (!this.selectedBacklogFile) {
-      this.message = 'Please select a file';
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.selectedBacklogFile);
-
-    this.isUploading = true;
-
-    this.mentorService.uploadBacklogExcel(formData).subscribe({
-      next: (res: string) => {
-        this.message = res;
-        this.isUploading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.message = 'Upload failed';
-        this.isUploading = false;
-      }
-    });
+  goUploadSubjectRegistration() {
+    this.router.navigate(['/admin/upload-subject-registration']);
   }
-
-  uploadPaymentExcel() {
-  if (!this.selectedPaymentFile) {
-    this.paymentMessage = 'Please select a payment file';
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('file', this.selectedPaymentFile);
-
-  this.isPaymentUploading = true;
-
-  this.paymentService.uploadPaymentExcel(formData).subscribe({
-    next: (res: string) => {
-      this.paymentMessage = res;
-      this.isPaymentUploading = false;
-    },
-    error: (err) => {
-      console.error('Payment upload error:', err);
-      this.paymentMessage = err?.error || 'Payment upload failed';
-      this.isPaymentUploading = false;
-    }
-  });
-}
 
 }

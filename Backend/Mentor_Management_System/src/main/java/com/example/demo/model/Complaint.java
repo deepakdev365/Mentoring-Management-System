@@ -19,6 +19,17 @@ public class Complaint {
 
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+
+        if (status == null || status.isBlank()) {
+            status = "Pending";
+        }
+    }
+
 	public Long getId() {
 		return id;
 	}

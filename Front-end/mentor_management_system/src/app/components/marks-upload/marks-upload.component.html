@@ -1,55 +1,136 @@
-<div class="container mt-4">
-  <h2>Upload Student Marks</h2>
+<div class="wrapper fade-in">
 
-  <input type="file"
-         class="form-control mb-3"
-         accept=".xls,.xlsx"
-         (change)="onFileSelected($event)">
+  <!-- Page Header -->
+  <div class="page-header mb-5">
+    <div class="header-icon-box bg-warning-soft">
+      <i class="bi bi-file-earmark-spreadsheet-fill text-warning"></i>
+    </div>
+    <div>
+      <h2 class="dashboard-title mb-1">Administrator Command Center</h2>
+      <p class="text-muted mb-0">Upload Student Marks to sync semester results and automate backlogs for F/S grades.</p>
+    </div>
+  </div>
 
-  <button class="btn btn-primary mb-4" (click)="uploadFile()">
-    Upload Student Marks Excel
-  </button>
+  <!-- Upload Panel -->
+  <div class="panel shadow rounded-4 bg-white p-5 mb-4">
 
-  <p class="upload-success" *ngIf="uploadMessage && uploadSuccess">
-    {{ uploadMessage }}
-  </p>
+    <!-- Format Guide -->
+    <div class="guide rounded-3 p-4 mb-4 bg-light">
+      <h6 class="fw-bold mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i>Required Excel Columns</h6>
+      <div class="row g-2">
+        <div class="col-md-6" *ngFor="let col of requiredColumns">
+          <div class="col-badge d-flex align-items-center gap-2 p-2 rounded-3">
+            <i class="bi bi-columns-gap text-muted small"></i>
+            <span class="fw-semibold small">{{ col.name }}</span>
+            <span class="text-muted small ms-auto text-muted">{{ col.aliases }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <p class="upload-error" *ngIf="uploadMessage && !uploadSuccess">
-    {{ uploadMessage }}
-  </p>
+    <!-- File Drop Area -->
+    <div class="drop-area rounded-3 mb-4 d-flex flex-column align-items-center justify-content-center"
+         [class.has-file]="selectedFile">
+      <i class="bi bi-file-earmark-spreadsheet-fill drop-icon mb-3"></i>
+      <p class="mb-2 fw-semibold text-dark" *ngIf="!selectedFile">Drag & drop your Excel file or click below</p>
+      <p class="mb-2 fw-semibold text-success" *ngIf="selectedFile">
+        <i class="bi bi-check-circle-fill me-1"></i> {{ selectedFile.name }}
+      </p>
+      <p class="text-muted small mb-3">Accepted formats: .xlsx, .xls</p>
+      <label class="btn btn-outline-primary btn-sm px-4" for="fileInput">
+        <i class="bi bi-upload me-2"></i>Choose File
+      </label>
+      <input id="fileInput" type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" class="d-none" />
+    </div>
 
-  <table class="table table-bordered" *ngIf="marksList.length > 0">
-    <thead>
-      <tr>
-        <th>Roll No</th>
-        <th>Student Name</th>
-        <th>Email</th>
-        <th>Subject Code</th>
-        <th>Sem Mark</th>
-        <th>Total</th>
-        <th>Percentage</th>
-        <th>Grade</th>
-        <th>Result</th>
-        <th>Semester</th>
-        <th>Branch</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let mark of marksList">
-        <td>{{ mark.rollNo }}</td>
-        <td>{{ mark.studentName }}</td>
-        <td>{{ mark.email }}</td>
-        <td>{{ mark.subjectCode }}</td>
-        <td>{{ mark.semMark }}</td>
-        <td>{{ mark.totalMarks }}</td>
-        <td>{{ mark.percentage }}</td>
-        <td>{{ mark.grade }}</td>
-        <td>{{ mark.result }}</td>
-        <td>{{ mark.semester }}</td>
-        <td>{{ mark.branch }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Upload Button -->
+    <button class="btn btn-warning btn-lg w-100 fw-bold upload-btn"
+            (click)="upload()"
+            [disabled]="isUploading">
+      <span *ngIf="!isUploading">
+        <i class="bi bi-cloud-upload-fill me-2"></i>Upload & Sync Grades
+      </span>
+      <span *ngIf="isUploading">
+        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+        Syncing Records...
+      </span>
+    </button>
+  </div>
 
-  <p *ngIf="marksList.length === 0">No marks data available.</p>
+  <!-- Messages -->
+  <div *ngIf="uploadSuccess" class="result-card success-card rounded-4 p-4 d-flex align-items-start gap-3 animate-fade-in mb-4">
+    <div class="result-icon bg-success-soft text-success">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    <div>
+      <h6 class="fw-bold text-success mb-1">Upload Successful!</h6>
+      <p class="mb-0 text-muted">{{ message }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="isError" class="result-card error-card rounded-4 p-4 animate-fade-in mb-4">
+    <div class="d-flex align-items-start gap-3 mb-3">
+      <div class="result-icon bg-danger-soft text-danger">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <div>
+        <h6 class="fw-bold text-danger mb-1">Upload Failed</h6>
+        <p class="mb-0 text-muted">{{ message }}</p>
+      </div>
+    </div>
+    <ul class="error-list mt-2" *ngIf="errorList.length > 0">
+      <li *ngFor="let err of errorList" class="error-item d-flex align-items-start gap-2">
+        <i class="bi bi-x-circle-fill text-danger mt-1 flex-shrink-0"></i>
+        <span>{{ err }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="marks-table-section mt-5" *ngIf="marksList.length > 0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold text-dark m-0">Recent Import Data</h4>
+      <span class="badge bg-light text-muted border px-3 py-2 rounded-pill">{{marksList.length}} Records Found</span>
+    </div>
+
+    <div class="table-card shadow rounded-4 bg-white overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light border-bottom">
+            <tr>
+              <th class="px-4 py-3 text-muted fw-bold small">REG NO</th>
+              <th class="py-3 text-muted fw-bold small">NAME</th>
+              <th class="py-3 text-muted fw-bold small">SUBJECT</th>
+              <th class="py-3 text-muted fw-bold small">GRADE</th>
+              <th class="py-3 text-muted fw-bold small">SEM</th>
+              <th class="py-3 text-muted fw-bold small">RESULT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mark of marksList | slice:0:10">
+              <td class="px-4 py-3 fw-bold">{{mark.rollNo}}</td>
+              <td class="py-3 text-muted">{{mark.studentName}}</td>
+              <td class="py-3">{{mark.subjectCode}}</td>
+              <td class="py-3"><span class="badge bg-light text-dark fw-bold border px-3">{{mark.grade}}</span></td>
+              <td class="py-3 text-muted">Semester {{mark.semester}}</td>
+              <td class="py-3">
+                <span class="badge" [ngClass]="mark.result === 'PASS' ? 'bg-success-soft text-success' : 'bg-danger-soft text-danger'">
+                  {{mark.result}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="marksList.length === 0 && !isUploading" class="text-center p-5 animate-fade-in">
+    <div class="empty-icon bg-light text-muted rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+      <i class="bi bi-file-earmark-x"></i>
+    </div>
+    <h5 class="fw-bold text-muted">No marks data available</h5>
+    <p class="text-muted small">Once you upload an Excel sheet, student grades will appear here.</p>
+  </div>
+
 </div>

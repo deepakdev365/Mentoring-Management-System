@@ -14,7 +14,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table(
     name = "subject_registration",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"registration_number", "subject_code"})
+        @UniqueConstraint(columnNames = {"registration_number", "subject_code", "semester"})
     }
 )
 public class SubjectRegistration {
@@ -24,7 +24,11 @@ public class SubjectRegistration {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "registration_number", nullable = false)
+    @JoinColumn(
+        name = "registration_number",
+        referencedColumnName = "registration_number",
+        nullable = false
+    )
     private Student student;
 
     @Column(name = "subject_code", nullable = false)

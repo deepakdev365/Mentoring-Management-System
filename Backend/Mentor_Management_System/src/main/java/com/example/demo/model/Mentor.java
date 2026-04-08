@@ -2,8 +2,6 @@ package com.example.demo.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +18,20 @@ public class Mentor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String fullName;
+
+    @Column(nullable = false)
     private String department;
+
+    @Column(nullable = false)
     private String designation;
+
     private String phoneNo;
     
  // Address details
@@ -34,9 +40,9 @@ public class Mentor {
     private String city;
     private String state;
     private String zipCode;
+    private String campus;
     
     @OneToMany(mappedBy = "mentor")
-    @JsonManagedReference
     private List<Student> students;
 
 	public int getId() {
@@ -143,8 +149,17 @@ public class Mentor {
 		this.students = students;
 	}
 
+	public String getCampus() {
+		return campus;
+	}
+
+	public void setCampus(String campus) {
+		this.campus = campus;
+	}
+
 	public Mentor(int id, String email, String password, String fullName, String department, String designation,
 			String phoneNo, String localAddress, String permanentAddress, String city, String state, String zipCode,
+			String campus,
 			List<Student> students) {
 		super();
 		this.id = id;
@@ -159,6 +174,7 @@ public class Mentor {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.campus = campus;
 		this.students = students;
 	}
 
@@ -172,7 +188,7 @@ public class Mentor {
 		return "Mentor [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
 				+ ", department=" + department + ", designation=" + designation + ", phoneNo=" + phoneNo
 				+ ", localAddress=" + localAddress + ", permanentAddress=" + permanentAddress + ", city=" + city
-				+ ", state=" + state + ", zipCode=" + zipCode + ", students=" + students + "]";
+				+ ", state=" + state + ", zipCode=" + zipCode + ", campus=" + campus + ", students=" + students + "]";
 	}
    
     

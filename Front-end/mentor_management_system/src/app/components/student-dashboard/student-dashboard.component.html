@@ -1,56 +1,224 @@
-<div class="container mt-4">
+<div class="container fade-in p-2 p-md-4">
 
-  <h2 class="mb-4">Student Dashboard</h2>
-<div class="card p-3 m-2" (click)="goToNotifications()" style="cursor:pointer">
-  <h5>Notifications</h5>
-</div>
-  <div class="card p-4 shadow text-center">
-
-    <h4>Assigned Mentor</h4>
-
-    <div *ngIf="student?.mentor; else noMentor">
-
-      <!-- Mentor Image -->
-      <div class="mentor-img-container mt-3">
-        <img src="mentor.png"
-             alt="Mentor Image"
-             class="mentor-img">
+  <div class="row mb-5">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <div>
+        <h2 class="fw-bold mb-1 ls-1">Student Dashboard</h2>
+        <p class="text-muted small mb-0">Welcome back, <span class="text-primary fw-bold">{{student?.fullName}}</span>.</p>
       </div>
-
-      <!-- Mentor Name -->
-      <h5 class="mt-3">{{student.mentor.fullName}}</h5>
-
-      <!-- Buttons -->
-      <div class="mt-3">
-
-        <button class="btn btn-primary me-2"
-                (click)="viewMentor()">
-          View Mentor
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-white shadow-sm border rounded-pill px-4 d-none d-md-flex align-items-center fw-bold" (click)="goToNotifications()">
+             <i class="bi bi-bell-fill text-warning me-2"></i> 
+             <span class="text-dark small">Notice Board</span>
         </button>
-
-        <button class="btn btn-warning me-2"
-                (click)="goToComplaint()">
-          Message / Complaint
+        <button class="btn btn-primary rounded-circle shadow-sm icon-btn d-md-none border-0" (click)="goToNotifications()">
+          <i class="bi bi-bell-fill"></i>
         </button>
-
-        <button class="btn btn-secondary"
-                (click)="viewMyComplaints()">
-          My Complaints
-        </button>
-
       </div>
-      
+    </div>
+  </div>
 
+  <!-- Stats Grid -->
+  <div class="row g-4 mb-5" *ngIf="summary">
+    <div class="col-12 col-md-4">
+      <div class="card stat-card shadow-sm border-0 p-3 bg-white h-100">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon bg-soft-blue text-primary shadow-sm border">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <span class="text-muted text-x-small fw-bold uppercase ls-1">Attendance</span>
+        </div>
+        <div class="d-flex align-items-baseline">
+            <h3 class="fw-bold mb-0 text-dark">{{summary.attendancePercentage}}%</h3>
+            <span class="ms-2 x-small fw-bold" [ngClass]="summary.attendancePercentage >= 75 ? 'text-success' : 'text-danger'">
+                <i class="bi" [ngClass]="summary.attendancePercentage >= 75 ? 'bi-caret-up-fill' : 'bi-caret-down-fill'"></i>
+            </span>
+        </div>
+        <div class="progress mt-3" style="height: 6px; border-radius: 10px; background-color: rgba(0,0,0,0.03);">
+            <div class="progress-bar rounded-pill" [ngStyle]="{'width': summary.attendancePercentage + '%', 'background-color': '#3b82f6'}"></div>
+        </div>
+      </div>
     </div>
 
-    <ng-template #noMentor>
-      <p class="text-danger mt-2">
-        No mentor assigned yet
-      </p>
-    </ng-template>
+    <div class="col-12 col-md-4">
+      <div class="card stat-card shadow-sm border-0 p-3 bg-white h-100">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon bg-soft-yellow text-warning shadow-sm border">
+                <i class="fa-solid fa-credit-card"></i>
+            </div>
+            <span class="text-muted text-x-small fw-bold uppercase ls-1">Payments</span>
+        </div>
+        <h3 class="fw-bold mb-0 text-dark">{{summary.paymentStatus || 'Syncing'}}</h3>
+        <p class="text-muted text-x-small mb-0 mt-2">Fee Status</p>
+      </div>
+    </div>
 
+    <div class="col-12 col-md-4">
+      <div class="card stat-card shadow-sm border-0 p-3 bg-white h-100">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon bg-soft-purple text-purple shadow-sm border">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="text-muted text-x-small fw-bold uppercase ls-1">Courses</span>
+        </div>
+        <h3 class="fw-bold mb-0 text-dark">{{summary.activeCourses}}</h3>
+         <p class="text-muted text-x-small mb-0 mt-2">Enrolled Subjects</p>
+      </div>
+    </div>
   </div>
-</div>
-  
-      
 
+  <div class="row g-4">
+    <!-- Mentor Assignment Component -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm bg-white border-0 h-100 overflow-hidden text-center sticky-top" style="top: 100px; z-index: 10;" id="mentor-card">
+        <div class="card-header-accent" style="height: 120px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+            <div class="p-3 text-start">
+               <span class="badge bg-white bg-opacity-10 text-white rounded-pill x-small uppercase ls-1 border border-white border-opacity-10">Assigned Mentor</span>
+            </div>
+        </div>
+        
+        <div class="card-body p-4 pt-0" style="margin-top: -50px;">
+          <div *ngIf="student?.mentor; else noMentor">
+            <div class="avatar-large fw-bold mb-3 mx-auto shadow-lg bg-white text-primary flex-center border border-white border-4">
+              {{ student.mentor.fullName.charAt(0) | uppercase }}
+            </div>
+            
+            <h5 class="fw-bold mb-1 text-dark">{{student.mentor.fullName}}</h5>
+            <p class="text-muted text-x-small mb-4 uppercase fw-bold ls-1">Faculty Advisor</p>
+            
+            <div class="list-group list-group-flush text-start mb-4 border rounded-4 p-2 bg-light bg-opacity-50">
+                <div class="list-group-item px-2 py-2 border-0 d-flex align-items-center bg-transparent">
+                    <div class="icon-box-sm bg-white shadow-sm rounded-circle p-1 me-2 flex-center" style="min-width: 32px; height: 32px;">
+                        <i class="fa-solid fa-envelope text-primary opacity-75"></i>
+                    </div>
+                    <span class="text-x-small text-dark fw-bold" style="overflow-wrap: anywhere;">{{student.mentor.email}}</span>
+                </div>
+                <div class="list-group-item px-2 py-2 border-0 d-flex align-items-center bg-transparent">
+                     <div class="icon-box-sm bg-white shadow-sm rounded-circle p-1 me-2 flex-center" style="min-width: 32px; height: 32px;">
+                        <i class="fa-solid fa-phone text-primary opacity-75"></i>
+                    </div>
+                    <span class="text-x-small text-dark fw-bold">{{student.mentor.phoneNo}}</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary w-100 rounded-pill py-3 shadow-premium fw-bold border-0" (click)="viewMentor()">
+              <i class="bi bi-chat-heart-fill me-2"></i> Message Advisor
+            </button>
+          </div>
+          
+          <ng-template #noMentor>
+            <div class="avatar-large text-muted mb-3 mx-auto bg-light border border-dashed flex-center">
+              <i class="bi bi-person-slash"></i>
+            </div>
+            <h5 class="fw-bold text-dark mt-4">Awaiting Mentor</h5>
+            <p class="text-muted text-small px-3">Administration is currently assigning a dedicated mentor to your profile.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="col-lg-8">
+      <div class="d-flex align-items-center mb-4">
+          <div class="bg-primary rounded-pill me-3" style="width: 4px; height: 24px;"></div>
+          <h5 class="fw-bold mb-0 ls-1">Quick Links</h5>
+      </div>
+      
+      <div class="row g-4">
+        <!-- ACADEMIC CARD -->
+        <div class="col-md-6">
+          <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="goToSubjects()">
+            <div class="icon-box-lg bg-soft-blue text-primary mb-4 p-2 shadow-sm border border-white">
+              <i class="fa-solid fa-book"></i>
+            </div>
+            <h6 class="fw-bold mb-1">My Courses</h6>
+            <p class="text-muted text-x-small mb-3">View and manage subject enrolments</p>
+            <span class="text-primary x-small fw-bold uppercase ls-1">View List <i class="bi bi-arrow-right ms-1"></i></span>
+          </div>
+        </div>
+
+        <!-- REPORT CARD -->
+        <div class="col-md-6">
+          <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="viewReportCard()">
+            <div class="icon-box-lg bg-soft-green text-success mb-4 p-2 shadow-sm border border-white">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Report Card</h6>
+            <p class="text-muted text-x-small mb-3">Check semester grades and GPA summary</p>
+            <span class="text-success x-small fw-bold uppercase ls-1">View Result <i class="bi bi-arrow-right ms-1"></i></span>
+          </div>
+        </div>
+
+        <!-- FINANCIALS CARD -->
+        <div class="col-md-6">
+          <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="goToPayments()">
+            <div class="icon-box-lg bg-soft-yellow text-warning mb-4 p-2 shadow-sm border border-white">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Fee Payments</h6>
+            <p class="text-muted text-x-small mb-3">Payment history and outstanding dues</p>
+            <span class="text-warning x-small fw-bold uppercase ls-1">Check Status <i class="bi bi-arrow-right ms-1"></i></span>
+          </div>
+        </div>
+        
+        <!-- COMPLAINT CARD -->
+        <div class="col-md-6">
+           <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="goToComplaint()">
+            <div class="icon-box-lg bg-soft-red text-danger mb-4 p-2 shadow-sm border border-white">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Make Complaint</h6>
+            <p class="text-muted text-x-small mb-3">Lodge concerns or technical issues</p>
+            <span class="text-danger x-small fw-bold uppercase ls-1">Lodge Now <i class="bi bi-arrow-right ms-1"></i></span>
+          </div>
+        </div>
+
+        <!-- TICKETS CARD -->
+        <div class="col-md-6">
+          <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="viewMyComplaints()">
+            <div class="icon-box-lg bg-soft-indigo text-indigo mb-4 p-2 shadow-sm border border-white">
+              <i class="fa-solid fa-clipboard-list"></i>
+            </div>
+            <h6 class="fw-bold mb-1">My Complaints</h6>
+            <p class="text-muted text-x-small mb-3">Track progress of resolved support tickets</p>
+            <span class="text-indigo x-small fw-bold uppercase ls-1">Track Progress <i class="bi bi-arrow-right ms-1"></i></span>
+          </div>
+        </div>
+
+        <!-- Hostel Section -->
+        <ng-container *ngIf="isHosteler()">
+           <div class="col-12 mt-4 mb-2">
+            <div class="d-flex align-items-center mb-1">
+                <div class="bg-danger rounded-pill me-3" style="width: 4px; height: 24px;"></div>
+                <h5 class="fw-bold mb-0 ls-1">Hostel Management</h5>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="applyLeave()">
+              <div class="icon-box-lg bg-soft-red text-danger mb-4 p-2 shadow-sm border border-white">
+                <i class="fa-solid fa-person-walking-arrow-right"></i>
+              </div>
+              <h6 class="fw-bold mb-1">Request Leave</h6>
+              <p class="text-muted text-x-small mb-3">Apply for hostel outpass or leave</p>
+              <span class="text-danger x-small fw-bold uppercase ls-1">Apply Now <i class="bi bi-arrow-right ms-1"></i></span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card action-card border-0 shadow-sm h-100 p-4 bg-white" (click)="viewMyLeaves()">
+                <div class="icon-box-lg bg-soft-purple text-purple mb-4 p-2 shadow-sm border border-white">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h6 class="fw-bold mb-1">Leave History</h6>
+                <p class="text-muted text-x-small mb-3">Check previous leave slip status</p>
+                <span class="text-purple x-small fw-bold uppercase ls-1">View Records <i class="bi bi-arrow-right ms-1"></i></span>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+
+</div>

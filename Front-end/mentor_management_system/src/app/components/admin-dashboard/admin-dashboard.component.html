@@ -1,34 +1,118 @@
+<div class="container-fluid fade-in py-5 px-md-5">
 
-
-
-<div class="container mt-5">
-
-<div class="row">
-
-  <div class="col-md-4">
-    <div class="card p-3" (click)="goStudents()" style="cursor:pointer">
-      <h4>Students</h4>
-      <p>View all student data</p>
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="dashboard-title mb-1">Administrator Command Center</h2>
+      <p class="text-muted fs-5">Oversee academic operations and manage organizational relationships.</p>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="card p-3" (click)="goMentor()" style="cursor:pointer">
-      <h4>Mentors</h4>
-      <p>View mentor data</p>
+  <div class="mb-4">
+      <h5 class="section-title">Directory Management</h5>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <!-- Students -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 1">
+      <div class="admin-card blue-accent animate-slide-up" (click)="goStudents()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <span class="card-label">Students Directory</span>
+        <span class="card-desc">Review personal and academic student records</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+    
+    <!-- Mentors -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 2">
+      <div class="admin-card indigo-accent animate-slide-up" (click)="goMentor()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <span class="card-label">Mentor Management</span>
+        <span class="card-desc">Manage faculty advisor assignments and roles</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+
+    <!-- Assign Mentees -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 3">
+      <div class="admin-card emerald-accent animate-slide-up" (click)="goAssign()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <span class="card-label">Assign Mentees</span>
+        <span class="card-desc">Execute bulk student-to-mentor linkage</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+    
+    <!-- Make Announcement -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 4">
+      <div class="admin-card amber-accent animate-slide-up" (click)="goToAnnouncement()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+        <span class="card-label">Announcements</span>
+        <span class="card-desc">Broadcast emergency alerts or notices globally</span>
+        <div class="glass-effect"></div>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="card p-3" (click)="goAssign()" style="cursor:pointer">
-      <h4>Assign Mentees</h4>
-      <p>Assign students to mentors</p>
+  <div class="mb-4 mt-5">
+      <h5 class="section-title">Operations & Data Intake</h5>
+  </div>
+  
+  <div class="row g-4 mb-5">
+    <!-- Marks Upload -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 5">
+      <div class="admin-card rose-accent animate-slide-up" (click)="goUploadMarks()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-file-excel"></i>
+        </div>
+        <span class="card-label">Upload Marks</span>
+        <span class="card-desc">Process and publish student results</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+
+    <!-- Payments Upload -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 6">
+      <div class="admin-card violet-accent animate-slide-up" (click)="goUploadPayments()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <span class="card-label">Financial Sync</span>
+        <span class="card-desc">Update student fee and payment data</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+
+    <!-- Attendance Upload -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 7">
+      <div class="admin-card blue-accent animate-slide-up" (click)="goUploadAttendance()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <span class="card-label">Attendance Records</span>
+        <span class="card-desc">Synchronize monthly percentage metrics</span>
+        <div class="glass-effect"></div>
+      </div>
+    </div>
+
+    <!-- Subject Registration Upload -->
+    <div class="col-12 col-md-4 col-xl-3" style="--delay: 8">
+      <div class="admin-card emerald-accent animate-slide-up" (click)="goUploadSubjectRegistration()">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-clipboard-list"></i>
+        </div>
+        <span class="card-label">Subject Enrollments</span>
+        <span class="card-desc">Process course registration data</span>
+        <div class="glass-effect"></div>
+      </div>
     </div>
   </div>
-  <div class="card p-3 m-2" (click)="goToAnnouncement()" style="cursor:pointer">
-  <h5>Make Announcement</h5>
-</div>
-
-</div>
 
 </div>

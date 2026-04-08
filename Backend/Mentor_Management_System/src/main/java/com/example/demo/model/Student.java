@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
@@ -9,9 +8,9 @@ import jakarta.persistence.*;
 @Table(name = "student")
 public class Student {
 
-	 	@Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long sl_No;   // Auto-generated registration number
+	    private Long sl_No;
 
 	    // Personal details
 	    private String fullName;
@@ -49,11 +48,14 @@ public class Student {
 	    private String program;
 	    private String branch;
 	    private String semester;
+	    @Column(name = "registration_number", unique = true, nullable = false)
 	    private String registrationNumber;
 	    private String eligibilityNumber;
 	    private String prnNo;
 	    private String batch;
 	    private String department;
+	    private String campus;
+	    private String studentType;
 	    private String password;
 		public Long getSl_No() {
 			return sl_No;
@@ -229,12 +231,24 @@ public class Student {
 		public void setPassword(String password) {
 			this.password = password;
 		}
+		public String getCampus() {
+			return campus;
+		}
+		public void setCampus(String campus) {
+			this.campus = campus;
+		}
+		public String getStudentType() {
+			return studentType;
+		}
+		public void setStudentType(String studentType) {
+			this.studentType = studentType;
+		}
 		public Student(Long sl_No, String fullName, String fatherGuardianName, String email, String dob, String gender,
 				String nationality, String religion, String emergencyContact, String phoneNumber, Mentor mentor,
 				String localAddress, String permanentAddress, String city, String state, String zipCode,
 				String admissionNumber, String applicationNumber, String feeCategory, String dateOfAdmission,
 				String program, String branch, String semester, String registrationNumber, String eligibilityNumber,
-				String prnNo, String batch, String department, String password) {
+				String prnNo, String batch, String department, String campus, String studentType, String password) {
 			super();
 			this.sl_No = sl_No;
 			this.fullName = fullName;
@@ -264,6 +278,8 @@ public class Student {
 			this.prnNo = prnNo;
 			this.batch = batch;
 			this.department = department;
+			this.campus = campus;
+			this.studentType = studentType;
 			this.password = password;
 		}
 		public Student() {
@@ -281,7 +297,8 @@ public class Student {
 					+ ", feeCategory=" + feeCategory + ", dateOfAdmission=" + dateOfAdmission + ", program=" + program
 					+ ", branch=" + branch + ", semester=" + semester + ", registrationNumber=" + registrationNumber
 					+ ", eligibilityNumber=" + eligibilityNumber + ", prnNo=" + prnNo + ", batch=" + batch
-					+ ", department=" + department + ", password=" + password + "]";
+					+ ", department=" + department + ", campus=" + campus + ", studentType=" + studentType
+					+ ", password=" + password + "]";
 		}
 		
 	    

@@ -43,6 +43,13 @@ public class Meeting {
         this.createdAt = LocalDateTime.now();
     }
 
+    @jakarta.persistence.PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
 	public Long getId() {
 		return id;
 	}

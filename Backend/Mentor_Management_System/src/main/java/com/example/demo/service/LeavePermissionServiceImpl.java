@@ -28,14 +28,35 @@ public class LeavePermissionServiceImpl implements LeavePermissionService {
     @Override
     public LeavePermission approveLeave(Long id) {
         LeavePermission leave = repository.findById(id).orElse(null);
-        leave.setStatus("Approved");
-        return repository.save(leave);
+        if (leave != null) {
+            leave.setStatus("Approved");
+            return repository.save(leave);
+        }
+        return null;
     }
 
     @Override
     public LeavePermission rejectLeave(Long id) {
         LeavePermission leave = repository.findById(id).orElse(null);
-        leave.setStatus("Rejected");
-        return repository.save(leave);
+        if (leave != null) {
+            leave.setStatus("Rejected");
+            return repository.save(leave);
+        }
+        return null;
+    }
+
+    @Override
+    public List<LeavePermission> getLeavesByStudentId(Long studentId) {
+        return repository.findByStudentId(studentId);
+    }
+
+    @Override
+    public List<LeavePermission> getLeavesByMentorId(Integer mentorId) {
+        return repository.findByMentorId(mentorId);
+    }
+
+    @Override
+    public LeavePermission getLeaveById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }

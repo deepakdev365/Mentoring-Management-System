@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
@@ -19,9 +21,16 @@ public class Payment {
     private Long studentId;
     private Long mentorId;
 
+    @Column(nullable = false)
     private Double amount;
+
+    @Column(nullable = false)
     private String paymentMode;     // UPI, CARD, NETBANKING
+
+    @Column(nullable = false)
     private String paymentStatus;   // SUCCESS, FAILED, PENDING
+
+    private String semester;
 
     private LocalDateTime paymentDate;
 
@@ -36,6 +45,13 @@ public class Payment {
         this.paymentMode = paymentMode;
         this.paymentStatus = paymentStatus;
         this.paymentDate = LocalDateTime.now();
+    }
+
+    @PrePersist
+    public void onCreate() {
+        if (paymentDate == null) {
+            paymentDate = LocalDateTime.now();
+        }
     }
 
     // Getters and Setters
@@ -85,6 +101,14 @@ public class Payment {
 
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public LocalDateTime getPaymentDate() {

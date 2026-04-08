@@ -1,63 +1,76 @@
-<!-- <nav class="navbar navbar-dark bg-dark px-3 justify-content-between">
+<div class="container-fluid mt-4 animate-fade-in p-2 p-md-4">
 
-  <span class="navbar-brand">Mentoring Management System</span>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="section-title mb-1">Mentors Directory</h2>
+      <p class="text-muted">Manage academic mentors and their assignments.</p>
+    </div>
+  </div>
 
-  <button class="btn btn-danger" (click)="logout()">
-    Logout
-  </button>
+  <!-- Upload Section -->
+  <div class="card border-0 premium-shadow rounded-4 bg-white p-4 mb-5">
+    <div class="d-flex align-items-center mb-3">
+      <div class="icon-wrap bg-primary-soft text-primary me-3">
+        <i class="bi bi-file-earmark-excel-fill fs-4"></i>
+      </div>
+      <h5 class="fw-bold mb-0">Bulk Import Mentors</h5>
+    </div>
+    
+    <div class="row align-items-end">
+      <div class="col-md-8">
+        <label class="form-label text-muted small fw-bold">Select .xlsx file</label>
+        <input type="file" class="form-control" (change)="onFileSelected($event)" accept=".xlsx,.xls" [disabled]="isUploading">
+      </div>
+      <div class="col-md-4 mt-3 mt-md-0">
+        <button class="btn btn-primary w-100 fw-bold" (click)="uploadFile()" [disabled]="isUploading">
+          <span *ngIf="!isUploading"><i class="bi bi-cloud-arrow-up-fill me-2"></i> Upload Mentors</span>
+          <span *ngIf="isUploading"><i class="spinner-border spinner-border-sm me-2"></i> Processing...</span>
+        </button>
+      </div>
+    </div>
 
-</nav> -->
+    <!-- Status Message -->
+    <div *ngIf="message" class="alert mt-4 rounded-3 d-flex align-items-center" [ngClass]="isError ? 'alert-danger bg-danger-soft border-danger border-opacity-10' : 'alert-success border-success border-opacity-10'">
+      <i class="bi me-2 fs-5" [ngClass]="isError ? 'bi-exclamation-octagon-fill text-danger' : 'bi-check-circle-fill text-success'"></i>
+      <div [ngClass]="isError ? 'text-danger' : 'text-success'">{{ message }}</div>
+    </div>
+  </div>
 
-
-<div class="container mt-4">
-
-<h2>Mentors List</h2>
-<!-- Upload Excel Section -->
-
-<div class="mb-3">
-
-<input type="file"
-       (change)="onFileSelected($event)"
-       class="form-control">
-
-</div>
-
-<button class="btn btn-primary mb-4"
-        (click)="uploadFile()">
-Upload Excel
-</button>
-
-<table class="table table-bordered table-striped">
-
-<thead>
-
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Email</th>
-<th>Department</th>
-<th>Designation</th>
-<th>Phone</th>
-</tr>
-
-</thead>
-
-
-<tbody>
-
-<tr *ngFor="let mentor of mentors">
-
-<td>{{mentor.id}}</td>
-<td>{{mentor.fullName}}</td>
-<td>{{mentor.email}}</td>
-<td>{{mentor.department}}</td>
-<td>{{mentor.designation}}</td>
-<td>{{mentor.phoneNo}}</td>
-
-</tr>
-
-</tbody>
-
-</table>
+  <!-- Data Grid -->
+  <div class="card border-0 premium-shadow rounded-4 bg-white overflow-hidden">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 custom-table">
+        <thead class="bg-light">
+          <tr>
+            <th class="ps-4">Mentor Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Campus</th>
+            <th>Contact</th>
+            <th class="text-center pe-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mentor of mentors" class="mentor-row">
+            <td class="ps-4 fw-bold text-dark">{{ mentor.fullName }}</td>
+            <td class="text-muted small">{{ mentor.email }}</td>
+            <td><span class="badge bg-light border text-dark">{{ mentor.department }}</span></td>
+            <td>{{ mentor.designation }}</td>
+            <td><span class="text-primary fw-semibold">{{ mentor.campus }}</span></td>
+            <td>{{ mentor.phoneNo }}</td>
+            <td class="text-center pe-4">
+              <button class="btn btn-sm btn-outline-primary rounded-pill px-3 view-btn" (click)='viewProfile(mentor.email)'>
+                View Profile
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="mentors.length === 0">
+            <td colspan="7" class="text-center py-5 text-muted">No mentors found. Upload a file to populate.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 </div>

@@ -26,15 +26,21 @@ public class LeavePermission {
 
     private String status; // Pending / Approved / Rejected
 
+    private String hostelNo;
+
+    private String roomNo;
+
     public LeavePermission() {}
 
-    public LeavePermission(Long studentId, String studentName, String reason, String fromDate, String toDate, String status) {
+    public LeavePermission(Long studentId, String studentName, String reason, String fromDate, String toDate, String status, String hostelNo, String roomNo) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.reason = reason;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.status = status;
+        this.hostelNo = hostelNo;
+        this.roomNo = roomNo;
     }
 
     public Long getId() { return id; }
@@ -62,4 +68,12 @@ public class LeavePermission {
     public String getStatus() { return status; }
 
     public void setStatus(String status) { this.status = status; }
+
+    public String getHostelNo() { return hostelNo; }
+
+    public void setHostelNo(String hostelNo) { this.hostelNo = hostelNo; }
+
+    public String getRoomNo() { return roomNo; }
+
+    public void setRoomNo(String roomNo) { this.roomNo = roomNo; }
 }

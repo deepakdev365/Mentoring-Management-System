@@ -1,15 +1,93 @@
-<h2>Profile</h2>
+<div class="container mt-5 animate-fade-in">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <!-- Back Header -->
+      <div class="d-flex align-items-center mb-4">
+        <h2 class="section-title mb-0">Mentor Profile</h2>
+      </div>
 
-<div *ngIf="mentor; else noData">
+      <div *ngIf="mentor; else noData" class="card border-0 premium-shadow rounded-4 bg-white overflow-hidden">
+        
+        <!-- Profile Header -->
+        <div class="bg-primary p-4 text-white">
+          <div class="d-flex align-items-center">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold fs-2 me-4" style="width: 80px; height: 80px;">
+              {{ mentor.fullName?.charAt(0) }}
+            </div>
+            <div>
+              <h3 class="fw-bold mb-0 text-white">{{ mentor.fullName }}</h3>
+              <p class="mb-0 opacity-75">{{ mentor.designation }} | {{ mentor.department }}</p>
+            </div>
+          </div>
+        </div>
 
-  <p><strong>Name:</strong> {{ mentor.fullName }}</p>
-  <p><strong>Email:</strong> {{ mentor.email }}</p>
-  <p><strong>Phone:</strong> {{ mentor.phoneNo }}</p>  <!-- ✅ FIX -->
-  <p><strong>Department:</strong> {{ mentor.department }}</p>
-  <p><strong>City:</strong> {{ mentor.city }}</p>
+        <!-- Profile Details -->
+        <div class="p-4">
+          <div class="row g-4">
+            
+            <div class="col-md-6">
+              <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Email Address</label>
+              <div class="fw-semibold text-dark">{{ mentor.email }}</div>
+            </div>
 
+            <div class="col-md-6">
+              <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Phone Number</label>
+              <div class="fw-semibold text-dark">{{ mentor.phoneNo }}</div>
+            </div>
+
+            <hr class="my-2 border-light">
+
+            <div class="col-md-6">
+              <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Campus</label>
+              <div class="fw-semibold text-primary">{{ mentor.campus }}</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Location</label>
+              <div class="fw-semibold text-dark">{{ mentor.city }}, {{ mentor.state }}</div>
+            </div>
+
+            <div class="col-12 mt-4">
+              <div class="bg-light rounded-3 p-3">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Local Address</label>
+                    <div class="text-dark small">{{ mentor.localAddress }}</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Permanent Address</label>
+                    <div class="text-dark small">{{ mentor.permanentAddress }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mt-4">
+              <label class="text-muted small text-uppercase fw-bold ls-1 d-block mb-1">Zip Code</label>
+              <div class="fw-semibold text-dark">{{ mentor.zipCode }}</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-light p-3 text-center border-top">
+          <span class="text-muted small">Mentor ID: {{ mentor.id || 'N/A' }}</span>
+        </div>
+
+      </div>
+
+      <ng-template #noData>
+        <div class="card border-0 premium-shadow rounded-4 bg-white p-5 text-center">
+          <div class="text-muted mb-3">
+            <i class="bi bi-person-x fs-1"></i>
+          </div>
+          <h4>No Profile Data Found</h4>
+          <p class="text-muted">We couldn't find the details for this mentor.</p>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
 </div>
-
-<ng-template #noData>
-  <p>No profile data found</p>
-</ng-template>

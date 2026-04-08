@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Student;
 
@@ -27,4 +28,5 @@ public interface StudentService {
 
 	List<Student> getStudentsByMentorEmail(String email);
 
+    List<String> uploadStudents(MultipartFile file) throws Exception;
 }

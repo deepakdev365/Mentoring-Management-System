@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -9,43 +9,62 @@ import { MentorService } from '../../services/mentor.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './mentor-login.component.html',
+  styleUrl: './mentor-login.component.css'
 })
-export class MentorLoginComponent {
-  email = '';
-  password = '';
-  errorMessage = '';
+export class MentorLoginComponent implements OnInit {
+
+  loginData = {
+    email: '',
+    password: ''
+  };
+
+  successMsg = '';
+  errorMsg = '';
 
   constructor(
     private mentorService: MentorService,
     private router: Router
   ) {}
 
-login() {
-
-  console.log("INPUT:", this.email, this.password); // 🔥 DEBUG
-
-  if (!this.email || !this.password) {
-    this.errorMessage = "Please enter email and password";
-    return;
+  ngOnInit() {
+    const loggedIn = sessionStorage.getItem('mentorLoggedIn');
+    if (loggedIn === 'true') {
+      this.router.navigate(['/mentor/dashboard']);
+    }
   }
 
-  this.mentorService.login(
-    this.email.trim(),
-    this.password.trim()
-  ).subscribe({
-    next: (res: any) => {
-      console.log("Login Response:", res);
+  login() {
+    console.log("INPUT:", this.loginData.email, this.loginData.password); // 🔥 DEBUG
 
-      localStorage.setItem('mentorId', String(res.id));
-      localStorage.setItem('mentorEmail', res.email);
-      localStorage.setItem('mentorName', res.fullName);
-
-      this.router.navigate(['/mentor/dashboard']);
-    },
-    error: (err: any) => {
-      console.log("ERROR:", err); // 🔥 VERY IMPORTANT
-      this.errorMessage = "Invalid email or password";
+    if (!this.loginData.email || !this.loginData.password) {
+      this.errorMsg = "Please enter email and password";
+      return;
     }
-  });
-}
+
+    this.mentorService.login(
+      this.loginData.email.trim(),
+      this.loginData.password.trim()
+    ).subscribe({
+      next: (res: any) => {
+        console.log("Login Response:", res);
+
+        this.successMsg = "Login Successful";
+        this.errorMsg = "";
+
+        localStorage.setItem('mentorId', String(res.id));
+        localStorage.setItem('mentorEmail', res.email);
+        localStorage.setItem('mentorName', res.fullName);
+        sessionStorage.setItem('mentorLoggedIn', 'true');
+
+        setTimeout(()=>{
+          this.router.navigate(['/mentor/dashboard'], {replaceUrl:true});
+        }, 800);
+      },
+      error: (err: any) => {
+        console.log("ERROR:", err); // 🔥 VERY IMPORTANT
+        this.successMsg = "";
+        this.errorMsg = "Invalid email or password";
+      }
+    });
+  }
 }

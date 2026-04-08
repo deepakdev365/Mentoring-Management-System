@@ -1,45 +1,62 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    
-    <div class="col-md-4">
+<div class="page">
 
-      <div class="card p-4">
+  <!-- Animated background blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 
-        <h3 class="text-center mb-4">Admin Login</h3>
+  <div class="card" *ngIf="!successMsg">
 
-        <div class="mb-3">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="Email"
-            [(ngModel)]="loginData.email"
-          />
-        </div>
-
-        <div class="mb-3">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            [(ngModel)]="loginData.password"
-          />
-        </div>
-
-        <button class="btn-primary" (click)="login()">
-          Login
-        </button>
-
-        <p class="text-success mt-3 text-center" *ngIf="successMsg">
-          {{ successMsg }}
-        </p>
-
-        <p class="text-danger mt-3 text-center" *ngIf="errorMsg">
-          {{ errorMsg }}
-        </p>
-
+    <!-- Icon + Title -->
+    <div class="header">
+      <div class="icon-ring">
+        <i class="fa-solid fa-user-shield"></i>
       </div>
-
+      <h2>Administrator</h2>
+      <p>Sign in to manage your institution</p>
     </div>
 
+    <!-- Form -->
+    <form (ngSubmit)="login()" #adminForm="ngForm">
+
+      <div class="field">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <!-- <i class="fa-solid fa-envelope"></i> -->
+          <input type="email" placeholder="admin@college.com" [(ngModel)]="loginData.email" name="email" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <div class="input-wrap">
+          <!-- <i class="fa-solid fa-lock"></i> -->
+          <input type="password" placeholder="Enter your password" [(ngModel)]="loginData.password" name="password"
+            required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn" [disabled]="!adminForm.form.valid">
+        <span>Sign In</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div class="error-msg" *ngIf="errorMsg">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        {{ errorMsg }}
+      </div>
+
+    </form>
+
   </div>
+
+  <!-- Success state -->
+  <div class="card success-card" *ngIf="successMsg">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <h3>Welcome back!</h3>
+    <p>Redirecting to dashboard...</p>
+  </div>
+
 </div>

@@ -1,0 +1,29 @@
+.hover-up {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.hover-up:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-soft-purple { background-color: #f5f3ff; }
+.bg-soft-green { background-color: #f0fdf4; }
+.bg-soft-blue { background-color: #eff6ff; }
+
+.text-purple { color: #8b5cf6; }
+.text-x-small { font-size: 0.7rem; }
+
+.card {
+    border-radius: 16px;
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.StudentMarks;
 import com.example.demo.service.StudentMarksService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,12 @@ public class StudentMarksController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadMarks(@RequestParam("file") MultipartFile file) {
         try {
-            service.uploadExcel(file);
-            return ResponseEntity.ok("Student marks uploaded successfully.");
+            List<String> errors = service.uploadExcel(file);
+            if (errors.isEmpty()) {
+                return ResponseEntity.ok("Student marks uploaded successfully.");
+            } else {
+                return ResponseEntity.badRequest().body("Upload failed: " + String.join(", ", errors));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Upload failed: " + e.getMessage());
         }

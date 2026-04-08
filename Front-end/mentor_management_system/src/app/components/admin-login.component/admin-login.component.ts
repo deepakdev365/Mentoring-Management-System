@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   selector: 'app-admin-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './admin-login.component.html'
+  templateUrl: './admin-login.component.html',
+  styleUrl: './admin-login.component.css'
 })
 export class AdminLoginComponent implements OnInit {
 
@@ -30,7 +31,7 @@ export class AdminLoginComponent implements OnInit {
     const loggedIn = sessionStorage.getItem('adminLoggedIn');
 
     if (loggedIn === 'true') {
-      this.router.navigate(['/admin-dashboard']);
+      this.router.navigate(['/admin/dashboard']);
     }
 
   }

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.model.Mentor;
 import com.example.demo.service.MentorService;
 
+
 @RestController
 @RequestMapping("/mentor")
 @CrossOrigin(origins =  "http://localhost:4200",
@@ -23,8 +24,12 @@ public class MentorController {
     public ResponseEntity<String> uploadExcel(
             @RequestParam("file") MultipartFile file) {
 
-        mentorService.uploadMentorExcel(file);
-        return ResponseEntity.ok("Mentor Excel Uploaded Successfully");
+        List<String> errors = mentorService.uploadMentorExcel(file);
+        if (errors.isEmpty()) {
+            return ResponseEntity.ok("Mentor Excel Uploaded Successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Upload failed: " + String.join(", ", errors));
+        }
     }
 
     @PostMapping("/login")

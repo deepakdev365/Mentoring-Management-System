@@ -13,9 +13,6 @@ import { AssignMenteesComponent } from './components/assign-mentees/assign-mente
 import { MentorLoginComponent } from './components/mentor-login.component/mentor-login.component';
 import { MentorDashboard } from './components/mentor-dashboard/mentor-dashboard';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
-
-import { AssignStudentComponent } from './components/assigned-student/assign-student.component';
-
 import { MakeComplaintComponent } from './components/make-complaint/make-complaint.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
 import { MentorComplaintsComponent } from './components/mentor-complaints/mentor-complaints.component';
@@ -23,69 +20,28 @@ import { MentorLayoutComponent } from './layouts/mentor-layout/mentor-layout.com
 import { mentorAuthGuard } from './guards/mentor-auth-guard';
 import { MentorProfileComponent } from './mentor-profile/mentor-profile.component';
 import { MentorStudentsComponent } from './mentor-students/mentor-students.component';
+import { MentorStudentDetailComponent } from './mentor-student-detail/mentor-student-detail.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { ReportCardComponent } from './components/report-card/report-card.component';
-
 import { MakeAnnouncementComponent } from './components/make-announcement/make-announcement.component';
 import { StudentNotificationsComponent } from './components/student-notifications/student-notifications.component';
-
-
 import { MarksUploadComponent } from './components/marks-upload/marks-upload.component';
+import { UploadPaymentsComponent } from './components/upload-payments/upload-payments.component';
+import { UploadAttendanceComponent } from './components/upload-attendance/upload-attendance.component';
+import { UploadSubjectRegistrationComponent } from './components/upload-subject-registration/upload-subject-registration.component';
+import { AskLeavePermissionComponent } from './components/ask-leave-permission/ask-leave-permission.component';
+import { LeavePermissionsComponent } from './components/leave-permissions/leave-permissions.component';
+import { StudentPaymentHistoryComponent } from './components/student-payment-history/student-payment-history.component';
+import { StudentSubjectsComponent } from './components/student-subjects/student-subjects.component';
+import { MentorLeavePermissionsComponent } from './components/mentor-leave-permissions/mentor-leave-permissions.component';
+import { MentorLeaveSlipComponent } from './components/mentor-leave-slip/mentor-leave-slip.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'admin-login', component: AdminLoginComponent },
-  { path: 'mentor-dashboard', component: MentorDashboard },
-  { path: '', component: LandingComponent },
   { path: 'mentor-login', component: MentorLoginComponent },
-
-   {path: 'admin',
-  component: AdminLayoutComponent,
-  canActivate: [adminAuthGuard],
-  children: [
-    { path: 'dashboard', component: AdminDashboardComponent },
-    { path: 'students', component: StudentsComponent },
-    { path: 'mentor', component: MentorComponent },
-    
-    { path: 'student/:regNo', component: StudentProfileComponent },
-
-    { path:'assign-mentees', component: AssignMenteesComponent },
-    { path:'make-announcement', component: MakeAnnouncementComponent },
-    
-  ]
-},
-{ path: 'mentor', component: MentorComponent },
-{ path: 'student-login', component: StudentLoginComponent },
+  { path: 'student-login', component: StudentLoginComponent },
   
-{
-  path: 'student',
-  component: StudentLayoutComponent,
-  canActivate: [studentAuthGuard],
-  children: [
-    { path: 'dashboard', component: StudentDashboardComponent },
-    { path: 'report-card', component: ReportCardComponent },
-    { path: 'my-complaints', component: MyComplaintsComponent },
-    { path: 'make-complaint', component: MakeComplaintComponent },
-    { path: 'notifications', component: StudentNotificationsComponent }
-  ]
-},
-
-
-
-//  {
-//     path: 'mentor',
-//     component: MentorDashboard,
-//     children: [
-//       { path: 'dashboard', component: MentorDashboard }, // OR separate dashboard component
-//       { path: 'students', component: StudentsComponent },
-//       { path: 'profile', component: ProfileComponent },
-//       { path: 'assign-student', component: AssignStudentComponent },
-
-//       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-//     ]
-//   },
-
-
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -94,33 +50,37 @@ export const routes: Routes = [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'students', component: StudentsComponent },
       { path: 'student/:regNo', component: StudentProfileComponent },
+      { path: 'student/:regNo/report-card', component: ReportCardComponent },
       { path: 'assign-mentees', component: AssignMenteesComponent },
       { path: 'upload-marks', component: MarksUploadComponent },
+      { path: 'upload-payments', component: UploadPaymentsComponent },
+      { path: 'upload-attendance', component: UploadAttendanceComponent },
+      { path: 'upload-subject-registration', component: UploadSubjectRegistrationComponent },
       { path: 'mentor', component: MentorComponent },
-      
-      
-     { path:'make-announcement', component: MakeAnnouncementComponent },
-      
-    
-    
+      { path: 'mentor/profile/:email', component: MentorProfileComponent },
+      { path: 'make-announcement', component: MakeAnnouncementComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
-  { path: 'mentor', component: MentorComponent },
-  { path: 'student-login', component: StudentLoginComponent },
+
   {
     path: 'student',
     component: StudentLayoutComponent,
     canActivate: [studentAuthGuard],
     children: [
       { path: 'dashboard', component: StudentDashboardComponent },
-      { path: 'report-card', component: ReportCardComponent }
+      { path: 'report-card', component: ReportCardComponent },
+      { path: 'my-complaints', component: MyComplaintsComponent },
+      { path: 'make-complaint', component: MakeComplaintComponent },
+      { path: 'notifications', component: StudentNotificationsComponent },
+      { path: 'payments', component: StudentPaymentHistoryComponent },
+      { path: 'subjects', component: StudentSubjectsComponent },
+      { path: 'ask-leave-permission', component: AskLeavePermissionComponent },
+      { path: 'leave-permissions', component: LeavePermissionsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 
-  { path: '', redirectTo: 'mentor', pathMatch: 'full' },
-  { path: 'make-complaint', component: MakeComplaintComponent },
-  { path: 'my-complaints', component: MyComplaintsComponent },
-  { path: 'mentor-complaints', component: MentorComplaintsComponent },
   {
     path: 'mentor',
     component: MentorLayoutComponent,
@@ -129,8 +89,16 @@ export const routes: Routes = [
       { path: 'dashboard', component: MentorDashboard },
       { path: 'profile', component: MentorProfileComponent },
       { path: 'students', component: MentorStudentsComponent },
+      { path: 'student/:regNo', component: MentorStudentDetailComponent },
       { path: 'complaints', component: MentorComplaintsComponent },
+      { path: 'leave-permissions', component: MentorLeavePermissionsComponent },
+      { path: 'leave-slip/:id', component: MentorLeaveSlipComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
-  }
+  },
+
+  { path: 'mentor-complaints', component: MentorComplaintsComponent },
+  { path: 'make-complaint', component: MakeComplaintComponent },
+  { path: 'my-complaints', component: MyComplaintsComponent },
+  { path: '**', redirectTo: '' }
 ];

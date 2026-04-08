@@ -1,10 +1,60 @@
-<div class="landing-container">
-  <h1>Mentoring Management System</h1>
-  <p>Login as Student, Mentor or Admin</p>
+<div class="landing-wrapper">
 
-  <div class="button-container">
-    <button (click)="goToStudent()">Student</button>
-    <button (click)="goToMentor()">Mentor</button>
-    <button (click)="goToAdmin()">Admin</button>
+  <!-- Background Highlights -->
+  <div class="bg-decor">
+    <div class="decor-circle circle-1"></div>
+    <div class="decor-circle circle-2"></div>
   </div>
+
+  <!-- Hero Headline -->
+  <header class="hero-section animate-slide-up delay-1">
+    <div class="brand-badge">Mentoring Management System</div>
+    <h1 class="hero-title">Empowering Growth through <span>Digital Mentorship</span></h1>
+    <p class="hero-subtitle">
+      A comprehensive platform connecting students with faculty mentors to foster academic excellence, professional
+      development, and personal growth.
+    </p>
+  </header>
+
+  <!-- Login Portals -->
+  <div class="portals-grid">
+
+    <!-- Student Portal -->
+    <div class="portal-card animate-slide-up delay-2" (click)="goToStudent()">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <h3 class="portal-title">Student Portal</h3>
+      <p class="portal-desc">Access academic marks, attendance, notifications, and manage complaints.</p>
+      <div class="enter-btn">
+        Login as Student <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+
+    <!-- Mentor Portal -->
+    <div class="portal-card animate-slide-up delay-3" (click)="goToMentor()">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-chalkboard-user"></i>
+      </div>
+      <h3 class="portal-title">Faculty Mentor</h3>
+      <p class="portal-desc">Monitor student progress, handle leave requests, and provide guidance.</p>
+      <div class="enter-btn">
+        Login as Faculty <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+
+    <!-- Admin Portal -->
+    <div class="portal-card animate-slide-up delay-1" (click)="goToAdmin()">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+      <h3 class="portal-title">Admin Dashboard</h3>
+      <p class="portal-desc">Manage system data, assign mentees, and oversee campus-wide operations.</p>
+      <div class="enter-btn">
+        Access Admin Portal <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+
+  </div>
+
 </div>

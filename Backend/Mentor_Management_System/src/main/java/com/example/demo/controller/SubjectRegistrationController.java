@@ -7,10 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.SubjectRegistration;
 import com.example.demo.service.SubjectRegistrationService;
+
 
 @RestController
 @RequestMapping("/subject")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SubjectRegistrationController {
 
     @Autowired
@@ -34,5 +37,10 @@ public class SubjectRegistrationController {
         catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/student/{regNo}")
+    public ResponseEntity<List<SubjectRegistration>> getStudentRegistrations(@PathVariable String regNo) {
+        return ResponseEntity.ok(subjectRegistrationService.getRegistrationsByRegNo(regNo));
     }
 }

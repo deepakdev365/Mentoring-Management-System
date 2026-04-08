@@ -1,35 +1,77 @@
-<h2>My Assigned Students</h2>
+<div class="students-container animate-fade-in p-4">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="section-title mb-1">My Assigned Students</h2>
+      <p class="text-muted">Manage and review your mentees' profiles and performance.</p>
+    </div>
+    
+    <!-- Optional Search/Filter stub -->
+    <div class="search-box position-relative">
+      <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+      <input type="text" class="form-control rounded-pill ps-5 bg-white border-0 shadow-sm" 
+             placeholder="Search students..." [(ngModel)]="searchQuery">
+    </div>
+  </div>
 
-<table border="1" *ngIf="students.length > 0; else noData">
-  <tr>
-    <th>Name</th>
-    <th>Registration</th>
-    <th>Department</th>
-    <th>Contact</th>
-    <th>Email_id</th>
-    <th>City</th>
-    <th>state</th>
-    <th>Branch</th>
-    <th>ZipCode</th>
-    <th>Gender</th>
-    <th>EmergencyContact</th>
-  </tr>
+  <div class="card border-0 premium-shadow rounded-4 bg-white overflow-hidden" *ngIf="students.length > 0; else noData">
+    <div class="table-responsive" *ngIf="filteredStudents.length > 0; else noSearchResults">
+      <table class="table table-hover align-middle mb-0 custom-table">
+        <thead class="bg-light">
+          <tr>
+            <th class="ps-4">Student</th>
+            <th>Reg No</th>
+            <th>Program</th>
+            <th>Branch</th>
+            <th>Contact</th>
+            <th class="text-center pe-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of filteredStudents" class="student-row">
+            <td class="ps-4">
+              <div class="d-flex align-items-center">
+                <div class="avatar-circle bg-primary-soft text-primary fw-bold me-3">
+                  {{ s.fullName.charAt(0) | uppercase }}
+                </div>
+                <div>
+                  <h6 class="mb-0 fw-bold text-dark">{{ s.fullName }}</h6>
+                  <small class="text-muted">{{ s.email }}</small>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge bg-light text-dark border">{{ s.registrationNumber }}</span></td>
+            <td>{{ s.program }}</td>
+            <td>{{ s.branch }}</td>
+            <td>{{ s.phoneNumber }}</td>
+            <td class="text-center pe-4">
+              <a [routerLink]="['/mentor/student', s.registrationNumber]" class="btn btn-sm btn-outline-primary rounded-pill px-3 view-btn">
+                View Profile
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noSearchResults>
+      <div class="text-center py-5 text-muted bg-white">
+        <div class="bg-light d-flex align-items-center justify-content-center rounded-circle mx-auto mb-3" style="width: 60px; height: 60px;">
+          <i class="bi bi-search fs-3"></i>
+        </div>
+        <h5 class="fw-bold">No students matched your search</h5>
+        <p class="small text-secondary mb-0">Try adjusting your search query for "{{searchQuery}}"</p>
+      </div>
+    </ng-template>
+  </div>
 
-  <tr *ngFor="let s of students">
-    <td>{{ s.fullName }}</td>
-    <td>{{ s.registrationNumber }}</td>
-    <td>{{ s.department }}</td>
-    <td>{{ s.phoneNumber }}</td>
-    <td>{{ s.email }}</td>
-    <td>{{ s.city }}</td>
-    <td>{{ s.state }}</td>
-    <td>{{ s.branch }}</td>
-    <td>{{ s.zipCode }}</td>
-    <td>{{ s.gender }}</td>
-    <td>{{ s.emergencyContact }}</td>
-  </tr>
-</table>
+  <ng-template #noData>
+    <div class="empty-state text-center p-5 bg-white rounded-4 premium-shadow mt-4">
+      <div class="empty-icon bg-light text-muted rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+        <i class="bi bi-people"></i>
+      </div>
+      <h4 class="fw-bold">No Students Assigned</h4>
+      <p class="text-muted">You currently do not have any mentees assigned to you.</p>
+    </div>
+  </ng-template>
 
-<ng-template #noData>
-  <p>No students assigned</p>
-</ng-template>
+</div>

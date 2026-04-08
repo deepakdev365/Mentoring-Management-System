@@ -1,42 +1,124 @@
-<div class="container mt-4">
+<div class="assign-container p-4 fade-in">
+  
+  <div class="page-header">
+    <h2 class="page-title mb-1">Assign Mentees</h2>
+    <p class="text-muted">Link students with their faculty mentors for the academic year.</p>
+  </div>
 
-  <h3>Assign Mentees</h3>
-
-  <div class="row mt-4">
-
-    <!-- Mentor Section -->
+  <div class="row g-4">
+    
+    <!-- Mentor Pane -->
     <div class="col-md-5">
-      <h5>Select Mentor</h5>
+      <div class="panel panel-card pane-card premium-shadow">
+        <h5 class="fw-bold mb-3 d-flex align-items-center">
+          <i class="bi bi-person-badge-fill text-primary me-2"></i> Select Mentor
+        </h5>
+        
+        <div class="search-wrapper">
+          <i class="bi bi-search search-icon"></i>
+          <input 
+            type="text" 
+            class="form-control search-input" 
+            [(ngModel)]="mentorSearch" 
+            placeholder="Search mentors by name or department..."
+          >
+        </div>
 
-      <div *ngFor="let mentor of mentors">
-        <input
-          type="radio"
-          name="mentor"
-          [value]="mentor.id"
-          (change)="selectMentor(mentor.id)"
-        />
-        {{mentor.fullName}}
+        <div class="list-container mt-2">
+          <div 
+            *ngFor="let mentor of filteredMentors" 
+            class="item-card" 
+            [class.selected]="selectedMentorId === mentor.id"
+            (click)="selectMentor(mentor.id)"
+          >
+            <div class="radio-indicator">
+              <i class="bi bi-check-circle-fill" *ngIf="selectedMentorId === mentor.id"></i>
+            </div>
+            <div class="mentor-avatar">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="item-info">
+              <span class="item-name">{{ mentor.fullName }}</span>
+              <span class="item-sub text-uppercase">{{ mentor.department || 'N/A' }}</span>
+            </div>
+          </div>
+          
+          <div *ngIf="filteredMentors.length === 0" class="empty-state">
+            <i class="bi bi-search d-block mb-2 fs-2 opacity-50"></i>
+            No mentors found matching "{{ mentorSearch }}"
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Student Section -->
-    <div class="col-md-5">
-      <h5>Select Students</h5>
+    <!-- Student Pane -->
+    <div class="col-md-7">
+      <div class="panel panel-card pane-card premium-shadow">
+        <h5 class="fw-bold mb-3 d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-people-fill text-success me-2"></i> Select Students
+          </div>
+          <span class="badge bg-success-soft text-success fs-6" *ngIf="selectedStudents.length > 0">
+            {{ selectedStudents.length }} selected
+          </span>
+        </h5>
 
-      <div *ngFor="let student of students">
-        <input type="checkbox"
-       (change)="onStudentSelect(student.registrationNumber, $event)"/>
-        {{student.fullName}} - {{student.registrationNumber}}
+        <div class="search-wrapper">
+          <i class="bi bi-search search-icon"></i>
+          <input 
+            type="text" 
+            class="form-control search-input" 
+            [(ngModel)]="studentSearch" 
+            placeholder="Search students by name or registration number..."
+          >
+        </div>
+
+        <div class="list-container mt-2">
+          <div 
+            *ngFor="let student of filteredStudents" 
+            class="item-card" 
+            [class.selected]="isStudentSelected(student.registrationNumber)"
+            (click)="toggleStudentSelection(student.registrationNumber)"
+          >
+            <div class="check-indicator">
+              <i class="bi bi-check" *ngIf="isStudentSelected(student.registrationNumber)"></i>
+            </div>
+            <div class="student-avatar">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+            <div class="item-info">
+              <span class="item-name">{{ student.fullName }}</span>
+              <span class="item-sub">{{ student.registrationNumber }} | {{ student.branch }}</span>
+            </div>
+          </div>
+
+          <div *ngIf="filteredStudents.length === 0" class="empty-state">
+            <i class="bi bi-search d-block mb-2 fs-2 opacity-50"></i>
+            No students found matching "{{ studentSearch }}"
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <button class="btn btn-primary mt-3" (click)="assign()">
-    Assign
-  </button>
-
-  <p class="text-success mt-2" *ngIf="successMsg">{{successMsg}}</p>
-  <p class="text-danger mt-2" *ngIf="errorMsg">{{errorMsg}}</p>
+  <div class="action-bar animate-fade-in">
+    <div class="selection-summary" *ngIf="selectedMentorId && selectedStudents.length > 0; else noSelection">
+      Ready to assign <strong>{{ selectedStudents.length }}</strong> mentees to the selected mentor.
+    </div>
+    <ng-template #noSelection>
+      <div class="selection-summary text-muted">
+        Select a mentor and one or more students to enable assignment.
+      </div>
+    </ng-template>
+    
+    <button 
+      class="btn-main premium-shadow" 
+      [disabled]="!selectedMentorId || selectedStudents.length === 0"
+      (click)="assign()"
+    >
+      <i class="bi bi-link-45deg"></i> Assign Mentees
+    </button>
+  </div>
 
 </div>

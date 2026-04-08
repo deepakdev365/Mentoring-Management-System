@@ -1,0 +1,78 @@
+<div class="container fade-in p-4">
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <button class="btn btn-sm btn-light border shadow-sm mb-3" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+      <h2 class="fw-bold mb-1">Leave Permission Request</h2>
+      <p class="text-muted">Fill out this form to apply for an official outpass/leave from the hostel.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      
+      <div class="panel-card p-4 p-md-5">
+        
+        <div class="alert alert-success d-flex align-items-center" *ngIf="successMsg">
+          <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+          <div>{{ successMsg }}</div>
+        </div>
+        
+        <div class="alert alert-danger d-flex align-items-center" *ngIf="errorMsg">
+          <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+          <div>{{ errorMsg }}</div>
+        </div>
+
+        <form (ngSubmit)="submitLeave()" #leaveForm="ngForm" *ngIf="!successMsg">
+          
+          <h5 class="fw-bold mb-4 border-bottom pb-2">Hostel Details</h5>
+          
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label class="form-label fw-bold">Hostel Number / Block</label>
+              <input type="text" class="form-control form-control-lg bg-light" name="hostelNo" [(ngModel)]="leaveData.hostelNo" placeholder="e.g. Block A" required>
+            </div>
+            
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Room Number</label>
+              <input type="text" class="form-control form-control-lg bg-light" name="roomNo" [(ngModel)]="leaveData.roomNo" placeholder="e.g. 201" required>
+            </div>
+          </div>
+
+          <h5 class="fw-bold mb-4 border-bottom pb-2 mt-2">Leave Duration</h5>
+          
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label class="form-label fw-bold">From Date</label>
+              <input type="date" class="form-control form-control-lg bg-light" name="fromDate" [(ngModel)]="leaveData.fromDate" required [min]="minDate">
+            </div>
+            
+            <div class="col-md-6">
+              <label class="form-label fw-bold">To Date</label>
+              <input type="date" class="form-control form-control-lg bg-light" name="toDate" [(ngModel)]="leaveData.toDate" required [min]="leaveData.fromDate || minDate">
+            </div>
+          </div>
+
+          <h5 class="fw-bold mb-4 border-bottom pb-2 mt-2">Reason</h5>
+          
+          <div class="mb-4">
+            <label class="form-label fw-bold">Reason for Leave</label>
+            <textarea class="form-control bg-light" rows="4" name="reason" [(ngModel)]="leaveData.reason" placeholder="Please provide an adequate and valid reason for your leave/outpass..." required></textarea>
+          </div>
+          
+          <div class="d-flex justify-content-end mt-4">
+             <button type="submit" class="btn btn-main px-5 py-2 fw-bold rounded-pill" [disabled]="!leaveForm.form.valid || isSubmitting">
+               <span *ngIf="!isSubmitting">Submit Request</span>
+               <span *ngIf="isSubmitting"><span class="spinner-border spinner-border-sm me-2"></span> Submitting...</span>
+             </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>

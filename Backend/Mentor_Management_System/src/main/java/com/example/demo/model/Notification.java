@@ -17,6 +17,13 @@ public class Notification {
         this.createdAt = LocalDateTime.now();
     }
 
+    @PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
 	public Long getId() {
 		return id;
 	}

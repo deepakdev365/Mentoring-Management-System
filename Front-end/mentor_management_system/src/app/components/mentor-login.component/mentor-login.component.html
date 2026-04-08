@@ -1,19 +1,58 @@
-<h2>Mentor Login</h2>
+<div class="page">
 
-<input type="email"
-       placeholder="Email"
-       [(ngModel)]="email"
-       name="email">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 
-<br><br>
+  <div class="card" *ngIf="!successMsg">
 
-<input type="password"
-       placeholder="Password"
-       [(ngModel)]="password"
-       name="password">
+    <div class="header">
+      <div class="icon-ring">
+        <i class="fa-solid fa-chalkboard-user"></i>
+      </div>
+      <h2>Faculty Portal</h2>
+      <p>Sign in to manage your mentees</p>
+    </div>
 
-<br><br>
+    <form (ngSubmit)="login()" #mentorForm="ngForm">
 
-<button (click)="login()">Login</button>
+      <div class="field">
+        <label>Faculty Email</label>
+        <div class="input-wrap">
+          <!-- <i class="fa-solid fa-envelope"></i> -->
+          <input type="email" placeholder="mentor@college.com" [(ngModel)]="loginData.email" name="email" required />
+        </div>
+      </div>
 
-<p style="color:red">{{ errorMessage }}</p>
+      <div class="field">
+        <label>Password</label>
+        <div class="input-wrap">
+          <!-- <i class="fa-solid fa-lock"></i> -->
+          <input type="password" placeholder="Enter your password" [(ngModel)]="loginData.password" name="password"
+            required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn" [disabled]="!mentorForm.form.valid">
+        <span>Access Portal</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div class="error-msg" *ngIf="errorMsg">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        {{ errorMsg }}
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="card success-card" *ngIf="successMsg">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <h3>Welcome back!</h3>
+    <p>Redirecting to your dashboard...</p>
+  </div>
+
+</div>

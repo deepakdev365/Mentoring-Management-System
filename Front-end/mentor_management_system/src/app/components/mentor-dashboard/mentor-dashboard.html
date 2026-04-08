@@ -1,30 +1,89 @@
-<div class="container mt-4">
+<div class="container-fluid fade-in py-5 px-md-5">
 
-  <h2 class="mb-4">Mentor Dashboard</h2>
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="dashboard-title mb-1">Faculty Mentor Overview</h2>
+      <p class="text-muted fs-5">Track mentee progress and manage support requests in real-time.</p>
+    </div>
+  </div>
 
-  <div class="row">
-
-    <!-- Total Students -->
-    <div class="col-md-4">
-      <div class="card text-center p-3 shadow">
-        <h5>Total Students</h5>
-        <h2>{{totalStudents}}</h2>
+  <!-- Stats Grid -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4" style="--delay: 1">
+      <div class="stat-card blue-accent animate-in">
+        <span class="stat-label">Total Mentees</span>
+        <span class="stat-value">{{totalStudents}}</span>
+        <div class="glass-decor"></div>
+      </div>
+    </div>
+    
+    <div class="col-md-4" style="--delay: 2">
+      <div class="stat-card amber-accent animate-in">
+        <span class="stat-label">Total Complaints</span>
+        <span class="stat-value">{{totalComplaints}}</span>
+        <div class="glass-decor"></div>
       </div>
     </div>
 
-    <!-- Total Complaints -->
-    <div class="col-md-4">
-      <div class="card text-center p-3 shadow">
-        <h5>Total Complaints</h5>
-        <h2>{{totalComplaints}}</h2>
+    <div class="col-md-4" style="--delay: 3">
+      <div class="stat-card rose-accent animate-in">
+        <span class="stat-label">Pending Issues</span>
+        <span class="stat-value">{{pendingComplaints}}</span>
+        <div class="glass-decor"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 mt-5">
+      <h5 class="section-title">Quick Actions & Management</h5>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <!-- View Mentees -->
+    <div class="col-md-6" style="--delay: 4">
+      <div class="action-card blue-accent animate-in" routerLink="/mentor/students">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <span class="action-label">My Mentees</span>
+        <span class="action-desc">View and manage your assigned students, their marks, and attendance.</span>
+        <div class="glass-decor"></div>
       </div>
     </div>
 
-    <!-- Pending Complaints -->
-    <div class="col-md-4">
-      <div class="card text-center p-3 shadow">
-        <h5>Pending Complaints</h5>
-        <h2 class="text-danger">{{pendingComplaints}}</h2>
+    <!-- Manage Complaints -->
+    <div class="col-md-6" style="--delay: 5">
+      <div class="action-card amber-accent animate-in" routerLink="/mentor/complaints">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-comment-dots"></i>
+        </div>
+        <span class="action-label">Manage Complaints</span>
+        <span class="action-desc">Review issues raised by your mentees and provide resolutions.</span>
+        <div class="glass-decor"></div>
+      </div>
+    </div>
+
+    <!-- Leave Permissions -->
+    <div class="col-md-6" style="--delay: 6">
+      <div class="action-card rose-accent animate-in" routerLink="/mentor/leave-permissions">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <span class="action-label">Leave Approvals</span>
+        <span class="action-desc">Review and manage your students' hostel leave requests.</span>
+        <div class="glass-decor"></div>
+      </div>
+    </div>
+
+    <!-- View Profile -->
+    <div class="col-md-6" style="--delay: 7">
+      <div class="action-card indigo-accent animate-in" routerLink="/mentor/profile">
+        <div class="icon-box shadow-sm">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+        <span class="action-label">My Profile</span>
+        <span class="action-desc">Update your personal information and academic credentials.</span>
+        <div class="glass-decor"></div>
       </div>
     </div>
 

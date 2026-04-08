@@ -1,0 +1,191 @@
+<div class="container fade-in p-4">
+
+  <!-- Back Button & Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <button class="btn btn-sm btn-light border shadow-sm mb-3" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back to Leave Requests
+      </button>
+      <h2 class="fw-bold mb-1">Leave Permission Slip</h2>
+      <p class="text-muted">Official leave request details for your review and action.</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="row" *ngIf="isLoading">
+    <div class="col-12 text-center p-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-3 text-muted">Loading leave details...</p>
+    </div>
+  </div>
+
+  <!-- Not Found -->
+  <div class="row" *ngIf="!isLoading && !leave">
+    <div class="col-12">
+      <div class="panel-card p-5 text-center">
+        <h5 class="fw-bold text-muted">Leave request not found.</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="row" *ngIf="!isLoading && leave">
+
+    <!-- Action Alert / Feedback -->
+    <div class="col-12 mb-3" *ngIf="actionMessage">
+      <div class="alert alert-success fw-bold">{{ actionMessage }}</div>
+    </div>
+    <div class="col-12 mb-3" *ngIf="actionError">
+      <div class="alert alert-danger">{{ actionError }}</div>
+    </div>
+
+    <div class="col-lg-8">
+
+      <!-- Slip Header Card -->
+      <div class="panel-card p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h4 class="fw-bold mb-0">Leave Request #{{ leave.id }}</h4>
+            <p class="text-muted small mb-0">Submitted by: <strong>{{ leave.student?.fullName || leave.studentName }}</strong></p>
+          </div>
+          <span class="badge rounded-pill px-3 py-2 fs-6" [ngClass]="getStatusClass(leave.status)">
+            {{ leave.status }}
+          </span>
+        </div>
+
+        <hr class="my-3">
+
+        <!-- Section: Student Personal Info -->
+        <h6 class="fw-bold text-muted text-uppercase small mb-3">Personal Information</h6>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Full Name</label>
+            <span class="fw-bold">{{ student?.fullName || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Father / Guardian Name</label>
+            <span class="fw-bold">{{ student?.fatherGuardianName || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Registration Number</label>
+            <span class="fw-bold">{{ student?.registrationNumber || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">PRN No.</label>
+            <span class="fw-bold">{{ student?.prnNo || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Student Phone</label>
+            <span class="fw-bold">{{ student?.phoneNumber || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Guardian / Emergency Contact</label>
+            <span class="fw-bold">{{ student?.emergencyContact || '—' }}</span>
+          </div>
+        </div>
+
+        <hr class="my-3">
+
+        <!-- Section: Academic -->
+        <h6 class="fw-bold text-muted text-uppercase small mb-3">Academic Details</h6>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Program</label>
+            <span class="fw-bold">{{ student?.program || '—' }}</span>
+          </div>
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Branch</label>
+            <span class="fw-bold">{{ student?.branch || '—' }}</span>
+          </div>
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Semester</label>
+            <span class="fw-bold">{{ student?.semester || '—' }}</span>
+          </div>
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Batch</label>
+            <span class="fw-bold">{{ student?.batch || '—' }}</span>
+          </div>
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Department</label>
+            <span class="fw-bold">{{ student?.department || '—' }}</span>
+          </div>
+          <div class="col-md-4">
+            <label class="text-muted small d-block">Campus</label>
+            <span class="fw-bold">{{ student?.campus || '—' }}</span>
+          </div>
+        </div>
+
+        <hr class="my-3">
+
+        <!-- Section: Hostel -->
+        <h6 class="fw-bold text-muted text-uppercase small mb-3">Hostel Details</h6>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Hostel Block / Number</label>
+            <span class="fw-bold">{{ leave.hostelNo || '—' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">Room Number</label>
+            <span class="fw-bold">{{ leave.roomNo || '—' }}</span>
+          </div>
+        </div>
+
+        <hr class="my-3">
+
+        <!-- Section: Leave -->
+        <h6 class="fw-bold text-muted text-uppercase small mb-3">Leave Details</h6>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="text-muted small d-block">From Date</label>
+            <span class="fw-bold">{{ leave.fromDate | date:'fullDate' }}</span>
+          </div>
+          <div class="col-md-6">
+            <label class="text-muted small d-block">To Date</label>
+            <span class="fw-bold">{{ leave.toDate | date:'fullDate' }}</span>
+          </div>
+          <div class="col-12">
+            <label class="text-muted small d-block">Reason for Leave</label>
+            <p class="fw-bold mb-0 bg-light p-3 rounded-3">{{ leave.reason }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Action Panel -->
+    <div class="col-lg-4">
+      <div class="panel-card p-4 sticky-top" style="top: 1rem;">
+        <h6 class="fw-bold mb-3">Action Panel</h6>
+        <p class="text-muted small mb-4">Review the leave slip and take the appropriate action below.</p>
+
+        <div class="d-grid gap-3">
+          <button
+            class="btn btn-success py-2 fw-bold rounded-pill"
+            [disabled]="leave.status !== 'Pending' || isProcessing"
+            (click)="approve()"
+          >
+            <span *ngIf="!isProcessing"><i class="bi bi-check-circle-fill me-2"></i> Approve Leave</span>
+            <span *ngIf="isProcessing"><span class="spinner-border spinner-border-sm me-2"></span> Processing...</span>
+          </button>
+
+          <button
+            class="btn btn-outline-danger py-2 fw-bold rounded-pill"
+            [disabled]="leave.status !== 'Pending' || isProcessing"
+            (click)="reject()"
+          >
+            <i class="bi bi-x-circle-fill me-2"></i> Reject Leave
+          </button>
+        </div>
+
+        <div class="mt-4 p-3 rounded-3 bg-light" *ngIf="leave.status !== 'Pending'">
+          <p class="small text-muted mb-0">
+            <i class="bi bi-info-circle me-1"></i>
+            This request has already been <strong>{{ leave.status }}</strong>. No further action is needed.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

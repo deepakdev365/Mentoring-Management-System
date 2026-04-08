@@ -22,6 +22,12 @@ public class LeavePermissionController {
         return service.applyLeave(leave);
     }
 
+    // Get single leave request by ID
+    @GetMapping("/{id}")
+    public LeavePermission getLeaveById(@PathVariable Long id) {
+        return service.getLeaveById(id);
+    }
+
     // Admin view all leave requests
     @GetMapping("/all")
     public List<LeavePermission> getAllLeaves() {
@@ -38,5 +44,20 @@ public class LeavePermissionController {
     @PutMapping("/reject/{id}")
     public LeavePermission rejectLeave(@PathVariable Long id) {
         return service.rejectLeave(id);
+    }
+
+    // Mentor get leaves for their mentees
+    @GetMapping("/mentor/{mentorId}")
+    public List<LeavePermission> getLeavesByMentorId(@PathVariable Integer mentorId) {
+        System.out.println("Fetching leaves for mentor ID: " + mentorId);
+        List<LeavePermission> leaves = service.getLeavesByMentorId(mentorId);
+        System.out.println("Found " + leaves.size() + " leaves.");
+        return leaves;
+    }
+
+    // Student get their own leaves
+    @GetMapping("/student/{studentId}")
+    public List<LeavePermission> getStudentLeaves(@PathVariable Long studentId) {
+        return service.getLeavesByStudentId(studentId);
     }
 }

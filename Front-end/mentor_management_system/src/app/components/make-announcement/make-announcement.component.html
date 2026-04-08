@@ -1,15 +1,47 @@
-<div class="container mt-4">
+<div class="broadcast-container animate-fade-in">
 
-  <h3>Make Announcement</h3>
+  <div class="panel panel-card broadcast-card premium-shadow">
+    
+    <div class="broadcast-header">
+      <div class="icon-circle pulse-animation">
+        <i class="bi bi-megaphone-fill"></i>
+      </div>
+      <h2 class="broadcast-title">Make Announcement</h2>
+      <p class="text-muted fs-6">Reach all students instantly with a single announcement.</p>
+    </div>
 
-  <textarea [(ngModel)]="message"
-            class="form-control mb-3"
-            rows="5"
-            placeholder="Enter announcement...">
-  </textarea>
+    <div class="form-group mb-4">
+      <textarea 
+        [(ngModel)]="message" 
+        class="broadcast-textarea" 
+        [disabled]="isSending"
+        placeholder="Enter your announcement message here..."
+        aria-label="Announcement Message"
+      ></textarea>
+    </div>
 
-  <button class="btn btn-primary" (click)="send()">Announce</button>
+    <div class="action-footer">
+      <button 
+        class="btn-main premium-shadow" 
+        (click)="send()" 
+        [disabled]="isSending || !message.trim()"
+      >
+        <span *ngIf="isSending" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <i class="bi bi-broadcast" *ngIf="!isSending"></i>
+        {{ isSending ? 'Broadcasting...' : 'Broadcast Now' }}
+      </button>
+    </div>
 
-  <p class="mt-3 text-success">{{response}}</p>
+    <div class="feedback-area" *ngIf="response">
+      <div 
+        class="alert-professional" 
+        [ngClass]="response.includes('failed') ? 'alert-danger-soft' : 'alert-success-soft'"
+      >
+        <i class="bi" [ngClass]="response.includes('failed') ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'"></i>
+        {{ response }}
+      </div>
+    </div>
+
+  </div>
 
 </div>

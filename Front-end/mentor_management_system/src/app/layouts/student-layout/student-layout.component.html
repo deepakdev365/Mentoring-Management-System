@@ -1,54 +1,154 @@
-<!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark px-3">
+<!-- Portal Header -->
+<nav class="header px-4">
+  <div class="header-left d-flex align-items-center">
+    <div class="brand-box flex-center bg-white rounded-3 me-3 border shadow-sm" style="width: 40px; height: 40px;">
+      <i class="fa-solid fa-graduation-cap text-primary fs-5"></i>
+    </div>
+    <span class="brand fw-bold">Student Dashboard</span>
+  </div>
 
-  <span class="navbar-brand">Student Portal</span>
-
-  <span class="text-white">
-    Welcome {{student.fullName}}
-  </span>
-
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
-
+  <div class="header-right d-flex align-items-center">
+    <div class="user-meta d-none d-md-flex align-items-center me-4">
+      <div class="text-end me-3">
+        <span class="text-x-small opacity-50 d-block uppercase fw-bold">Academic Session</span>
+        <span class="user-name fw-bold small text-dark">2023-2027</span>
+      </div>
+    </div>
+    <div class="avatar flex-center shadow-sm">
+      {{student.initials || 'ST'}}
+    </div>
+    <button class="btn btn-sm btn-outline-danger rounded-pill ms-3 px-3 fw-bold d-flex align-items-center"
+      (click)="logout()">
+      <i class="fa-solid fa-power-off me-1"></i> Logout
+    </button>
+  </div>
 </nav>
 
-<div class="d-flex">
+<div class="layout">
 
-  <!-- Sidebar -->
-  <div class="bg-light p-3" style="width:220px; min-height:100vh">
+  <!-- Docked Sidebar Navigation -->
+  <aside class="sidebar fade-in">
 
-    <h5>Menu</h5>
+    <!-- Profile Preview Section (Visible on Hover) -->
+    <div class="profile-preview" *ngIf="student">
+      <div class="d-flex align-items-center gap-3">
+        <div class="avatar-small flex-center bg-soft-blue text-primary shadow-sm border">
+          {{student.initials || 'ST'}}
+        </div>
+        <div class="user-details overflow-hidden">
+          <div class="user-name fw-bold text-dark text-truncate small">{{student.fullName}}</div>
+          <div class="text-muted text-x-small">@{{student.registrationNumber}}</div>
+        </div>
+      </div>
+    </div>
 
-    <ul class="nav flex-column">
+    <!-- Navigation Scroller -->
+    <div class="sidebar-scroller flex-grow-1 overflow-auto pb-4 pt-2">
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/student/dashboard">
-          Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/student/my-complaints">
-          My Complaints
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/student/make-complaint">
-          Make Complaint
-        </a>
-      </li>
+      <div class="label px-4 pt-3 pb-2 d-flex align-items-center text-muted uppercase x-small fw-bold">
+        <i class="fa-solid fa-bars me-2"></i>
+        <span>Navigation</span>
+      </div>
+      <ul class="nav-list list-unstyled">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/dashboard" routerLinkActive="active">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/subjects" routerLinkActive="active">
+            <i class="fa-solid fa-book-open"></i>
+            <span class="nav-label">Courses</span>
+          </a>
+        </li>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/report-card" routerLinkActive="active">
+            <i class="fa-solid fa-file-contract"></i>
+            <span class="nav-label">Grade Sheet</span>
+          </a>
+        </li>
+      </ul>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/student/report-card">
-          Report Card
-        </a>
-      </li>
+      <!-- <div class="label px-4 pt-2 pb-2 d-flex align-items-center text-muted uppercase x-small fw-bold">
+             <span>Financial</span>
+          </div> -->
+      <ul class="nav-list list-unstyled">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/payments" routerLinkActive="active">
+            <i class="fa-solid fa-wallet"></i>
+            <span class="nav-label">Payments</span>
+          </a>
+        </li>
+      </ul>
 
-    </ul>
+      <!-- <li class="menu-separator mx-4 my-2 opacity-10"></li>
 
-  </div>
+      <div class="label px-4 pt-2 pb-2 d-flex align-items-center text-muted uppercase x-small fw-bold">
+        <span>Support</span>
+      </div> -->
+      <ul class="nav-list list-unstyled">
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/notifications" routerLinkActive="active">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span class="nav-label">Notices</span>
+          </a>
+        </li>
+        <li class="nav-wrapper">
+          <a class="nav-item" routerLink="/student/my-complaints" routerLinkActive="active">
+            <i class="fa-solid fa-headset"></i>
+            <span class="nav-label">Help Desk</span>
+          </a>
+        </li>
+      </ul>
 
-  <!-- Main Content -->
-  <div class="p-4 flex-grow-1">
-    <router-outlet></router-outlet>
-  </div>
+      <!-- HOSTEL SECTION -->
+      <ng-container *ngIf="isHosteler">
+        <!-- <li class="menu-separator mx-4 my-2 opacity-10"></li>
+        <div class="label px-4 pt-2 pb-2 d-flex align-items-center text-muted uppercase x-small fw-bold">
+          <span>Campus</span>
+        </div> -->
+        <ul class="nav-list list-unstyled">
+          <li class="nav-wrapper">
+            <a class="nav-item" routerLink="/student/ask-leave-permission" routerLinkActive="active">
+              <i class="fa-solid fa-person-walking-arrow-right"></i>
+              <span class="nav-label">Exit Pass</span>
+            </a>
+          </li>
+          <li class="nav-wrapper">
+            <a class="nav-item" routerLink="/student/leave-permissions" routerLinkActive="active">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span class="nav-label">Pass History</span>
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+
+    <!-- Action Area -->
+    <div class="action-area mt-auto">
+      <div class="card-help">
+        <div class="text-x-small text-muted mb-2 uppercase fw-bold ls-1 text-center">Faculty Help</div>
+        <button class="btn btn-primary btn-sm rounded-pill w-100 fw-bold border-0 shadow-sm"
+          routerLink="/student/make-complaint">
+          <i class="fa-solid fa-paper-plane me-1"></i> Contact
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <main class="content">
+    <!-- Breadcrumb / Trail: Now sticky at top of content -->
+    <div class="trail d-flex align-items-center fade-in">
+      <i class="fa-solid fa-house text-muted me-2 x-small"></i>
+      <span class="text-muted text-x-small uppercase fw-bold ls-1">Hub</span>
+      <i class="fa-solid fa-chevron-right mx-2 text-muted x-small opacity-50"></i>
+      <span class="fw-bold text-small text-dark">{{currentPath}}</span>
+    </div>
+    <div class="viewport fade-in px-4">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 
 </div>

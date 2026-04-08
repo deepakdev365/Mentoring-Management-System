@@ -1,7 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MarksService } from '../../services/marks.service';
-import { StudentMark } from '../../models/student-mark';
 
 @Component({
   selector: 'app-marks-upload',
@@ -11,58 +10,78 @@ import { StudentMark } from '../../models/student-mark';
   styleUrl: './marks-upload.component.css'
 })
 export class MarksUploadComponent implements OnInit {
-  marksList: StudentMark[] = [];
-  selectedFile!: File;
-  uploadMessage = '';
-  uploadSuccess = false;
 
-  constructor(
-    private marksService: MarksService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  requiredColumns = [
+    { name: 'registrationNumber', aliases: '/ rollNo / regNo' },
+    { name: 'subjectCode', aliases: '/ code' },
+    { name: 'semester', aliases: '/ sem' },
+    { name: 'grade', aliases: '/ result / remark' },
+  ];
+
+  selectedFile!: File;
+  isUploading = false;
+  isError = false;
+  message = '';
+  errorList: string[] = [];
+  uploadSuccess = false;
+  marksList: any[] = [];
+
+  constructor(private marksService: MarksService) {}
 
   ngOnInit(): void {
     this.loadMarks();
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.selectedFile = input.files?.[0] as File;
-    this.uploadMessage = '';
-  }
-
   loadMarks(): void {
     this.marksService.getAllMarks().subscribe({
-      next: (data) => {
-        this.marksList = data;
-        this.cdr.detectChanges();
-      },
-      error: () => {
-        this.marksList = [];
-        this.cdr.detectChanges();
-      }
+      next: (data) => this.marksList = data,
+      error: (err) => console.error('Error loading marks', err)
     });
   }
 
-  uploadFile(): void {
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.message = '';
+    this.errorList = [];
+    this.uploadSuccess = false;
+    this.isError = false;
+  }
+
+  upload() {
     if (!this.selectedFile) {
-      this.uploadSuccess = false;
-      this.uploadMessage = 'Please select a file first.';
-      this.cdr.detectChanges();
+      this.message = 'Please select an Excel file (.xlsx or .xls) before uploading.';
+      this.isError = true;
       return;
     }
 
+    this.isUploading = true;
+    this.message = '';
+    this.errorList = [];
+    this.isError = false;
+    this.uploadSuccess = false;
+
     this.marksService.uploadMarks(this.selectedFile).subscribe({
-      next: (res: string) => {
+      next: (res: any) => {
+        this.message = 'Marks updated successfully! Automated backlogs processed for F/S grades.';
+        this.isError = false;
         this.uploadSuccess = true;
-        this.uploadMessage = res;
+        this.isUploading = false;
+        this.selectedFile = null as any;
         this.loadMarks();
-        this.cdr.detectChanges();
       },
       error: (err) => {
+        this.isUploading = false;
+        this.isError = true;
         this.uploadSuccess = false;
-        this.uploadMessage = err?.error || 'Error uploading marks file.';
-        this.cdr.detectChanges();
+
+        const rawError = err?.error || err?.message || 'Upload failed. Please try again.';
+        if (Array.isArray(rawError)) {
+          this.errorList = rawError;
+          this.message = '';
+        } else {
+          this.message = rawError;
+          this.errorList = [];
+        }
       }
     });
   }

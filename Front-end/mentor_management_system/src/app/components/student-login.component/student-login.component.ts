@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   selector: 'app-student-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './student-login.component.html'
+  templateUrl: './student-login.component.html',
+  styleUrl: './student-login.component.css'
 })
 export class StudentLoginComponent implements OnInit {
 
@@ -75,7 +76,7 @@ export class StudentLoginComponent implements OnInit {
     const loggedIn = sessionStorage.getItem("studentLoggedIn");
 
     if(loggedIn === "true"){
-      this.router.navigate(['/student-dashboard']);
+      this.router.navigate(['/student/dashboard']);
     }
 
   }

@@ -1,0 +1,85 @@
+.students-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-weight: 700;
+  color: #1a1f36;
+  letter-spacing: -0.5px;
+}
+
+.search-box input {
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  width: 300px;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.premium-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* Custom Table Styles */
+.custom-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.75px;
+  color: #6b7280;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.custom-table td {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+}
+
+.student-row {
+  transition: all 0.2s ease;
+}
+
+.student-row:hover {
+  background-color: #f8f9fa;
+}
+
+.avatar-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.bg-primary-soft { background-color: rgba(13, 110, 253, 0.1); }
+
+.view-btn {
+  font-weight: 600;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+.student-row:hover .view-btn {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.15);
+}
+
+.animate-fade-in {
+  animation: slideFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
