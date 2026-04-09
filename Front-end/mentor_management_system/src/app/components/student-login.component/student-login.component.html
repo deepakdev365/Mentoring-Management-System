@@ -1,49 +1,56 @@
-<div class="container mt-5" style="max-width:400px;">
+<div class="page">
 
-<h3 class="text-center mb-4">Student Login</h3>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 
-<div class="mb-3">
+  <div class="card" *ngIf="!successMsg">
 
-<label>Email</label>
+    <div class="header">
+      <div class="icon-ring">
+        <i class="fa-solid fa-user-graduate"></i>
+      </div>
+      <h2>Student Portal</h2>
+      <p>Sign in to access your details</p>
+    </div>
 
-<input
-type="text"
-class="form-control"
-placeholder="Enter Email"
-[(ngModel)]="loginData.email"
-/>
+    <form (ngSubmit)="login()" #studentForm="ngForm">
 
-</div>
+      <div class="field">
+        <label>Student Email</label>
+        <div class="input-wrap">
+          <input type="email" placeholder="student@college.com" [(ngModel)]="loginData.email" name="email" required />
+        </div>
+      </div>
 
+      <div class="field">
+        <label>Password</label>
+        <div class="input-wrap">
+          <input type="password" placeholder="Enter your password" [(ngModel)]="loginData.password" name="password"
+            required />
+        </div>
+      </div>
 
-<div class="mb-3">
+      <button type="submit" class="btn" [disabled]="!studentForm.form.valid">
+        <span>Access Portal</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
 
-<label>Password</label>
+      <div class="error-msg" *ngIf="errorMsg">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        {{ errorMsg }}
+      </div>
 
-<input
-type="password"
-class="form-control"
-placeholder="Enter Password"
-[(ngModel)]="loginData.password"
-/>
+    </form>
 
-</div>
+  </div>
 
-
-<button
-class="btn btn-primary w-100"
-(click)="login()"
->
-Login
-</button>
-
-
-<p style="color:green; margin-top:15px;" *ngIf="successMsg">
-{{successMsg}}
-</p>
-
-<p style="color:red; margin-top:15px;" *ngIf="errorMsg">
-{{errorMsg}}
-</p>
+  <div class="card success-card" *ngIf="successMsg">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <h3>Welcome back!</h3>
+    <p>Redirecting to your dashboard...</p>
+  </div>
 
 </div>

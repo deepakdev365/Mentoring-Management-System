@@ -87,6 +87,30 @@
       </div>
     </div>
 
+    <!-- Mentee Backlogs -->
+    <div class="col-md-6" style="--delay: 8">
+      <div class="action-card danger-accent animate-in border-danger border-start border-4" routerLink="/mentor/student-backlogs">
+        <div class="icon-box shadow-sm bg-danger text-white">
+          <i class="fa-solid fa-book-skull"></i>
+        </div>
+        <span class="action-label text-danger">Mentee Backlogs <span class="badge bg-danger ms-2">{{totalBacklogs}} active</span></span>
+        <span class="action-desc">Track and monitor all uncleared backlogs for your assigned students.</span>
+        <div class="glass-decor bg-danger opacity-10"></div>
+      </div>
+    </div>
+
+    <!-- Low Attendance -->
+    <div class="col-md-6" style="--delay: 9">
+      <div class="action-card warning-accent animate-in border-warning border-start border-4" routerLink="/mentor/low-attendance">
+        <div class="icon-box shadow-sm bg-warning text-dark">
+          <i class="fa-solid fa-user-clock"></i>
+        </div>
+        <span class="action-label text-warning-emphasis">Low Attendance <span class="badge bg-warning text-dark ms-2">{{lowAttendanceCount}} flags</span></span>
+        <span class="action-desc">Review students failing to meet the minimum 75% attendance threshold.</span>
+        <div class="glass-decor bg-warning opacity-10"></div>
+      </div>
+    </div>
+
   </div>
 
 </div>

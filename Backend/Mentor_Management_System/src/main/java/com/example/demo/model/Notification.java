@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
 @Entity
 public class Notification {
 
@@ -10,6 +11,9 @@ public class Notification {
     private Long id;
 
     private String message;
+    
+    @Column(name = "recipient_reg_no")
+    private String recipientRegNo;
 
     private LocalDateTime createdAt;
 
@@ -40,6 +44,14 @@ public class Notification {
 		this.message = message;
 	}
 
+	public String getRecipientRegNo() {
+	    return recipientRegNo;
+	}
+	
+	public void setRecipientRegNo(String recipientRegNo) {
+	    this.recipientRegNo = recipientRegNo;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -47,7 +59,5 @@ public class Notification {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
-    // getters and setters
 
 }

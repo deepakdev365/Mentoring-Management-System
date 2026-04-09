@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -27,6 +31,9 @@ public class DashboardController {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private BacklogRepository backlogRepository;
 
     @GetMapping("/student/{regNo}")
     public DashboardSummaryDTO getStudentSummary(@PathVariable String regNo) {
@@ -58,5 +65,45 @@ public class DashboardController {
             "Enrolled",
             (int)courseCount
         );
+    }
+
+    @GetMapping("/mentor/{mentorId}/backlogs")
+    public List<Backlog> getMentorStudentBacklogs(@PathVariable Integer mentorId) {
+        List<Student> students = studentRepository.findByMentor_Id(mentorId);
+        List<String> emails = students.stream()
+            .map(Student::getEmail)
+            .filter(email -> email != null && !email.trim().isEmpty())
+            .collect(Collectors.toList());
+
+        if (emails.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return backlogRepository.findByEmailInIgnoreCase(emails);
+    }
+
+    @GetMapping("/mentor/{mentorId}/low-attendance")
+    public List<Map<String, Object>> getMentorLowAttendanceStudents(@PathVariable Integer mentorId) {
+        List<Student> students = studentRepository.findByMentor_Id(mentorId);
+        List<Map<String, Object>> lowAttendanceList = new ArrayList<>();
+
+        for (Student student : students) {
+            String regNo = student.getRegistrationNumber();
+            if (regNo == null || regNo.isEmpty()) continue;
+
+            List<Attendance> attendances = attendanceRepository.findBySubjectRegistration_Student_RegistrationNumber(regNo);
+            if (attendances.isEmpty()) continue;
+            
+            double avgAttendance = attendances.stream().mapToDouble(Attendance::getPercentage).average().orElse(0.0);
+            
+            if (avgAttendance < 75.0) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("registrationNumber", regNo);
+                map.put("fullName", student.getFullName());
+                map.put("branch", student.getBranch());
+                map.put("attendancePercentage", Math.round(avgAttendance * 10.0) / 10.0);
+                lowAttendanceList.add(map);
+            }
+        }
+        return lowAttendanceList;
     }
 }

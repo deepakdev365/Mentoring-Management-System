@@ -13,6 +13,8 @@ public interface BacklogRepository extends JpaRepository<Backlog, Long> {
 
     List<Backlog> findByEmailIgnoreCase(String email);
 
+    List<Backlog> findByEmailInIgnoreCase(List<String> emails);
+
     boolean existsByEmailIgnoreCaseAndSubjectCodeIgnoreCase(String email, String subjectCode);
 
     Optional<Backlog> findByRollNoAndSubjectCodeAndSemester(String rollNo, String subjectCode, String semester);

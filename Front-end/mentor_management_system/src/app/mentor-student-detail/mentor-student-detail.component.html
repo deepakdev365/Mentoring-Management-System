@@ -36,12 +36,12 @@
         </div>
 
         <div class="d-flex justify-content-center gap-3">
-          <a [href]="'mailto:' + student.email" class="btn btn-light rounded-circle shadow-sm icon-btn">
-            <i class="bi bi-envelope-fill text-primary"></i>
+          <a [href]="'mailto:' + student.email" class="btn btn-light rounded-circle shadow-sm icon-btn" title="Email Student">
+            <i class="fa-solid fa-envelope text-primary"></i>
           </a>
-          <a [href]="'tel:' + student.phoneNumber" class="btn btn-light rounded-circle shadow-sm icon-btn">
-            <i class="bi bi-telephone-fill text-success"></i>
-          </a>
+          <button type="button" class="btn btn-light rounded-circle shadow-sm icon-btn" title="Message Student" data-bs-toggle="modal" data-bs-target="#sendMessageModal">
+            <i class="fa-solid fa-comment-dots text-success"></i>
+          </button>
         </div>
         
         <hr class="my-4 text-muted">
@@ -221,9 +221,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let p of payments" class="border-bottom">
-                <td class="ps-3 py-3">{{ p.paymentDate || 'N/A' }}</td>
+                <td class="ps-3 py-3">{{ p.paymentDate ? (p.paymentDate | date:'mediumDate') : 'N/A' }}</td>
                 <td class="py-3 fw-semibold text-dark">₹{{ p.amount }}</td>
-                <td class="py-3 font-monospace small text-muted">{{ p.transactionId }}</td>
+                <td class="py-3 font-monospace small text-muted">{{ p.paymentId }}</td>
                 <td class="py-3 text-center"><span [class]="getPaymentStatusClass(p.paymentStatus)">{{ p.paymentStatus | titlecase }}</span></td>
               </tr>
             </tbody>
@@ -251,12 +251,12 @@
               <tr *ngFor="let l of leaves" class="border-bottom">
                 <td class="ps-3 py-3">
                   <span class="d-block small text-muted">From:</span>
-                  <span class="fw-semibold">{{ l.startDate }}</span>
+                  <span class="fw-semibold">{{ l.fromDate | date:'mediumDate' }}</span>
                   <span class="d-block small text-muted mt-1">To:</span>
-                  <span class="fw-semibold">{{ l.endDate }}</span>
+                  <span class="fw-semibold">{{ l.toDate | date:'mediumDate' }}</span>
                 </td>
                 <td class="py-3">
-                  <span class="d-block fw-semibold">{{ l.leaveType }}</span>
+                  <span class="d-block fw-semibold">Leave Request</span>
                   <span class="d-block small text-muted mt-1 max-w-200 text-truncate" [title]="l.reason">{{ l.reason }}</span>
                 </td>
                 <td class="py-3 text-center">
@@ -282,4 +282,32 @@
     </div>
   </div>
 
+</div>
+
+<!-- Send Message Modal -->
+<div class="modal fade" id="sendMessageModal" data-bs-backdrop="false" tabindex="-1" aria-labelledby="sendMessageModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="sendMessageModalLabel">Message <span class="text-primary">{{ student?.fullName }}</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info small rounded-3" role="alert">
+          <i class="fa-solid fa-circle-info me-2"></i> This message will only be visible to this student.
+        </div>
+        <div class="form-group mb-3">
+          <label for="personalMessage" class="form-label text-muted small fw-semibold">Your Message</label>
+          <textarea class="form-control rounded-3" id="personalMessage" rows="4" placeholder="Write your message here..." [(ngModel)]="personalMessageText"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4" (click)="sendPersonalMessage()" [disabled]="!personalMessageText || isSendingMessage" data-bs-dismiss="modal">
+          <span *ngIf="isSendingMessage" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

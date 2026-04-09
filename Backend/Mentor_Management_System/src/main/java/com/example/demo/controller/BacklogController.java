@@ -39,7 +39,7 @@ public class BacklogController {
         }
     }
 
-    @GetMapping("/student/{email}")
+    @GetMapping("/student/{email:.+}")
     public ResponseEntity<List<Backlog>> getBacklogsByEmail(@PathVariable String email) {
         List<Backlog> backlogs = backlogService.getBacklogsByEmail(email);
         return ResponseEntity.ok(backlogs);

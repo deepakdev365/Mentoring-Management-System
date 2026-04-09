@@ -35,6 +35,8 @@ import { StudentPaymentHistoryComponent } from './components/student-payment-his
 import { StudentSubjectsComponent } from './components/student-subjects/student-subjects.component';
 import { MentorLeavePermissionsComponent } from './components/mentor-leave-permissions/mentor-leave-permissions.component';
 import { MentorLeaveSlipComponent } from './components/mentor-leave-slip/mentor-leave-slip.component';
+import { MentorStudentBacklogsComponent } from './components/mentor-student-backlogs/mentor-student-backlogs';
+import { MentorLowAttendanceComponent } from './components/mentor-low-attendance/mentor-low-attendance';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -93,6 +95,8 @@ export const routes: Routes = [
       { path: 'complaints', component: MentorComplaintsComponent },
       { path: 'leave-permissions', component: MentorLeavePermissionsComponent },
       { path: 'leave-slip/:id', component: MentorLeaveSlipComponent },
+      { path: 'student-backlogs', component: MentorStudentBacklogsComponent },
+      { path: 'low-attendance', component: MentorLowAttendanceComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

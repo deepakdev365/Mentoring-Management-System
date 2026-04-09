@@ -9,28 +9,36 @@ import com.example.demo.service.NotificationService;
 
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @RequestMapping("/api/notifications")
-@CrossOrigin
+@CrossOrigin("*")
 public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
 
-    // CREATE ANNOUNCEMENT
+    // CREATE ANNOUNCEMENT or DIRECT MESSAGE
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Map<String, String> body){
 
         String message = body.get("message");
+        String recipientRegNo = body.get("recipientRegNo");
 
-        notificationService.createNotification(message);
+        notificationService.createNotification(message, recipientRegNo);
 
         return ResponseEntity.ok("Notification sent");
     }
 
-    // GET ALL
+    // GET ALL (Global)
     @GetMapping("/all")
     public List<Notification> getAll(){
         return notificationService.getAllNotifications();
+    }
+    
+    // GET FOR SPECIFIC STUDENT
+    @GetMapping("/student/{regNo}")
+    public List<Notification> getForStudent(@PathVariable String regNo){
+        return notificationService.getNotificationsForStudent(regNo);
     }
 }

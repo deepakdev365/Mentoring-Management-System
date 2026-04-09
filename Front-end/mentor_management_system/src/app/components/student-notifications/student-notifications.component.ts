@@ -14,10 +14,17 @@ export class StudentNotificationsComponent implements OnInit {
   constructor(private http: HttpClient){}
 
   ngOnInit(){
+    const data = sessionStorage.getItem("student");
+    let apiUrl = 'http://localhost:8081/api/notifications/all';
 
-    this.http.get<any[]>(
-      'http://localhost:8081/api/notifications/all'
-    ).subscribe(res=>{
+    if (data) {
+      const student = JSON.parse(data);
+      if (student?.registrationNumber) {
+        apiUrl = `http://localhost:8081/api/notifications/student/${student.registrationNumber}`;
+      }
+    }
+
+    this.http.get<any[]>(apiUrl).subscribe(res=>{
       this.notifications = res;
     });
   }

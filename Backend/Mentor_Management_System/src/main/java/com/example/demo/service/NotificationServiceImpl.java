@@ -8,6 +8,7 @@ import com.example.demo.model.Notification;
 import com.example.demo.repository.NotificationRepository;
 
 import java.util.List;
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -15,10 +16,11 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationRepository notificationRepository;
 
     @Override
-    public Notification createNotification(String message) {
+    public Notification createNotification(String message, String recipientRegNo) {
 
         Notification n = new Notification();
         n.setMessage(message);
+        n.setRecipientRegNo(recipientRegNo);
 
         return notificationRepository.save(n);
     }
@@ -26,5 +28,10 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<Notification> getAllNotifications() {
         return notificationRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+    }
+
+    @Override
+    public List<Notification> getNotificationsForStudent(String regNo) {
+        return notificationRepository.findByRecipientRegNoOrRecipientRegNoIsNullOrderByCreatedAtDesc(regNo);
     }
 }

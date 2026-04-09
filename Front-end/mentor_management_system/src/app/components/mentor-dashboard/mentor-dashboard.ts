@@ -15,6 +15,9 @@ export class MentorDashboard implements OnInit {
   totalStudents = 0;
   totalComplaints = 0;
   pendingComplaints = 0;
+  
+  totalBacklogs = 0;
+  lowAttendanceCount = 0;
 
   mentorId: number = 0;
 
@@ -28,6 +31,19 @@ export class MentorDashboard implements OnInit {
 
     this.loadStudents();
     this.loadComplaints();
+    this.loadDashboardMetrics();
+  }
+
+  loadDashboardMetrics() {
+    this.http.get<any[]>(`http://localhost:8081/api/dashboard/mentor/${this.mentorId}/backlogs`).subscribe({
+      next: res => this.totalBacklogs = res?.length || 0,
+      error: err => console.error("Error loading backlogs:", err)
+    });
+
+    this.http.get<any[]>(`http://localhost:8081/api/dashboard/mentor/${this.mentorId}/low-attendance`).subscribe({
+      next: res => this.lowAttendanceCount = res?.length || 0,
+      error: err => console.error("Error loading low attendance:", err)
+    });
   }
 
   loadStudents() {
